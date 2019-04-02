@@ -1,6 +1,4 @@
 <?php
-
-
 class Login_model extends CI_Model
 {
 	
@@ -38,11 +36,6 @@ class Login_model extends CI_Model
 		{
 			return array(1,'Username Not Registered','');
 		}
-	}
-
-	public function auth_code($for)
-	{
-		return $this->db->get_where('auth_key',['for' => $for])->result_array()[0]['code'];
 	}
 }
 

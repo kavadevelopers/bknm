@@ -23,7 +23,7 @@ date_default_timezone_set('Asia/Kolkata');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/bknmu/';
+$config['base_url'] = 'http://localhost/bknm/';
 $config['projectTitle'] = 'BKNMU';
 $config['projectName'] = 'BKNMU';
 $config['logoFile'] = 'image/logo.png';
