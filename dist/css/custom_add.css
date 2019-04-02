@@ -1,0 +1,43 @@
+select { text-align-last:center; }
+
+.sign-out-custom:hover {
+    background:red !important;
+    color:#fff !important;
+    border-radius: 5px !important;
+}
+
+.my_center{
+	text-align: center;
+}
+.dp-2{
+	    width: 75px !important;
+}
+label 
+{
+	font-size: 14px;
+}
+
+.my_text_error{
+	color: red;
+	font-weight: 600;
+}
+.astrick{
+	color: red;
+}
+
+.my-marD{
+   margin-bottom: 10px;
+}
+
+
+.buttons-excel,.buttons-pdf,.buttons-print,.buttons-collection
+{
+	padding: 2px 10px;
+    font-size: 14px;
+}	
+
+
+.kava-image-upload
+{
+	cursor: pointer;
+}
