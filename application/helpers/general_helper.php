@@ -8,4 +8,10 @@ function pre_print($array)
     print_r($array);
 }
 
+
+function _vdatetime($datetime)
+{
+	return date('d-m-Y h:i A',strtotime($datetime));
+}
+
 ?>

@@ -1,4 +1,4 @@
-<title><?=$this->config->config["projectTitle"]?> | <?php echo $page_title; ?></title>
+<title><?=$this->config->config["projectTitle"]?> | <?php echo $_title; ?></title>
 
 <!-- Content Header (Page header) -->
    	<div class="content-header">

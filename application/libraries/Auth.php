@@ -17,11 +17,21 @@ class Auth
         $admin = $this->CI->session->userdata('id');
         if(!$admin)
         {
-        	$this->CI->session->set_flashdata('error', 'Your Session Is Expire Please Login Again.');
+        	$this->CI->session->set_flashdata('error', 'Your Session Is Expire Please Login Here.');
             redirect(base_url());
         }
 	}
 
+
+    function get_admin($id)
+    {
+        $this->CI->db->select('*');
+        $this->CI->db->where('id', $id);
+        $result = $this->CI->db->get('user');
+        $result = $result->row();
+
+        return $result;
+    }  
 
 
 

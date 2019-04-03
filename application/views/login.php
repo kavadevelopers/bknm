@@ -37,9 +37,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div class="login-box" style="margin-top: 1.5%;">
 		<div class="login-logo">
-			<!--<a href="<?php echo base_url(); ?>" class="f-color">Log In</a>-->
 			<a href="<?php echo base_url(); ?>" class="f-color">
-				<img src="<?php echo base_url(); ?><?=$this->config->config["logoFile"]?>" alt="<?=$this->config->config["projectName"]?> logo" class="" style="width: 150px;">
+				<img src="<?php echo base_url(); ?><?=$this->config->config["logoFile"]?>" alt="<?=$this->config->config["projectName"]?> logo" >
 			</a>
 		</div>
 		  
@@ -64,11 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<input type="password" <?php if(isset($this->input->cookie()['password']) ){ ?> value="<?php echo $this->input->cookie()['password']; ?>" <?php } ?> name="password" id="pass" class="form-control" placeholder="Password" required >
 								
 					        </div>
-					        <!-- <div class="form-group has-feedback">
-								
-								<input type="text" value="" name="" id="code" class="form-control" placeholder="Authentication Code"  required>
-								
-					        </div>	 -->
+					        
 					        
 					        <div class="row">
 					          <div class="col-8">
@@ -86,18 +81,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					        </div>
 					    </form>
 
-				    
-				     
-					<p class="mb-1">
-				        <a href="#">I forgot my password</a>
-				    </p>
-				    <p class="mb-0">
-				        <a href="<?php echo base_url(); ?>register" class="text-center"><u>Register<u></a>
-				    </p>
 				</div>
 			<!-- /.login-card-body -->
 
-			<p style="text-align: center;border-top:1px solid #17a2b8;margin: 5px 0;"><strong>Powered By : </strong><a href="http://kavadevelopers.com" target="_blank">Kava Developers</a> </p>
+			<p style="text-align: center;border-top:1px solid #17a2b8;margin: 5px 0;"><strong>Powered By : </strong><a href="https://kavadevelopers.com" target="_blank">Kava Developers</a> </p>
 
 
 			</div>
@@ -134,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         var user = $('#user').val();
         var pass = $('#pass').val();
-        var code = 2019;
+        
         
         if($('#check').prop('checked') == true){
            var checkbox = 1;     
@@ -148,7 +135,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	          type : "post",
 	          url : "<?php echo site_url('login_auth/login'); ?>",
 	          dataType: "JSON",
-	          data : "user="+user+"&pass="+pass+"&check="+checkbox+"&code="+code,
+	          data : "user="+user+"&pass="+pass+"&check="+checkbox,
 	          cache : false,
 	          beforeSend: function() {
 		        	$.notify({
@@ -172,7 +159,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	                  });
 	                  setTimeout(function(){
 	                    	window.location.replace('<?php echo base_url(); ?>'+ out[2]); 
-	                	}, 1500
+	                	}, 1000
 	                  );
 	              }
 	              else
@@ -193,13 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	    
         return false;
     });	
-	    setTimeout(function() {
-	        $.notifyClose();
-	    }, 2000);
-
-	  	
-
-
+	    
 	  	<?php if(!empty($this->session->flashdata('error'))){ ?>
     
 	      $.notify({
@@ -224,7 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		<?php $this->session->set_flashdata('msg',''); } ?>
 	
-	})// End Function //////
+	})
 </script>
 </body>
 </html>
