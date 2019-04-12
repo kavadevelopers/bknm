@@ -18,7 +18,20 @@
         }
     }
 ?> 
-  
+    
+    <style type="text/css">
+        .nav-treeview .nav-item a{
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+              color: #a3a4a5 !important;
+              font-weight: 700;
+              opacity: 1; /* Firefox */
+        }
+    </style>
+
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
     
         <a href="<?php echo base_url('dashboard'); ?>" class="brand-link">
@@ -71,20 +84,107 @@
                         </a>
                     </li>
 
+                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("setting"))[1]; ?>">
+            
+                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("setting"))[0]; ?>">
+                            <i class="nav-icon fa fa-cogs"></i>
+                            <p>Setting
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                       
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('setting/financial_year'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("financial_year","save_financial_year","edit_financial_year","update_financial_year"))[0]; ?>">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Financial Year</p>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a href="<?= base_url('setting/head'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("head","save_head","edit_head","update_head"))[0]; ?>">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Head</p>
+                                </a>
+                            </li>
+                        
+                            <!-- <li class="nav-item">
+                                <a href="<?= base_url('setting/file_limit'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("file_limit","save_file_limit"))[0]; ?>">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>File Limit</p>
+                                </a>
+                            </li> -->
+                        </ul>
+
+                    </li>
+
+                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("user","subject","ifsc","professor"))[1]; ?>">
+            
+                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("user","subject","ifsc","professor"))[0]; ?>">
+                            <i class="nav-icon fa fa-american-sign-language-interpreting"></i>
+                            <p>Management
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                       
+                        <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('user'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("user"))[0]; ?>">
+                                    <i class="nav-icon fa fa-user-circle"></i>
+                                    <p>
+                                        Manage User
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('subject'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("subject"))[0]; ?>">
+                                    <i class="nav-icon fa fa-address-book"></i>
+                                    <p>
+                                        Manage Courses
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('ifsc'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("ifsc"))[0]; ?>">
+                                    <i class="nav-icon fa fa-university"></i>
+                                    <p>
+                                        Manage IFSC
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('professor'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("professor"))[0]; ?>">
+                                    <i class="nav-icon fa fa-users"></i>
+                                    <p>
+                                        Manage Professor
+                                    </p>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+                    
                     <li class="nav-item">
-                        <a href="<?php echo base_url('user'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("user"))[0]; ?>">
-                            <i class="nav-icon fa fa-user"></i>
+                        <a href="<?php echo base_url('paper_setting'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting"))[0]; ?>">
+                            <i class="nav-icon fa fa-sign-out"></i>
                             <p>
-                                Manage User
+                                Paper Setting
                             </p>
                         </a>
                     </li>
+                    
 
                     <li class="nav-item">
-                        <a href="<?php echo base_url('subject'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("subject"))[0]; ?>">
-                            <i class="nav-icon fa fa-address-book"></i>
+                        <a href="<?php echo base_url('dashboard'); ?>/logout" class="nav-link ">
+                            <i class="nav-icon fa fa-sign-out"></i>
                             <p>
-                                Manage Subjct
+                                Sign Out
                             </p>
                         </a>
                     </li>

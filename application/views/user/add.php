@@ -28,7 +28,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Username <span class="astrick">*</span></label>
-                                            <input class="form-control form-control-sm" value="<?php echo set_value('user_name'); ?>" type="text" name="user_name" placeholder="Username" autocomplete="off" spellcheck="false">
+                                            <input class="form-control form-control-sm" id="username" value="<?php echo set_value('user_name'); ?>" type="text" name="user_name" placeholder="Username" autocomplete="off" spellcheck="false">
                                             <?php echo form_error('user_name'); ?>
                                         </div>
                                     </div>
@@ -106,3 +106,9 @@
             </form>
         </div>
     </section>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#username').focus();
+        })
+    </script>

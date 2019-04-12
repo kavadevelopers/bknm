@@ -1,6 +1,5 @@
 <?php 
     $user  = $this->session->userdata('id');
-    
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,6 +35,8 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>plugins/iCheck/all.css">
+  
+  <link rel="stylesheet" href="<?php echo base_url(); ?>plugins/jQueryUI/jquery-ui.css">
   <!-- jQuery -->
   <script src="<?php echo base_url(); ?>plugins/jquery/jquery.min.js"></script>
   <script src="<?php echo base_url(); ?>plugins/jquery/jquery_new.js"></script>

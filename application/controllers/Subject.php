@@ -13,14 +13,14 @@ class Subject extends CI_Controller {
 
 	public function index()
 	{	
-		$data['_title']		= "Manage Subject";
+		$data['_title']		= "Manage Courses";
 		$data['subjects']	= $this->subject_model->subjects();
 		$this->load->template('subject/index',$data);
 	}
 
 	public function add()
 	{
-		$data['_title']		= "Add Subject";
+		$data['_title']		= "Add Courses";
 		$this->load->template('subject/add',$data);
 	}
 
@@ -29,16 +29,16 @@ class Subject extends CI_Controller {
 	{
 		if($subject_id){
 			if($this->subject_model->subject_fr_id_chk($subject_id)){
-				$data['_title']		= "Edit Subject";
+				$data['_title']		= "Edit Courses";
 				$data['subject']		= $this->subject_model->subject_fr_id_chk($subject_id)[0];
  				$this->load->template('subject/edit',$data);
 			}
 			else{
-				$this->session->set_flashdata('error', 'Subject Not Found Try Again');
+				$this->session->set_flashdata('error', 'Courses Not Found Try Again');
 		        redirect(base_url().'subject');
 			}
 		}else{
-			$this->session->set_flashdata('error', 'Subject Not Found Try Again');
+			$this->session->set_flashdata('error', 'Courses Not Found Try Again');
 	        redirect(base_url().'subject');
 		}
 	}
@@ -57,24 +57,24 @@ class Subject extends CI_Controller {
 				$this->db->where('id',$subject_id);
 				if($this->db->update('subject', $subject)){
 
-					$this->session->set_flashdata('msg', 'Subject Successfully Deleted');
+					$this->session->set_flashdata('msg', 'Courses Successfully Deleted');
 		        	redirect(base_url().'subject');
 
 				}
 				else{
 
-					$this->session->set_flashdata('error', 'Error In Delete Subject Please Try Again');
+					$this->session->set_flashdata('error', 'Error In Delete Courses Please Try Again');
 		        	redirect(base_url().'subject');
 
 				}
 
 			}
 			else{
-				$this->session->set_flashdata('error', 'Subject Not Found Try Again');
+				$this->session->set_flashdata('error', 'Courses Not Found Try Again');
 		        redirect(base_url().'subject');
 			}
 		}else{
-			$this->session->set_flashdata('error', 'Subject Not Found Try Again');
+			$this->session->set_flashdata('error', 'Courses Not Found Try Again');
 		    redirect(base_url().'subject');
 		}
 	}
@@ -85,33 +85,46 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_error_delimiters('<div class="my_text_error">', '</div>');
 		
-		$this->form_validation->set_rules('subject_name', 'Subject Name', 'callback_subject_unique');
+		$this->form_validation->set_rules('subject_name', 'Courses Name', 'callback_subject_unique');
+		$this->form_validation->set_rules('semester', 'Semester', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('pep_setting_price', 'Paper Setting Price', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('pep_assesment_price', 'Paper Assessment Price', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('examination_fees', 'Examination Fees', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('total_papers', 'Total Papers', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('pep_moderation_price', 'Paper Moderation Price', 'trim|required|max_length[200]|numeric');
+
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data['_title']		= "Add Subject";
+			$data['_title']		= "Add Courses";
 			$this->load->template('subject/add',$data);
 		}
 		else
 		{
 
 			$subject = array(
-		        'name'           	  => 	$this->input->post('subject_name'),
-		        'created_by'		  => 	$this->session->userdata('id'),
-		        'updated_by'		  => 	$this->session->userdata('id'),
-		        'created_at' 		  => 	date('Y-m-d H:i:s'),
-		        'updated_at' 		  => 	date('Y-m-d H:i:s')
+		        'name'           	  		=> 	$this->input->post('subject_name'),
+		        'paper_setting_price'       => 	$this->input->post('pep_setting_price'),
+		        'assessment_price'       	=> 	$this->input->post('pep_assesment_price'),
+		        'examination_fees'       	=> 	$this->input->post('examination_fees'),
+		        'total_paper'       		=> 	$this->input->post('total_papers'),
+		        'semester'       			=> 	$this->input->post('semester'),
+		        'moderation_price'     		=> 	$this->input->post('pep_moderation_price'),
+		        'created_by'		  		=> 	$this->session->userdata('id'),
+		        'updated_by'		  		=> 	$this->session->userdata('id'),
+		        'created_at' 		 		=> 	date('Y-m-d H:i:s'),
+		        'updated_at' 		 		=> 	date('Y-m-d H:i:s')
 			);
 
 			if($this->db->insert('subject', $subject)){
 
-				$this->session->set_flashdata('msg', 'Subject Successfully Added');
+				$this->session->set_flashdata('msg', 'Courses Successfully Added');
 	        	redirect(base_url().'subject');
 
 			}
 			else{
 
-				$this->session->set_flashdata('error', 'Error In Add Subject Please Try Again');
+				$this->session->set_flashdata('error', 'Error In Add Courses Please Try Again');
 	        	redirect(base_url().'subject/add');
 
 			}
@@ -124,12 +137,18 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_error_delimiters('<div class="my_text_error">', '</div>');
 		
-		$this->form_validation->set_rules('subject_name', 'Subject Name', 'callback_subject_unique_edit['.$this->input->post('id').']');
+		$this->form_validation->set_rules('subject_name', 'Courses Name', 'callback_subject_unique_edit['.$this->input->post('id').']');
+		$this->form_validation->set_rules('semester', 'Semester', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('pep_setting_price', 'Paper Setting Price', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('pep_assesment_price', 'Paper Assessment Price', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('examination_fees', 'Examination Fees', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('total_papers', 'Total Papers', 'trim|required|max_length[200]|numeric');
+		$this->form_validation->set_rules('pep_moderation_price', 'Paper Moderation Price', 'trim|required|max_length[200]|numeric');
 		$this->form_validation->set_rules('id', 'id', 'trim');
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data['_title']		= "Edit Subject";
+			$data['_title']		= "Edit Courses";
 			$data['subject']	= $this->subject_model->subject_fr_id_chk($this->input->post('id'))[0];
 			$this->load->template('subject/edit',$data);
 		}
@@ -137,20 +156,26 @@ class Subject extends CI_Controller {
 		{
 
 			$subject = array(
-		        'name'           	  => 	$this->input->post('subject_name'),
-		        'updated_by'		  => 	$this->session->userdata('id'),
-		        'updated_at' 		  => 	date('Y-m-d H:i:s')
+		        'name'           	  		=> 	$this->input->post('subject_name'),
+		        'paper_setting_price'       => 	$this->input->post('pep_setting_price'),
+		        'assessment_price'       	=> 	$this->input->post('pep_assesment_price'),
+		        'examination_fees'       	=> 	$this->input->post('examination_fees'),
+		        'total_paper'       		=> 	$this->input->post('total_papers'),
+		        'semester'       			=> 	$this->input->post('semester'),
+		        'moderation_price'     		=> 	$this->input->post('pep_moderation_price'),
+		        'updated_by'		 		=> 	$this->session->userdata('id'),
+		        'updated_at' 		  		=> 	date('Y-m-d H:i:s')
 			);
 			$this->db->where('id',$this->input->post('id'));
 			if($this->db->update('subject', $subject)){
 
-				$this->session->set_flashdata('msg', 'Subject Successfully Save');
+				$this->session->set_flashdata('msg', 'Courses Successfully Save');
 	        	redirect(base_url().'subject');
 
 			}
 			else{
 
-				$this->session->set_flashdata('error', 'Error In Save Subject Please Try Again');
+				$this->session->set_flashdata('error', 'Error In Save Courses Please Try Again');
 	        	redirect(base_url().'subject');
 
 			}
@@ -165,12 +190,12 @@ class Subject extends CI_Controller {
 
 		if($subject != ''){
 			if(strlen($subject) > 200){
-				$this->form_validation->set_message(__FUNCTION__ , 'Subject Name Not Allowed Greater Than 200 Characters');
+				$this->form_validation->set_message(__FUNCTION__ , 'Courses Name Not Allowed Greater Than 200 Characters');
 	        	return false;
 			}
 			else{
 				if($this->db->get_where('subject',['name' => $subject,'delete_flag' => '0'])->result_array()){
-					$this->form_validation->set_message(__FUNCTION__ , 'Subject Name Already Exists');
+					$this->form_validation->set_message(__FUNCTION__ , 'Courses Name Already Exists');
 		            return false;
 				}
 				else{
@@ -179,7 +204,7 @@ class Subject extends CI_Controller {
 			}
 		}
 		else{
-			$this->form_validation->set_message(__FUNCTION__ , 'Subject Name Is Required');
+			$this->form_validation->set_message(__FUNCTION__ , 'Courses Name Is Required');
 	        return false;
 		}
 
@@ -190,12 +215,12 @@ class Subject extends CI_Controller {
 
 		if($subject != ''){
 			if(strlen($subject) > 200){
-				$this->form_validation->set_message(__FUNCTION__ , 'Subject Name Not Allowed Greater Than 200 Characters');
+				$this->form_validation->set_message(__FUNCTION__ , 'Courses Name Not Allowed Greater Than 200 Characters');
 	        	return false;
 			}
 			else{
 				if($this->db->get_where('subject',['name' => $subject,'delete_flag' => '0','id !=' => $id])->result_array()){
-					$this->form_validation->set_message(__FUNCTION__ , 'Subject Name Already Exists');
+					$this->form_validation->set_message(__FUNCTION__ , 'Courses Name Already Exists');
 		            return false;
 				}
 				else{
@@ -204,7 +229,7 @@ class Subject extends CI_Controller {
 			}
 		}
 		else{
-			$this->form_validation->set_message(__FUNCTION__ , 'Subject Name Is Required');
+			$this->form_validation->set_message(__FUNCTION__ , 'Courses Name Is Required');
 	        return false;
 		}
 

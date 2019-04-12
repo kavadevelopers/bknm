@@ -11,7 +11,7 @@ class Subject_model extends CI_Model
 
 	public function subjects()
 	{
-		return $this->db->get_where('subject',['delete_flag' => '0'])->result_array();
+		return $this->db->order_by('id', 'DESC')->get_where('subject',['delete_flag' => '0'])->result_array();
 	}
 
 	public function subject_fr_id_chk($id)

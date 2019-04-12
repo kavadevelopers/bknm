@@ -26,11 +26,13 @@
                                 <thead>
                                     <tr>
                                         
-                                        <th>Name</th>
-                                        <th>Created By</th>
-                                        <th>Updated By</th>
-                                        <th style="width: 130px;">Created At</th>
-                                        <th style="width: 130px;">Updated At</th>
+                                        <th>Course</th>
+                                        <th>Semester</th>
+                                        <th>Paper Setting Price</th>
+                                        <th>Paper Assessment Price</th>
+                                        <th>Examination Fees</th>
+                                        <th>Total Papers</th>
+                                        <th>Paper Moderation Price</th>
                                         <th class="text-center" style="width: 100px;">Action</th>
                                         
                                     </tr>
@@ -40,11 +42,12 @@
 
                                         <tr>
                                             <td><?= $subject['name'] ?></td>
-                                            <td><?= $this->user_model->_user($subject['created_by'])[0]['name'] ?></td>
-                                            <td><?= $this->user_model->_user($subject['updated_by'])[0]['name'] ?></td>
-                                            <td><?= _vdatetime($subject['created_at']) ?></td>
-                                            <td><?= _vdatetime($subject['updated_at']) ?></td>
-
+                                            <td><?= $subject['paper_setting_price'] ?></td>
+                                            <td><?= $subject['assessment_price'] ?></td>
+                                            <td><?= $subject['examination_fees'] ?></td>
+                                            <td><?= $subject['total_paper'] ?></td>
+                                            <td><?= $subject['semester'] ?></td>
+                                            <td><?= $subject['moderation_price'] ?></td>
 
                                             <td class="text-center">
 
@@ -81,7 +84,7 @@
                 "columnDefs": [
                     
                     
-                        { "orderable": false, "targets": [5] }
+                        { "orderable": false, "targets": [7] }
                         
                     
                 ],
@@ -90,23 +93,23 @@
                 buttons: [ 
                     { 
                         extend: 'print',
-                        title: '<?=$this->config->config["projectTitle"]?> Subjects',
+                        title: '<?=$this->config->config["projectTitle"]?> Courses',
                         exportOptions: {
-                            columns: [0,1,2,3,4]
+                            columns: [0,1,2,3,4,5,6]
                         }
                     },
                     { 
                         extend: 'pdf',
-                        title: '<?=$this->config->config["projectTitle"]?> Subjects',
+                        title: '<?=$this->config->config["projectTitle"]?> Courses',
                         exportOptions: {
-                            columns: [0,1,2,3,4]
+                            columns: [0,1,2,3,4,5,6]
                         }
                     },
                     { 
                         extend: 'excel',
-                        title: '<?=$this->config->config["projectTitle"]?> Subjects',
+                        title: '<?=$this->config->config["projectTitle"]?> Courses',
                         exportOptions: {
-                            columns: [0,1,2,3,4]
+                            columns: [0,1,2,3,4,5,6]
                         }
                     }
                 ]

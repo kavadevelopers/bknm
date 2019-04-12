@@ -10,7 +10,7 @@ class User_model extends CI_Model
 
 	public function users()
 	{
-		return $this->db->get_where("user",['delete_flag' => '0','id !=' => '1'])->result_array();
+		return $this->db->order_by('id', 'DESC')->get_where("user",['delete_flag' => '0','id !=' => '1'])->result_array();
 	}
 
 	
