@@ -73,15 +73,23 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>RC Book No.</label>
-                                            <input class="form-control form-control-sm" value="<?php echo set_value('rcbook'); ?>" type="text" name="rcbook" placeholder="RC Book No." id="rc_book_no" autocomplete="off" spellcheck="false">
-                                            <?php echo form_error('rcbook'); ?>
+                                            <label>Bank Short Name</label>
+                                            <input class="form-control form-control-sm" value="<?php echo set_value('bank_short'); ?>" type="text" name="bank_short" placeholder="Bank Short Name" id="bank_short" autocomplete="off" spellcheck="false" readonly>
+                                            <?php echo form_error('bank_short'); ?>
                                         </div>
                                     </div>
 
                                 </div>
 
                                 <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>RC Book No.</label>
+                                            <input class="form-control form-control-sm" value="<?php echo set_value('rcbook'); ?>" type="text" name="rcbook" placeholder="RC Book No." id="rc_book_no" autocomplete="off" spellcheck="false">
+                                            <?php echo form_error('rcbook'); ?>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -104,6 +112,10 @@
                                         </div>
                                     </div>
 
+                                </div>
+
+                                <div class="row">
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Reference</label>
@@ -111,10 +123,6 @@
                                             <?php echo form_error('reference'); ?>
                                         </div>
                                     </div>
-
-                                </div>
-
-                                <div class="row">
 
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -153,11 +161,13 @@
                 select: function (event, ui) {
                     $(this).val(ui.item.label);
                     $('#branch').val(ui.item.branch); 
+                    $('#bank_short').val(ui.item.s_name); 
                 },
                 change: function( event, ui ) {
                     if(ui.item==null)
                     {
                         this.value='';
+                        $('#bank_short').val(''); 
                         $('#branch').val(''); 
                     }
                 } 

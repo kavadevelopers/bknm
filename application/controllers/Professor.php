@@ -36,6 +36,7 @@ class Professor extends CI_Controller {
                 $arr_result[] = array(
                     'label'         => $row->ifsc,
                     'branch'   		=> $row->branch,
+                    's_name'   		=> $row->short_name_bank,
              	);
                 echo json_encode($arr_result);
             }
@@ -114,6 +115,7 @@ class Professor extends CI_Controller {
 		$this->form_validation->set_rules('contact', 'Contact No', 'trim|required|min_length[10]|max_length[10]|numeric');
 		$this->form_validation->set_rules('ifsc', 'Ifsc', 'trim|required|callback_chk_ifsc');
 		$this->form_validation->set_rules('branch', 'branch', 'trim');
+		$this->form_validation->set_rules('bank_short', 'Bank Short Name', 'trim');
 		$this->form_validation->set_rules('rcbook', 'RC Book No.', 'trim');
 		$this->form_validation->set_rules('fule', 'Fule Type', 'trim');
 		$this->form_validation->set_rules('faculty', 'Faculty', 'trim');
@@ -148,6 +150,7 @@ class Professor extends CI_Controller {
 								'acno'					=> $this->input->post('accountno'),
 								'ifsc'					=> $this->input->post('ifsc'),
 								'branch'				=> $this->input->post('branch'),
+		        				'bank_short_name'   	=> strtoupper($this->input->post('bank_short')),
 								'rcbook'				=> strtoupper($this->input->post('rcbook')),
 								'fule'					=> $this->input->post('fule'),
 								'faculty'				=> strtoupper($this->input->post('faculty')),
@@ -190,6 +193,7 @@ class Professor extends CI_Controller {
 		$this->form_validation->set_rules('contact', 'Contact No', 'trim|required|min_length[10]|max_length[10]|numeric');
 		$this->form_validation->set_rules('ifsc', 'Ifsc', 'trim|required|callback_chk_ifsc');
 		$this->form_validation->set_rules('branch', 'branch', 'trim');
+		$this->form_validation->set_rules('bank_short', 'Bank Short Name', 'trim');
 		$this->form_validation->set_rules('rcbook', 'RC Book No.', 'trim');
 		$this->form_validation->set_rules('fule', 'Fule Type', 'trim');
 		$this->form_validation->set_rules('faculty', 'Faculty', 'trim');
@@ -214,6 +218,7 @@ class Professor extends CI_Controller {
 								'acno'					=> $this->input->post('accountno'),
 								'ifsc'					=> explode(' - ', $this->input->post('ifsc'))[0],
 								'branch'				=> $this->input->post('branch'),
+		        				'bank_short_name'   	=> strtoupper($this->input->post('bank_short')),
 								'rcbook'				=> strtoupper($this->input->post('rcbook')),
 								'fule'					=> $this->input->post('fule'),
 								'faculty'				=> strtoupper($this->input->post('faculty')),

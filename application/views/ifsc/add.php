@@ -83,6 +83,14 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label>Bank Short Name <span class="astrick">*</span></label>
+                                            <input class="form-control form-control-sm" value="<?php echo set_value('bank_short'); ?>" type="text" name="bank_short" placeholder="Bank Short Name" autocomplete="off" spellcheck="false">
+                                            <?php echo form_error('bank_short'); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label>Micr Code </label>
                                             <input class="form-control form-control-sm" value="<?php echo set_value('micr'); ?>" type="text" name="micr" placeholder="Micr Code" autocomplete="off" spellcheck="false">
                                             <?php echo form_error('micr'); ?>
@@ -97,6 +105,12 @@
                                         </div>
                                     </div>
 
+                                    
+
+                                </div>
+
+                                <div class="row">
+                                    
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>State <span class="astrick">*</span></label>

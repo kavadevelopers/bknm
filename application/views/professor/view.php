@@ -99,6 +99,16 @@
 
                                             <div class="row">
                                                 <div class="col-sm-3 col-md-2 col-5">
+                                                    <label style="font-weight:bold;">Bank Short Name</label>
+                                                </div>
+                                                <div class="col-md-8 col-6">
+                                                    <?= $professor['bank_short_name']; ?>
+                                                </div>
+                                            </div>
+                                            <hr />
+
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-2 col-5">
                                                     <label style="font-weight:bold;">RC Book No.</label>
                                                 </div>
                                                 <div class="col-md-8 col-6">

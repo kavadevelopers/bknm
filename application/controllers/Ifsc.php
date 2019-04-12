@@ -100,6 +100,7 @@ class Ifsc extends CI_Controller {
 		$this->form_validation->set_rules('city', 'City', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('district', 'District', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('bank', 'Bank', 'trim|required|max_length[200]');
+		$this->form_validation->set_rules('bank_short', 'Bank Short Name', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('micr', 'Micr Code', 'trim|max_length[200]');
 		$this->form_validation->set_rules('contact', 'Contact', 'trim|max_length[200]|numeric');
 		$this->form_validation->set_rules('state', 'State', 'trim|required|max_length[200]');
@@ -119,6 +120,7 @@ class Ifsc extends CI_Controller {
 		        'city'              => 	strtoupper($this->input->post('city')),
 		        'district'          => 	strtoupper($this->input->post('district')),
 		        'bank'              => 	strtoupper($this->input->post('bank')),
+		        'short_name_bank'   => 	strtoupper($this->input->post('bank_short')),
 		        'micr'              => 	strtoupper($this->input->post('micr')),
 		        'contact'           => 	strtoupper($this->input->post('contact')),
 		        'state'             => 	strtoupper($this->input->post('state')),
@@ -161,6 +163,7 @@ class Ifsc extends CI_Controller {
 		$this->form_validation->set_rules('city', 'City', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('district', 'District', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('bank', 'Bank', 'trim|required|max_length[200]');
+		$this->form_validation->set_rules('bank_short', 'Bank Short Name', 'trim|required|max_length[200]');
 		$this->form_validation->set_rules('micr', 'Micr Code', 'trim|max_length[200]');
 		$this->form_validation->set_rules('contact', 'Contact', 'trim|max_length[200]|numeric');
 		$this->form_validation->set_rules('state', 'State', 'trim|required|max_length[200]');
@@ -182,6 +185,7 @@ class Ifsc extends CI_Controller {
 		        'city'              => 	strtoupper($this->input->post('city')),
 		        'district'          => 	strtoupper($this->input->post('district')),
 		        'bank'              => 	strtoupper($this->input->post('bank')),
+		        'short_name_bank'   => 	strtoupper($this->input->post('bank_short')),
 		        'micr'              => 	strtoupper($this->input->post('micr')),
 		        'contact'           => 	strtoupper($this->input->post('contact')),
 		        'state'             => 	strtoupper($this->input->post('state')),
