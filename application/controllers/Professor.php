@@ -111,7 +111,7 @@ class Professor extends CI_Controller {
 
 		$this->form_validation->set_error_delimiters('<div class="my_text_error">', '</div>');
 		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('accountno', 'Bank Account No', 'trim|required|numeric|min_length[5]|max_length[30]');
+		$this->form_validation->set_rules('accountno', 'Bank Account No', 'trim|required|numeric|min_length[5]|max_length[30]|callback_chk_acno');
 		$this->form_validation->set_rules('contact', 'Contact No', 'trim|required|min_length[10]|max_length[10]|numeric');
 		$this->form_validation->set_rules('ifsc', 'Ifsc', 'trim|required|callback_chk_ifsc');
 		$this->form_validation->set_rules('branch', 'branch', 'trim');
@@ -189,7 +189,7 @@ class Professor extends CI_Controller {
 
 		$this->form_validation->set_error_delimiters('<div class="my_text_error">', '</div>');
 		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('accountno', 'Bank Account No', 'trim|required|numeric|min_length[5]|max_length[30]');
+		$this->form_validation->set_rules('accountno', 'Bank Account No', 'trim|required|numeric|min_length[5]|max_length[30]|callback_edt_chk_acno['.$this->input->post('prof_id').']');
 		$this->form_validation->set_rules('contact', 'Contact No', 'trim|required|min_length[10]|max_length[10]|numeric');
 		$this->form_validation->set_rules('ifsc', 'Ifsc', 'trim|required|callback_chk_ifsc');
 		$this->form_validation->set_rules('branch', 'branch', 'trim');
@@ -259,6 +259,31 @@ class Professor extends CI_Controller {
 		else{
 			$this->form_validation->set_message(__FUNCTION__ , 'Please Enter Valid IFSC Code');
 			return false;
+		}
+	}
+
+
+	public function chk_acno($acno)
+	{
+		if($this->db->get_where('professor',['acno' => $acno])->result_array())
+		{
+			$this->form_validation->set_message(__FUNCTION__ , 'Account No. Already Exists');
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+
+	public function edt_chk_acno($acno,$id)
+	{
+		if($this->db->get_where('professor',['acno' => $acno,'id !=' => $id])->result_array())
+		{
+			$this->form_validation->set_message(__FUNCTION__ , 'Account No. Already Exists');
+			return false;
+		}
+		else{
+			return true;
 		}
 	}
 

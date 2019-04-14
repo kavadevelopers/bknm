@@ -61,6 +61,7 @@
                                                 <th>Financial Year</th>
                                                 <th>Created By</th>
                                                 <th>Created At</th>
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center" style="width: 100px;">Action</th>
                                                 
                                             </tr>
@@ -72,13 +73,31 @@
                                                     <td><?= $this->user_model->_user($value['created_by'])[0]['name'] ?></td>
                                                     <td><?= _vdatetime($value['created_at']) ?></td>
                                                     <td class="text-center">
+                                                        
+                                                        <?php if($value['active'] == 1) { ?>
+                                                        
+                                                            <span href="" class="badge badge-success">Active</span>
+                                                        
+                                                        <?php } else { ?>
 
-                                                        <a class="btn btn-sm btn-primary" href="<?= base_url();?>setting/edit_financial_year/<?= $value['id'];?>" title="Edit">
+                                                            <span href="" class="badge badge-danger">Deactive</span>
+                                                        <?php } ?>
+
+                                                    </td>
+                                                    <td class="text-center">
+
+                                                        <!-- <a class="btn btn-sm btn-primary" href="<?= base_url();?>setting/edit_financial_year/<?= $value['id'];?>" title="Edit">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-
-                                                        <a class="btn btn-sm btn-danger" href="<?= base_url();?>setting/delete_financial_year/<?= $value['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this Financial Year ?');" title="Delete">
+ -->
+                                                        <?php if($value['active'] == 0) { ?>
+                                                        <!-- <a class="btn btn-sm btn-danger" href="<?= base_url();?>setting/delete_financial_year/<?= $value['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this Financial Year ?');" title="Delete">
                                                             <i class="fa fa-trash"></i>
+                                                        </a> -->
+                                                        <?php } ?>
+
+                                                        <a class="badge badge-warning" href="<?= base_url();?>setting/active_financial_year/<?= $value['id'];?>" onclick="return confirm('Are you Sure You Want to Active this Financial Year ?');" title="Delete">
+                                                            Make Active
                                                         </a>
 
                                                     </td>
@@ -145,7 +164,7 @@
                 "columnDefs": [
                     
                     
-                        { "orderable": false, "targets": [3] }
+                        { "orderable": false, "targets": [4] }
                         
                     
                 ],

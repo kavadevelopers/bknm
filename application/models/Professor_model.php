@@ -71,5 +71,26 @@ class Professor_model extends CI_Model
     }
 
 
+
+
+    public function acc_autocom($val)
+    {
+    	$this->db->like('acc_code', $val);
+    	$this->db->or_like('name', $val);
+    	$this->db->or_like('acno', $val);
+
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit(10);
+   	    return $this->db->get('professor')->result();
+    }
+
+    public function course_autocom($val)
+    {
+    	$this->db->like('name', $val);
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit(10);
+   	    return $this->db->get('subject')->result();
+    }
+
 }
 ?>

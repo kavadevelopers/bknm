@@ -17,6 +17,8 @@ class Login_auth extends CI_Controller {
  
 		if($return[0] == 0){
 			$this->session->set_userdata( array( 'id' => $return[3]) );
+			$year = $this->db->get_where('financial_year',['active' => '1'])->result_array()[0];
+			$this->session->set_userdata( array( 'year' => $year['name']) );
 			
 			if($this->input->post("check") == '1'){
 

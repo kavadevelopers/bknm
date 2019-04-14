@@ -1,5 +1,6 @@
 <?php 
     $user  = $this->session->userdata('id');
+    $this->load->model('general_model');
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini <?php if($this->uri->segment(2) == 'add_data'){ echo 'sidebar-collapse'; }else{ echo 'sidebar-open'; } ?>">
   <div id="_preloader"></div>
 <div class="wrapper">
   <!-- Navbar -->
@@ -66,7 +67,18 @@
 
     
     <ul class="navbar-nav ml-auto">
-        
+        <li class="nav-item">
+
+          <h6 style="margin-bottom: 0; padding: 5px;">Active Financial Year : 
+            <select class="form-control-sm" style="width: 150px;" onchange="change_year(this.value);">
+                <?php foreach($this->db->get('financial_year')->result_array() as $y_ind => $year){  ?>
+                  <option value="<?= $year['id'] ?>" <?php if($year['active'] == '1'){ echo "selected"; } ?>><?= $year['name'] ?></option>
+                <?php } ?>    
+            </select>
+          </h6>
+          
+
+        </li>
         <li class="nav-item">
           <a class="nav-link sign-out-custom" title="Sign Out" href="<?php echo base_url('dashboard/logout'); ?>"><i class="fa fa-power-off"></i></a>
         </li>
@@ -131,4 +143,15 @@
               $('#_preloader').fadeOut('slow');
               $('#_preloader').remove();
         })
+    </script>
+
+
+    <script type="text/javascript">
+        function change_year(year)
+        {
+            if(confirm('Are you sure You Want To Change Financial Year ?'))
+            {
+                window.location.href = "<?= base_url('setting/') ?>active_year_dash/"+year;
+            }
+        }
     </script>

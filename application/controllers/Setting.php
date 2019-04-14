@@ -8,6 +8,7 @@ class Setting extends CI_Controller {
         $this->auth->check_session();
         $this->load->model('setting_model');
         $this->load->model('user_model');
+        $this->load->dbforge();
     }
 
 
@@ -96,7 +97,6 @@ class Setting extends CI_Controller {
 		}
 		else
 		{
-
 			$year = array(
 		        
 		        'name'           	  => 	$this->input->post('financial_year'),
@@ -108,9 +108,26 @@ class Setting extends CI_Controller {
 			);
 
 			if($this->db->insert('financial_year', $year)){
+				$id_year = $this->db->insert_id();
+				if($this->dbforge->create_database($this->input->post('financial_year'))){
 
-				$this->session->set_flashdata('msg', 'Financial Year Successfully Added');
-	        	redirect(base_url().'setting/financial_year');
+					if($this->db->get('financial_year')->num_rows() == 1)
+					{
+						$this->db->where('id',$id_year);
+						$this->db->update("financial_year",['active' => '1']);
+					}
+
+					$this->session->set_flashdata('msg', 'Financial Year Successfully Added');
+	        		redirect(base_url().'setting/financial_year');
+				}
+				else{
+					$this->db->where('id',$id_year);
+					$this->db->delete("financial_year");
+					$this->session->set_flashdata('error', 'Error In Add Financial Year Please Try Again');
+	        		redirect(base_url().'setting/financial_year');
+				}
+
+				
 
 			}
 			else{
@@ -167,35 +184,6 @@ class Setting extends CI_Controller {
 	}
 
 
-	public function edit_financial_year($id = false)
-	{
-
-		if($id){
-
-			if($this->setting_model->financial_year_df_id($id)){
-
-				$data['_title']		= "Edit Financial Year";
-				$data['fyear']		= $this->setting_model->financial_year_df_id($id)[0];
-				$this->load->template('setting/financial_year',$data);
-
-			}else{
-
-				$this->session->set_flashdata('error', 'Financial Year Not Found Try Again');
-	        	redirect(base_url().'setting/financial_year');
-
-			}
-
-
-		}else{
-
-			$this->session->set_flashdata('error', 'Financial Year Not Found Try Again');
-	        redirect(base_url().'setting/financial_year');
-
-		}
-
-	}
-
-
 	public function edit_head($id = false)
 	{
 
@@ -224,55 +212,13 @@ class Setting extends CI_Controller {
 
 	}
 
-
-	public function update_financial_year()
-	{
-		$this->form_validation->set_error_delimiters('<div class="my_text_error">', '</div>');
-
-		$this->form_validation->set_rules('financial_year', 'Financial Year', 'trim|required|min_length[9]|max_length[9]|callback_f_year_checkedit['.$this->input->post('id').']');
-
-		$this->form_validation->set_rules('id', 'id', 'trim');
-
-		if($this->form_validation->run() == FALSE)
-		{
-			$data['_title']		= "Edit Financial Year";
-			$data['fyear']		= $this->setting_model->financial_year_df_id($this->input->post('id'))[0];
-			$this->load->template('setting/financial_year',$data);
-		}
-		else
-		{
-
-			$year = array(
-		        
-		        'name'           	  => 	$this->input->post('financial_year'),
-		        'updated_by'		  => 	$this->session->userdata('id'),
-		        'updated_at' 		  => 	date('Y-m-d H:i:s')
-		        
-			);
-
-			$this->db->where('id',$this->input->post('id'));
-			if($this->db->update('financial_year', $year)){
-
-				$this->session->set_flashdata('msg', 'Financial Year Successfully Saved');
-	        	redirect(base_url().'setting/financial_year');
-
-			}
-			else{
-
-				$this->session->set_flashdata('error', 'Error In Save Financial Year Please Try Again');
-	        	redirect(base_url().'setting/financial_year');
-
-			}
-
-		}
-	}
-
 	public function update_head()
 	{
 		$this->form_validation->set_error_delimiters('<div class="my_text_error">', '</div>');
 
 		$this->form_validation->set_rules('head', 'Head Name', 'trim|required|min_length[2]|max_length[200]|callback_head_checkedit['.$this->input->post('id').']');
 		$this->form_validation->set_rules('file_limit', 'File Limit', 'trim|required|max_length[4]|numeric');
+		$this->form_validation->set_rules('day', 'Day Allowance', 'trim|required|max_length[4]|numeric');
 		
 		$this->form_validation->set_rules('id', 'id', 'trim');
 
@@ -289,6 +235,7 @@ class Setting extends CI_Controller {
 		        
 		        'name'           	  => 	$this->input->post('head'),
 		        'file_limit'          => 	$this->input->post('file_limit'),
+		        'day' 				  => 	$this->input->post('day'),
 		        'updated_by'		  => 	$this->session->userdata('id'),
 		        'updated_at' 		  => 	date('Y-m-d H:i:s')
 		        
@@ -347,6 +294,57 @@ class Setting extends CI_Controller {
 	        redirect(base_url().'setting/financial_year');
 
 		}
+	}
+
+	public function active_financial_year($id = false)
+	{
+		if($id){
+
+			if($this->setting_model->financial_year_df_id($id)){
+
+				$this->db->update('financial_year', ['active' => '0','updated_by' => $this->session->userdata('id'),'updated_at' =>	date('Y-m-d H:i:s')]);
+
+				$this->db->where('id',$id);
+				if($this->db->update('financial_year', ['active' => '1','updated_by' => $this->session->userdata('id'),'updated_at' =>	date('Y-m-d H:i:s')])){
+
+					$this->session->set_flashdata('msg', 'Financial Year Successfully Activated');
+		        	redirect(base_url().'setting/financial_year');
+
+				}
+				else{
+
+					$this->session->set_flashdata('error', 'Error In Active Financial Year Please Try Again');
+		        	redirect(base_url().'setting/financial_year');
+
+				}
+				
+
+			}else{
+
+				$this->session->set_flashdata('error', 'Financial Year Not Found Try Again');
+	        	redirect(base_url().'setting/financial_year');
+
+			}
+
+
+		}else{
+
+			$this->session->set_flashdata('error', 'Financial Year Not Found Try Again');
+	        redirect(base_url().'setting/financial_year');
+
+		}
+	}
+
+
+	public function active_year_dash($id)
+	{
+		$this->db->update('financial_year', ['active' => '0','updated_by' => $this->session->userdata('id'),'updated_at' =>	date('Y-m-d H:i:s')]);
+
+		$this->db->where('id',$id);
+		$this->db->update('financial_year', ['active' => '1','updated_by' => $this->session->userdata('id'),'updated_at' =>	date('Y-m-d H:i:s')]);
+
+		$this->session->set_flashdata('msg', 'Financial Year Successfully Activated');
+		redirect(base_url('dashboard'));
 	}
 
 

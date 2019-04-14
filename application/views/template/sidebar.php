@@ -25,10 +25,10 @@
             font-size: 14px;
         }
 
-        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        ::placeholder {
               color: #a3a4a5 !important;
               font-weight: 700;
-              opacity: 1; /* Firefox */
+              opacity: 1;
         }
     </style>
 
@@ -169,14 +169,25 @@
                         </ul>
                     </li>
 
-                    
-                    <li class="nav-item">
-                        <a href="<?php echo base_url('paper_setting'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting"))[0]; ?>">
-                            <i class="nav-icon fa fa-sign-out"></i>
-                            <p>
-                                Paper Setting
+                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting"))[1]; ?>">
+            
+                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting"))[0]; ?>">
+                            <i class="nav-icon fa fa-envelope-open"></i>
+                            <p>Billing
+                                <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
+                        
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('paper_setting'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting"))[0]; ?>">
+                                    <i class="nav-icon fa fa-circle-o"></i>
+                                    <p>
+                                        Paper Setting
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     
 

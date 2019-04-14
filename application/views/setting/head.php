@@ -19,7 +19,7 @@
                     <?php if($this->uri->segment(2) == 'head' || $this->uri->segment(2) == 'save_head'): ?>
 
                         
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <form method="post" action="<?= base_url(); ?>setting/save_head" enctype="multipart/form-data">
                                 <div class="card card-info"> 
 
@@ -57,9 +57,9 @@
 
                                 </div>
                             </form>
-                        </div>
+                        </div> -->
 
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
                                     <table class="table table-bordered table-striped table-sm" id="year-all">
@@ -68,6 +68,7 @@
                                                 
                                                 <th>Head Name</th>
                                                 <th>File Limit</th>
+                                                <th>Day Allowance</th>
                                                 <th>Created By</th>
                                                 <th>Created At</th>
                                                 <th class="text-center" style="width: 100px;">Action</th>
@@ -79,6 +80,7 @@
                                                 <tr>
                                                     <td><?= $value['name'] ?></td>
                                                     <td><?= $value['file_limit'] ?></td>
+                                                    <td><?= $value['day'] ?></td>
                                                     <td><?= $this->user_model->_user($value['created_by'])[0]['name'] ?></td>
                                                     <td><?= _vdatetime($value['created_at']) ?></td>
                                                     <td class="text-center">
@@ -87,9 +89,9 @@
                                                             <i class="fa fa-edit"></i>
                                                         </a>
 
-                                                        <a class="btn btn-sm btn-danger" href="<?= base_url();?>setting/delete_head/<?= $value['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this Head Name ?');" title="Delete">
+                                                        <!-- <a class="btn btn-sm btn-danger" href="<?= base_url();?>setting/delete_head/<?= $value['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this Head Name ?');" title="Delete">
                                                             <i class="fa fa-trash"></i>
-                                                        </a>
+                                                        </a> -->
 
                                                     </td>
                                                 </tr>
@@ -118,7 +120,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Head Name <span class="astrick">*</span></label>
-                                                    <input class="form-control form-control-sm" value="<?php echo set_value('head',$fyear['name']); ?>" type="text" name="head" placeholder="Head Name" autocomplete="off" spellcheck="false">
+                                                    <input class="form-control form-control-sm" value="<?php echo set_value('head',$fyear['name']); ?>" type="text" name="head" placeholder="Head Name" autocomplete="off" spellcheck="false" readonly>
                                                     <?php echo form_error('head'); ?>
                                                 </div>
                                             </div>
@@ -128,6 +130,14 @@
                                                     <label>File Limit <span class="astrick">*</span></label>
                                                     <input class="form-control form-control-sm" value="<?php echo set_value('file_limit',$fyear['file_limit']); ?>" type="text" name="file_limit" placeholder="File Limit" autocomplete="off" spellcheck="false">
                                                     <?php echo form_error('file_limit'); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Day Allowance <span class="astrick">*</span></label>
+                                                    <input class="form-control form-control-sm" value="<?php echo set_value('day',$fyear['day']); ?>" type="text" name="day" placeholder="Day Allowance" autocomplete="off" spellcheck="false">
+                                                    <?php echo form_error('day'); ?>
                                                 </div>
                                             </div>
 
@@ -163,7 +173,7 @@
                 "columnDefs": [
                     
                     
-                        { "orderable": false, "targets": [4] }
+                        { "orderable": false, "targets": [5] }
                         
                     
                 ],

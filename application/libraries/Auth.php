@@ -22,6 +22,16 @@ class Auth
         }
 	}
 
+    function check_year()
+    {
+        $year           = $this->CI->session->userdata('year');
+        $active_year    = $this->CI->db->get_where('financial_year',['active' => '1'])->result_array()[0]['name'];
+        if($year != $active_year)
+        {
+            redirect(base_url('dashboard/retrive_flash'));
+        }
+    }
+
 
     function get_admin($id)
     {

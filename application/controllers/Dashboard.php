@@ -7,6 +7,8 @@ class Dashboard extends CI_Controller {
         parent::__construct();
         $this->auth->check_session();
         $this->load->model('dashboard_model');
+        $this->load->model('setting_model');
+        $this->load->model('user_model');
     }
 
 
@@ -14,6 +16,7 @@ class Dashboard extends CI_Controller {
 	{	
 		$data['_title']				= "Dashboard";
 		$data['count_professor']	= $this->dashboard_model->count_professor();
+		$data['year']				= $this->setting_model->financial_year_all();
 		$this->load->template('dashboard',$data);
 	}
 
@@ -22,6 +25,13 @@ class Dashboard extends CI_Controller {
 	    $user_data = $this->session->all_userdata();
 	    $this->session->unset_userdata($user_data['id']);
 	    $this->session->sess_destroy();
+	    redirect(base_url());
+	}
+
+	function retrive_flash(){
+		$user_data = $this->session->all_userdata();
+	    $this->session->unset_userdata('id');
+	    $this->session->set_flashdata('error', "Financial Year Changed By Admin Please Login Again To Continue");
 	    redirect(base_url());
 	}
 

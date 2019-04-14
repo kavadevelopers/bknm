@@ -25,7 +25,7 @@
                     		<span class="info-box-number"><?= $count_professor; ?></span>
                   		</div>
                 	</div>
-              	</div>	
+              	</div>
             </div>
             
 

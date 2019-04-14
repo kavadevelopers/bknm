@@ -28,6 +28,8 @@ $config['projectTitle'] = 'BKNMU';
 $config['projectName'] = 'BKNMU';
 $config['logoFile'] = 'image/logo.png';
 $config['companyWebLink'] = '#';
+
+
 /*
 |--------------------------------------------------------------------------
 | Index File
