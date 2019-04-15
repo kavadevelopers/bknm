@@ -13,7 +13,7 @@
 
     <section class="content">
       	<div class="container-fluid">
-            <form method="post" action="<?= base_url(); ?>user/save" enctype="multipart/form-data">
+            <form method="post" action="<?= base_url(); ?>user/save" enctype="multipart/form-data" >
                 <div class="row">
                     <div class="col-md-12">
 
@@ -93,6 +93,41 @@
                             </div>
 
 
+                            
+                        </div>
+
+
+                        <div class="card card-info"> 
+                            <div class="card-header">
+                                <h3 class="card-title">Select Financial Year</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <?php foreach($finicial_years as $key => $year){ ?>
+
+                                        <div class="col-md-3">
+                                            <label class="container"><?= $year['name']; ?>
+                                              <input type="checkbox" name="f_year[]" value="<?= $year['name']; ?>" 
+                                              <?php if(set_value('f_year')){ foreach (set_value('f_year') as $c_key => $set_val) {
+                                                    if($set_val == $year['name']){
+                                                        echo "checked";
+                                                    }
+                                              } }?>>
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+
+                                    <?php } ?>
+                                    <div class="col-md-12">
+                                        <?php echo form_error('f_year[]'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-info">
                             <div class="card-footer">
                                 <div class="float-right">
                                   <a href="<?= base_url(); ?>user" class="btn btn-danger">Cancel</a>
@@ -110,5 +145,9 @@
     <script type="text/javascript">
         $(function(){
             $('#username').focus();
+
+
+
+
         })
     </script>

@@ -17,8 +17,7 @@ class Paper_setting extends CI_Controller {
 	public function index()
 	{	
 		$data['_title']				= "Paper Setting Files";
-		$data['files']				= $this->general_model->get_all_files('1',$this->general_model->active_year());
-		
+		$data['files']				= $this->general_model->get_all_files('1',$this->session->userdata('year'));
 		$this->load->template('paper_setting/file',$data);
 	}
 
@@ -39,7 +38,7 @@ class Paper_setting extends CI_Controller {
 						'no'			=> 	$no,
 						'head'			=> 	'1',
 						'file_name'		=> 	'paper_setting_file'.$no,
-						'year'			=>	$this->general_model->active_year(),
+						'year'			=>	$this->session->userdata('year'),
 						'created_by'	=> 	$this->session->userdata('id'),
 						'updated_by'	=> 	$this->session->userdata('id'),
 						'created_at' 	=> 	date('Y-m-d H:i:s'),

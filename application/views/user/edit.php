@@ -65,8 +65,54 @@
 
 
                             </div>
+                        </div>
 
+                        <div class="card card-info"> 
+                            <div class="card-header">
+                                <h3 class="card-title">Select Financial Year</h3>
+                            </div>
 
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <?php foreach($finicial_years as $key => $year){ ?>
+
+                                        <div class="col-md-3">
+                                            <label class="container"><?= $year['name']; ?>
+                                                <input type="checkbox" name="f_year[]" value="<?= $year['name']; ?>" 
+                                                
+                                                <?php if(!empty(validation_errors())){ ?>                                          
+
+                                                    <?php if(set_value('f_year')){ foreach (set_value('f_year') as $c_key => $set_val) {
+                                                        if($set_val == $year['name']){
+                                                            echo "checked";
+                                                        }
+                                                    } }?>
+
+                                                <?php }else{ ?>
+
+                                                    <?php foreach (explode(',',$user['year']) as $c_key => $set_val) {
+                                                        if($set_val == $year['name']){
+                                                            echo "checked";
+                                                        }
+                                                    } ?>
+
+                                                <?php } ?>
+
+                                              >
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+
+                                    <?php } ?>
+                                    <div class="col-md-12">
+                                        <?php echo form_error('f_year[]'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
                             <div class="card-footer">
                                 <div class="float-right">
                                   <a href="<?= base_url(); ?>user" class="btn btn-danger">Cancel</a>

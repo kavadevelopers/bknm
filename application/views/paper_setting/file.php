@@ -41,7 +41,7 @@
                                         <tr>
                                             <td>File-<?= $value['no'] ?></td>
                                             <td><?= $this->general_model->get_head($value['head'])[0]['name'] ?></td>
-                                            <td><?= $this->general_model->get_year($value['year'])[0]['name'] ?></td>
+                                            <td><?= $value['year'] ?></td>
                                             <td><?= $this->user_model->_user($value['created_by'])[0]['name'] ?></td>
                                             <td><?= _vdatetime($value['created_at']) ?></td>
                                             <td class="text-center">

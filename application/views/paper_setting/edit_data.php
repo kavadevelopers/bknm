@@ -12,7 +12,7 @@
         	<div class="row mb-2">
           		<div class="col-md-12">
             		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
-                     PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->general_model->active_year_data()['name'] ?> )</h1>
+                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )</h1>
           		</div>
         	</div>
       	</div>
@@ -41,12 +41,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr No.</th>
-                                                <th class="text-center">Acc Code</th>
                                                 <th class="text-center">Name Of Person</th>
                                                 <th class="text-center">Account No.</th>
                                                 <th class="text-center">Bank Name</th>
                                                 <th class="text-center">IFSC</th>
                                                 <th class="text-center">Branch</th>
+                                                <th class="text-center">Acc Code</th>
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Course</th>
                                                 <th class="text-center">Nos</th>
@@ -68,9 +68,7 @@
                                                     <input type="hidden" name="bill_id[]" value="<?= $ex_row['bill_no']; ?>">
                                                 </td>
 
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto('<?= $cn; ?>');" type="text" name="acc_code[]" id="acc_code<?= $cn; ?>" autocomplete="off" placeholder="Acc Code" value="<?= $ex_row['acc_code']; ?>" required>
-                                                </td>
+                                                
 
                                                 <td>
                                                     <input type="text" name="name[]" id="name<?= $cn; ?>" autocomplete="off" placeholder="Person Name" required readonly value="<?= $ex_row['name']; ?>">
@@ -90,6 +88,10 @@
 
                                                 <td>
                                                     <input style="width: 100px;" type="text" name="branch[]" value="<?= $ex_row['branch']; ?>" id="branch<?= $cn; ?>" autocomplete="off" placeholder="Branch" required readonly>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 80px;" onfocus="acc_auto('<?= $cn; ?>');" type="text" name="acc_code[]" id="acc_code<?= $cn; ?>" autocomplete="off" placeholder="Acc Code" value="<?= $ex_row['acc_code']; ?>" required>
                                                 </td>
 
                                                 <td>
@@ -153,13 +155,11 @@
                                             <tr id="">
 
                                                 <td class="text-center">
-                                                    Credit
+                                                    Debit
                                                     <input type="hidden" name="bill_id[]" value="Credit">
                                                 </td>
 
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" value="<?= $last_row[0]['acc_code'] ?>" required>
-                                                </td>
+                                                
 
                                                 <td>
                                                     <input type="text" name="name[]" id="namelast" autocomplete="off" value="<?= $last_row[0]['name'] ?>" placeholder="Person Name" required readonly>
@@ -179,6 +179,10 @@
 
                                                 <td>
                                                     <input style="width: 100px;" type="text" name="branch[]" value="<?= $last_row[0]['branch'] ?>" id="branchlast" autocomplete="off" placeholder="Branch" required readonly>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" value="<?= $last_row[0]['acc_code'] ?>" required>
                                                 </td>
 
                                                 <input type="hidden" name="pap_rate[]" id="" value="">
@@ -209,6 +213,9 @@
 
                             <div class="card-footer">
                                 <div class="float-right">
+                                    <a href="<?= base_url(); ?>paper_setting" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
+                                        Cancel
+                                    </a>
                                     <button type="button" class="btn btn-success" onclick="submit_Data();"><i class="fa fa-save"></i>&nbsp;Save</button>
                                 </div>
                             </div>

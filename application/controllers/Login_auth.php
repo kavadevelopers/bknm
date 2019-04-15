@@ -12,13 +12,15 @@ class Login_auth extends CI_Controller {
 		$user = trim($this->input->post("user"));
 		
 		$pass = trim($this->input->post("pass"));
+		$year = trim($this->input->post("year"));
+
 		$this->load->model('login_model');
-		$return = $this->login_model->login_Ath( $user , md5($pass));
+		$return = $this->login_model->login_Ath( $user , md5($pass),$year);
  
 		if($return[0] == 0){
+
 			$this->session->set_userdata( array( 'id' => $return[3]) );
-			$year = $this->db->get_where('financial_year',['active' => '1'])->result_array()[0];
-			$this->session->set_userdata( array( 'year' => $year['name']) );
+			$this->session->set_userdata( array( 'year' => $year) );
 			
 			if($this->input->post("check") == '1'){
 
@@ -31,7 +33,27 @@ class Login_auth extends CI_Controller {
 	    		delete_cookie("username");
 	    		delete_cookie("password");
 	    	}
+
 		}
+		echo json_encode($return);
+	}
+
+
+	public function pre_login()
+	{
+
+		$this->load->helper('cookie');
+
+		$user = trim($this->input->post("user"));
+		
+		$pass = trim($this->input->post("pass"));
+
+
+		$this->load->model('login_model');
+		$return = $this->login_model->pre_login_Ath( $user , md5($pass));
+ 	
+
+
 		echo json_encode($return);
 	}
 }

@@ -12,7 +12,7 @@
         	<div class="row mb-2">
           		<div class="col-md-12">
             		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
-                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->general_model->active_year_data()['name'] ?> )</h1>
+                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )</h1>
           		</div>
         	</div>
       	</div>
@@ -41,12 +41,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr No.</th>
-                                                <th class="text-center">Acc Code</th>
                                                 <th class="text-center">Name Of Person</th>
                                                 <th class="text-center">Account No.</th>
                                                 <th class="text-center">Bank Name</th>
                                                 <th class="text-center">IFSC</th>
                                                 <th class="text-center">Branch</th>
+                                                <th class="text-center">Acc Code</th>
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Course</th>
                                                 <th class="text-center">Nos</th>
@@ -67,12 +67,10 @@
                                                     <input type="hidden" name="bill_id[]" value="1">
                                                 </td>
 
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto('1');" type="text" name="acc_code[]" id="acc_code1" autocomplete="off" placeholder="Acc Code" required>
-                                                </td>
+                                                
 
                                                 <td>
-                                                    <input type="text" name="name[]" id="name1" autocomplete="off" placeholder="Person Name" required readonly>
+                                                    <input type="text" name="name[]" id="name1" onfocus="change_focus_to_acc('1');" autocomplete="off" placeholder="Person Name" required readonly>
                                                 </td>
 
                                                 <td>
@@ -89,6 +87,10 @@
 
                                                 <td>
                                                     <input style="width: 100px;" type="text" name="branch[]" id="branch1" autocomplete="off" placeholder="Branch" required readonly>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 80px;" onfocus="acc_auto('1');" type="text" name="acc_code[]" id="acc_code1" autocomplete="off" placeholder="Acc Code" required>
                                                 </td>
 
                                                 <td>
@@ -116,7 +118,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax1" autocomplete="off" placeholder="Tall Tax">
+                                                    <input style="width: 50px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('1',event);" name="talltax[]" id="talltax1" autocomplete="off" placeholder="Tall Tax">
                                                 </td>
 
                                                 <td>
@@ -149,16 +151,14 @@
                                             <tr id="">
 
                                                 <td class="text-center">
-                                                    Credit
+                                                    Debit
                                                     <input type="hidden" name="bill_id[]" value="Credit">
                                                 </td>
 
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" required>
-                                                </td>
+                                                
 
                                                 <td>
-                                                    <input type="text" name="name[]" id="namelast" autocomplete="off" placeholder="Person Name" required readonly>
+                                                    <input type="text" name="name[]" id="namelast"  autocomplete="off" placeholder="Person Name" required readonly>
                                                 </td>
 
                                                 <td>
@@ -175,6 +175,10 @@
 
                                                 <td>
                                                     <input style="width: 100px;" type="text" name="branch[]" id="branchlast" autocomplete="off" placeholder="Branch" required readonly>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" required>
                                                 </td>
 
                                                 <input type="hidden" name="pap_rate[]" id="" value="">
@@ -205,6 +209,9 @@
 
                             <div class="card-footer">
                                 <div class="float-right">
+                                    <a href="<?= base_url(); ?>paper_setting" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
+                                        Cancel
+                                    </a>
                                     <button type="button" class="btn btn-success" onclick="submit_Data();"><i class="fa fa-save"></i>&nbsp;Save</button>
                                 </div>
                             </div>
@@ -221,6 +228,10 @@
 
 
     <script type="text/javascript">
+
+        $(function(){
+            $('#acc_code1').focus();
+        })
 
         document.onkeydown = function(e) {
             if (e.ctrlKey && e.keyCode === 83) {
@@ -394,10 +405,46 @@
             if(parseInt('<?= $file_limit; ?>') > i){
                 if($('#tr'+(i + 1)).length == 0){
                     i++;
-                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td> <input type="text"  name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 75px;" type="text" class="datepicker" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Paper Setting Total" readonly> </td><td> <input type="text" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td></tr>');
+                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input type="text" onfocus="change_focus_to_acc('+i+');" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td> <input style="width: 75px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Paper Setting Total" readonly> </td><td> <input type="text" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td></tr>');
                 }
             }
         }
 
+
+        function change_focus_to_acc(id)
+        {
+
+            $('#name'+id).keydown(function(e){
+
+
+                if (e.keyCode === 9) {
+            
+                    $('#acc_code'+id).focus();
+
+                    return false;
+                }
+            
+
+            });
+
+            
+        }
+
+        function chng_to_next_row(id,e)
+        {
+
+            
+
+            id = parseInt(id) + 1;
+            if (e.keyCode === 13) {
+                
+                $('#acc_code'+id).focus();
+
+                return false;
+            }
+            
+
+            
+        }
 
     </script>

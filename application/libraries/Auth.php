@@ -15,7 +15,8 @@ class Auth
     function check_session()
 	{
         $admin = $this->CI->session->userdata('id');
-        if(!$admin)
+        $year = $this->CI->session->userdata('year');
+        if(!$admin || !$year)
         {
         	$this->CI->session->set_flashdata('error', 'Your Session Is Expire Please Login Here.');
             redirect(base_url());
@@ -25,8 +26,18 @@ class Auth
     function check_year()
     {
         $year           = $this->CI->session->userdata('year');
-        $active_year    = $this->CI->db->get_where('financial_year',['active' => '1'])->result_array()[0]['name'];
-        if($year != $active_year)
+        $admin          = $this->CI->session->userdata('id');
+
+        $counter = 0;
+
+        foreach (explode(',',$this->CI->db->get_where('user',['id' => $admin])->result_array()[0]['year']) as $key => $value) {
+            if($value == $year)
+            {
+                $counter++;
+            }
+        }
+
+        if($counter == 0)
         {
             redirect(base_url('dashboard/retrive_flash'));
         }

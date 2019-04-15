@@ -64,6 +64,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								
 					        </div>
 					        
+					        <div class="form-group has-feedback" id="dropdown">
+
+
+
+					        </div>
 					        
 					        <div class="row">
 					          <div class="col-8">
@@ -105,76 +110,125 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script>
 	  
 
-	  $(function () {
+	  	$(function () {
 
-	  	
+		    $('input').iCheck({
+		      checkboxClass: 'icheckbox_square-blue',
+		      radioClass   : 'iradio_square-blue',
+		      increaseArea : '20%' // optional
+		    })
 
-	    $('input').iCheck({
-	      checkboxClass: 'icheckbox_square-blue',
-	      radioClass   : 'iradio_square-blue',
-	      increaseArea : '20%' // optional
-	    })
+			$('#login').submit(function(){
 
-
-
-	    $('#login').submit(function(){
-
-        var user = $('#user').val();
-        var pass = $('#pass').val();
+			    var user = $('#user').val();
+			    var pass = $('#pass').val();
         
         
-        if($('#check').prop('checked') == true){
-           var checkbox = 1;     
-          }
-          else{
-            var checkbox = 0;
-          }
+        		if($('#check').prop('checked') == true){
+           			var checkbox = 1;     
+          		}
+          		else{
+            		var checkbox = 0;
+          		}
           
-          	$('#login-button').attr('disabled',true);
-	        $.ajax({
-	          type : "post",
-	          url : "<?php echo site_url('login_auth/login'); ?>",
-	          dataType: "JSON",
-	          data : "user="+user+"&pass="+pass+"&check="+checkbox,
-	          cache : false,
-	          beforeSend: function() {
-		        	$.notify({
-	                    title: '<strong></strong>',
-	                    icon: 'fa fa-search',
-	                    message: 'Checking User...'
-	                  },{
-	                    type: 'info'
-	                  });
-		      },
-	          success:function( out ){	
-	              if(out[0] == '0')
-	              {
+          		$('#login-button').attr('disabled',true);
 
-	                  $.notify({
-	                    title: '<strong></strong>',
-	                    icon: 'fa fa-check',
-	                    message: out[1]
-	                  },{
-	                    type: 'success'
-	                  });
-	                  setTimeout(function(){
-	                    	window.location.replace('<?php echo base_url(); ?>'+ out[2]); 
-	                	}, 1000
-	                  );
-	              }
-	              else
-	              {
-	              	$('#login-button').removeAttr('disabled');
-	                    $.notify({
-	                      title: '<strong></strong>',
-	                      icon: 'fa fa-times-circle',
-	                      message: out[1]
-	                    },{
-	                      type: 'danger'
-	                    });
-	              }
-	          }
-	        });
+          		if($('#year_drop').length){
+		        	var f_year = $('#year_drop').val();
+		        	$.ajax({
+		          		type : "post",
+		          		url : "<?php echo site_url('login_auth/login'); ?>",
+		          		dataType: "JSON",
+		          		data : "user="+user+"&pass="+pass+"&check="+checkbox+"&year="+f_year,
+		          		cache : false,
+						beforeSend: function() {
+							$.notify({
+						        title: '<strong></strong>',
+						        icon: 'fa fa-search',
+						        message: 'Validating Financial Year..'
+						      },{
+						        type: 'info'
+						      });
+						},
+						success:function( out ){	
+		              		if(out[0] == '0')
+		              		{
+			                  	$.notify({
+			                    	title: '<strong></strong>',
+			                    	icon: 'fa fa-check',
+			                    	message: 'Redirecting To Dashboard...'
+			                  	},{
+			                    	type: 'success'
+			                  	});
+
+		                  		setTimeout(function(){
+		                    		window.location.replace('<?php echo base_url(); ?>'+ out[2]); 
+		                		}, 1000);
+		              		}
+		              		else
+		              		{
+		              			$('#login-button').removeAttr('disabled');
+		              			$('#dropdown').html('');
+		                    	$.notify({
+		                      		title: '<strong></strong>',
+		                      		icon: 'fa fa-times-circle',
+		                      		message: out[1]
+		                    	},{
+		                      		type: 'danger'
+		                    	});
+		              		}
+		          		}
+		        	});
+		        }
+		        else{
+
+		        	$.ajax({
+		          		type : "post",
+		          		url : "<?php echo site_url('login_auth/pre_login'); ?>",
+		          		dataType: "JSON",
+		          		data : "user="+user+"&pass="+pass,
+		          		cache : false,
+						beforeSend: function() {
+							$.notify({
+						        title: '<strong></strong>',
+						        icon: 'fa fa-search',
+						        message: 'Checking User...'
+						      },{
+						        type: 'info'
+						      });
+						},
+						success:function( out ){	
+		              		if(out[0] == '0')
+		              		{
+			                  	$.notify({
+			                    	title: '<strong></strong>',
+			                    	icon: 'fa fa-check',
+			                    	message: 'Login Successful Please Select Financial Year To Continue..'
+			                  	},{
+			                    	type: 'success'
+			                  	});
+
+			                  	$('#dropdown').html(out[1]);
+
+			                  	$('#login-button').removeAttr('disabled');
+		                  		
+		              		}
+		              		else
+		              		{
+		              			$('#login-button').removeAttr('disabled');
+
+		                    	$.notify({
+		                      		title: '<strong></strong>',
+		                      		icon: 'fa fa-times-circle',
+		                      		message: out[1]
+		                    	},{
+		                      		type: 'danger'
+		                    	});
+		              		}
+		          		}
+		        	});
+
+		        }
 
 
 	    

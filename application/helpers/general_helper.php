@@ -20,12 +20,12 @@ function year_db()
 {
 
     $CI =& get_instance();
-    $db = $CI->db->get_where('financial_year',['active' => '1'])->result_array();
+    $db = $CI->session->userdata('year');
 
 	$config_app['hostname'] = 'localhost';
     $config_app['username'] = 'root';
     $config_app['password'] = '';
-    $config_app['database'] = $db[0]['name'];
+    $config_app['database'] = $db;
     $config_app['dbdriver'] = 'mysqli';
     $config_app['dbprefix'] = '';
     $config_app['pconnect'] = FALSE;
@@ -33,5 +33,13 @@ function year_db()
     return $config_app;
 }
 
+
+function _checked($val1,$val2)
+{
+    if($val1 == $val2)
+    {
+        return 'checked';
+    }
+}
 
 ?>

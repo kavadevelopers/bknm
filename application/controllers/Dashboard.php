@@ -29,9 +29,9 @@ class Dashboard extends CI_Controller {
 	}
 
 	function retrive_flash(){
-		$user_data = $this->session->all_userdata();
 	    $this->session->unset_userdata('id');
-	    $this->session->set_flashdata('error', "Financial Year Changed By Admin Please Login Again To Continue");
+	    $this->session->unset_userdata('year');
+	    $this->session->set_flashdata('error', "Your Financial Year Changed By Admin Please Login Again To Continue");
 	    redirect(base_url());
 	}
 

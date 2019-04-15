@@ -336,14 +336,11 @@ class Setting extends CI_Controller {
 	}
 
 
-	public function active_year_dash($id)
+	public function active_year_dash($name)
 	{
-		$this->db->update('financial_year', ['active' => '0','updated_by' => $this->session->userdata('id'),'updated_at' =>	date('Y-m-d H:i:s')]);
+		$this->session->set_userdata('year',$name);
 
-		$this->db->where('id',$id);
-		$this->db->update('financial_year', ['active' => '1','updated_by' => $this->session->userdata('id'),'updated_at' =>	date('Y-m-d H:i:s')]);
-
-		$this->session->set_flashdata('msg', 'Financial Year Successfully Activated');
+		$this->session->set_flashdata('msg', 'Financial Year Successfully Changed To '.$name);
 		redirect(base_url('dashboard'));
 	}
 

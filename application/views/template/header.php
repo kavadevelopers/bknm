@@ -1,6 +1,9 @@
 <?php 
     $user  = $this->session->userdata('id');
     $this->load->model('general_model');
+    $this->load->model('user_model');
+
+    $user_data = $this->user_model->_user($user)[0];
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,7 +55,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini <?php if($this->uri->segment(2) == 'add_data'){ echo 'sidebar-collapse'; }else{ echo 'sidebar-open'; } ?>">
+<body class="hold-transition <?php if($this->uri->segment(2) == 'add_data'){ echo 'sidebar-collapse'; }else{ echo 'sidebar-open'; } ?>">
   <div id="_preloader"></div>
 <div class="wrapper">
   <!-- Navbar -->
@@ -72,7 +75,14 @@
           <h6 style="margin-bottom: 0; padding: 5px;">Active Financial Year : 
             <select class="form-control-sm" style="width: 150px;" onchange="change_year(this.value);">
                 <?php foreach($this->db->get('financial_year')->result_array() as $y_ind => $year){  ?>
-                  <option value="<?= $year['id'] ?>" <?php if($year['active'] == '1'){ echo "selected"; } ?>><?= $year['name'] ?></option>
+
+                  <?php foreach (explode(',',$user_data['year']) as $k => $val) { if($year['name'] == $val){ ?>
+
+                    <option value="<?= $year['name'] ?>" <?php if($this->session->userdata('year') == $year['name']){ echo "selected"; } ?>><?= $year['name'] ?></option>
+                    
+                  <?php } } ?>
+
+
                 <?php } ?>    
             </select>
           </h6>
