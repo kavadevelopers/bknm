@@ -55,11 +55,11 @@
                                                 </a>
                                             </td>
                                             <td class="text-center">
-                                                <a class="badge badge-warning" href="<?= base_url();?>paper_setting/add_data/<?= $value['id'];?>" title="Bank Copy">
+                                                <a class="badge badge-warning" href="<?= base_url();?>paper_setting/bank_download/<?= $value['id'];?>" title="Bank Copy">
                                                     Bank Copy
                                                 </a>
 
-                                                <a class="badge badge-secondary" href="<?= base_url();?>paper_setting/add_data/<?= $value['id'];?>" title="Corporate Copy">
+                                                <a class="badge badge-secondary" href="<?= base_url();?>paper_setting/corp_download/<?= $value['id'];?>" title="Corporate Copy">
                                                     Corporate Copy
                                                 </a>
 

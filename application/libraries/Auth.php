@@ -55,5 +55,14 @@ class Auth
     }  
 
 
+    function check_auth()
+    {
+        if($this->CI->session->userdata('id') != '1')
+        {
+            redirect(base_url('error404'));
+        }
+    }
+
+
 
 }

@@ -13,6 +13,11 @@ class General_model extends CI_Model
 		return $this->session->userdata('year');
 	}
 
+	public function get_all_finincial_year()
+	{
+		return $this->db->get_where('financial_year')->result_array();	
+	}
+
 	public function get_files($head_id)
 	{
 		return $this->db->get_where('file',['head' => $head_id, 'year' => $this->active_year() ])->result_array();

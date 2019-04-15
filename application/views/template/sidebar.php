@@ -84,39 +84,42 @@
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("setting"))[1]; ?>">
-            
-                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("setting"))[0]; ?>">
-                            <i class="nav-icon fa fa-cogs"></i>
-                            <p>Setting
-                                <i class="fa fa-angle-left right"></i>
-                            </p>
-                        </a>
-                       
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?= base_url('setting/financial_year'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("financial_year","save_financial_year","edit_financial_year","update_financial_year"))[0]; ?>">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Financial Year</p>
-                                </a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a href="<?= base_url('setting/head'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("head","save_head","edit_head","update_head"))[0]; ?>">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Head</p>
-                                </a>
-                            </li>
-                        
-                            <!-- <li class="nav-item">
-                                <a href="<?= base_url('setting/file_limit'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("file_limit","save_file_limit"))[0]; ?>">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>File Limit</p>
-                                </a>
-                            </li> -->
-                        </ul>
+                    <?php if($this->session->userdata('id') == '1'){ ?>
+                        <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("setting"))[1]; ?>">
+                
+                            <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("setting"))[0]; ?>">
+                                <i class="nav-icon fa fa-cogs"></i>
+                                <p>Setting
+                                    <i class="fa fa-angle-left right"></i>
+                                </p>
+                            </a>
+                           
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('setting/financial_year'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("financial_year","save_financial_year","edit_financial_year","update_financial_year"))[0]; ?>">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Financial Year</p>
+                                    </a>
+                                </li>
+                            
+                                <li class="nav-item">
+                                    <a href="<?= base_url('setting/head'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("head","save_head","edit_head","update_head"))[0]; ?>">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Head</p>
+                                    </a>
+                                </li>
+                            
+                                <!-- <li class="nav-item">
+                                    <a href="<?= base_url('setting/file_limit'); ?>" class="nav-link <?php menu($this->uri->segment(2),array("file_limit","save_file_limit"))[0]; ?>">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>File Limit</p>
+                                    </a>
+                                </li> -->
+                            </ul>
 
-                    </li>
+                        </li>
+
+                    <?php } ?>
 
                     <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("user","subject","ifsc","professor"))[1]; ?>">
             
@@ -128,25 +131,26 @@
                         </a>
                        
                         <ul class="nav nav-treeview">
+                            <?php if($this->session->userdata('id') == '1'){ ?>
+                                <li class="nav-item">
+                                    <a href="<?php echo base_url('user'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("user"))[0]; ?>">
+                                        <i class="nav-icon fa fa-user-circle"></i>
+                                        <p>
+                                            Manage User
+                                        </p>
+                                    </a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a href="<?php echo base_url('user'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("user"))[0]; ?>">
-                                    <i class="nav-icon fa fa-user-circle"></i>
-                                    <p>
-                                        Manage User
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="<?php echo base_url('subject'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("subject"))[0]; ?>">
-                                    <i class="nav-icon fa fa-address-book"></i>
-                                    <p>
-                                        Manage Courses
-                                    </p>
-                                </a>
-                            </li>
-
+                                <li class="nav-item">
+                                    <a href="<?php echo base_url('subject'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("subject"))[0]; ?>">
+                                        <i class="nav-icon fa fa-address-book"></i>
+                                        <p>
+                                            Manage Courses
+                                        </p>
+                                    </a>
+                                </li>
+                            <?php } ?>    
+                                
                             <li class="nav-item">
                                 <a href="<?php echo base_url('ifsc'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("ifsc"))[0]; ?>">
                                     <i class="nav-icon fa fa-university"></i>

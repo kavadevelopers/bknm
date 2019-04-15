@@ -6,6 +6,7 @@ class Setting extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->auth->check_session();
+        $this->auth->check_auth();
         $this->load->model('setting_model');
         $this->load->model('user_model');
         $this->load->dbforge();

@@ -150,36 +150,33 @@
 
                                             <tr id="">
 
-                                                <td class="text-center">
+                                                <td class="text-center" colspan="6">
                                                     Debit
                                                     <input type="hidden" name="bill_id[]" value="Credit">
                                                 </td>
 
                                                 
 
-                                                <td>
-                                                    <input type="text" name="name[]" id="namelast"  autocomplete="off" placeholder="Person Name" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="name[]">
 
-                                                <td>
-                                                    <input type="text" name="acno[]" id="acnolast" autocomplete="off" placeholder="Account No." required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="acno[]">
 
-                                                <td>
-                                                    <input style="width: 70px;" type="text" name="bank[]" id="banklast" autocomplete="off" placeholder="Bank Name" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="bank[]">
+                                                
 
-                                                <td>
-                                                    <input style="width: 75px;" type="text" name="ifsc[]" id="ifsclast" autocomplete="off" placeholder="IFSC Code" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="ifsc[]">
+                                                
 
-                                                <td>
-                                                    <input style="width: 100px;" type="text" name="branch[]" id="branchlast" autocomplete="off" placeholder="Branch" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="branch[]">
+                                                
 
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" required>
-                                                </td>
+                                                
+                                                <input type="hidden" name="acc_code[]">
 
                                                 <input type="hidden" name="pap_rate[]" id="" value="">
                                                 <input type="hidden" name="date[]">

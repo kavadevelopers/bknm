@@ -71,7 +71,7 @@
                                                 
 
                                                 <td>
-                                                    <input type="text" name="name[]" id="name<?= $cn; ?>" autocomplete="off" placeholder="Person Name" required readonly value="<?= $ex_row['name']; ?>">
+                                                    <input type="text" name="name[]" id="name<?= $cn; ?>" onfocus="change_focus_to_acc('<?= $cn; ?>');" autocomplete="off" placeholder="Person Name" required readonly value="<?= $ex_row['name']; ?>">
                                                 </td>
 
                                                 <td>
@@ -120,7 +120,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tall_tax']; ?>" name="talltax[]" id="talltax<?= $cn; ?>" autocomplete="off" placeholder="Tall Tax">
+                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tall_tax']; ?>" name="talltax[]" id="talltax<?= $cn; ?>" autocomplete="off"  onkeydown="chng_to_next_row('<?= $cn; ?>',event);" placeholder="Tall Tax">
                                                 </td>
 
                                                 <td>
@@ -154,36 +154,33 @@
 
                                             <tr id="">
 
-                                                <td class="text-center">
+                                                <td class="text-center" colspan="6">
                                                     Debit
                                                     <input type="hidden" name="bill_id[]" value="Credit">
                                                 </td>
 
                                                 
 
-                                                <td>
-                                                    <input type="text" name="name[]" id="namelast" autocomplete="off" value="<?= $last_row[0]['name'] ?>" placeholder="Person Name" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="name[]">
 
-                                                <td>
-                                                    <input type="text" name="acno[]" id="acnolast" autocomplete="off" value="<?= $last_row[0]['ac_no'] ?>" placeholder="Account No." required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="acno[]">
 
-                                                <td>
-                                                    <input style="width: 70px;" type="text" name="bank[]" id="banklast" value="<?= $last_row[0]['bank'] ?>" autocomplete="off" placeholder="Bank Name" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="bank[]">
+                                                
 
-                                                <td>
-                                                    <input style="width: 75px;" type="text" name="ifsc[]" value="<?= $last_row[0]['ifsc'] ?>" id="ifsclast" autocomplete="off" placeholder="IFSC Code" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="ifsc[]">
+                                                
 
-                                                <td>
-                                                    <input style="width: 100px;" type="text" name="branch[]" value="<?= $last_row[0]['branch'] ?>" id="branchlast" autocomplete="off" placeholder="Branch" required readonly>
-                                                </td>
+                                                
+                                                <input type="hidden" name="branch[]">
+                                                
 
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" value="<?= $last_row[0]['acc_code'] ?>" required>
-                                                </td>
+                                                
+                                                <input type="hidden" name="acc_code[]">
 
                                                 <input type="hidden" name="pap_rate[]" id="" value="">
                                                 <input type="hidden" name="date[]">
@@ -405,10 +402,46 @@
             if(parseInt('<?= $file_limit; ?>') > i){
                 if($('#tr'+(i + 1)).length == 0){
                     i++;
-                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td> <input type="text"  name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 75px;" type="text" class="datepicker" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Paper Setting Total" readonly> </td><td> <input type="text" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td></tr>');
+                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input type="text" onfocus="change_focus_to_acc('+i+');" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td> <input style="width: 75px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Paper Setting Total" readonly> </td><td> <input type="text" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td></tr>');
                 }
             }
         }
 
+
+        function change_focus_to_acc(id)
+        {
+
+            $('#name'+id).keydown(function(e){
+
+
+                if (e.keyCode === 9) {
+            
+                    $('#acc_code'+id).focus();
+
+                    return false;
+                }
+            
+
+            });
+
+            
+        }
+
+        function chng_to_next_row(id,e)
+        {
+
+            
+
+            id = parseInt(id) + 1;
+            if (e.keyCode === 13) {
+                
+                $('#acc_code'+id).focus();
+
+                return false;
+            }
+            
+
+            
+        }
 
     </script>

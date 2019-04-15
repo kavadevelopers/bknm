@@ -30,6 +30,8 @@ $config['logoFile'] = 'image/logo.png';
 $config['companyWebLink'] = '#';
 
 
+$config['debit_bank']  = ['ifsc' => 'CORP0001178','acno' => '117801601000136' ,'name' => 'Registrar Bhakta Kavi Narsinh Mehta University','branch' => 'JUNAGADH'];
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -141,7 +143,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = 'vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
