@@ -28,7 +28,6 @@
               	</div>
             </div>
             
-            <a href="<?= base_url('welcome/download') ?>" target="_blank" class="btn btn-success">download</a>
 
       	</div>
     </section>
