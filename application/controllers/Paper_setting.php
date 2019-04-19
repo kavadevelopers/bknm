@@ -252,8 +252,10 @@ class Paper_setting extends CI_Controller {
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->result_array();
 				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
+				$where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'";
+				$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->num_rows();
 
-				if($data['old_data_num'] > 0){
+				if($dis_acc > 0){
 
 
 			        $spreadsheet = new Spreadsheet();
@@ -305,7 +307,7 @@ class Paper_setting extends CI_Controller {
 
 
 
-				    $dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' ORDER BY `id` ASC")->result_array();
+				    $dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->result_array();
 				    
 
 				    $main_total = 0;
@@ -313,7 +315,7 @@ class Paper_setting extends CI_Controller {
 				    foreach ($dis_acc as $single => $acc) {
 
 				    	
-				    	$Bills = $this->year->query("SELECT `bill_no` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' ORDER BY `id` ASC")->result_array(); 
+				    	$Bills = $this->year->query("SELECT `bill_no` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where ORDER BY `id` ASC")->result_array(); 
 
                         $bill_all = "";
                         foreach ($Bills as $keya => $valuea) {
@@ -321,12 +323,12 @@ class Paper_setting extends CI_Controller {
                         } $bill_all = rtrim($bill_all,',');
 
                         
-                        $res_rows = $this->year->query("SELECT * FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."'")->result_array()[0]; 
+                        $res_rows = $this->year->query("SELECT * FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0]; 
 
 
 
 
-         				$amount = $this->year->query("SELECT SUM(total) AS `bills_tot` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."'")->result_array()[0];
+         				$amount = $this->year->query("SELECT SUM(total) AS `bills_tot` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0];
 
          				$main_total +=  $amount['bills_tot'];
 
@@ -495,12 +497,13 @@ class Paper_setting extends CI_Controller {
 			{
 
 				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
+
 				$year_active  = $this->session->userdata('year');
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->result_array();
 				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
-
-				$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' ORDER BY `id` ASC")->num_rows();
+				$where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'";
+				$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->num_rows();
 
 				if($dis_acc > 0){
 
@@ -554,7 +557,7 @@ class Paper_setting extends CI_Controller {
 
 
 
-				    $dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' ORDER BY `id` ASC")->result_array();
+				    $dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->result_array();
 				    
 
 				    $main_total = 0;
@@ -562,7 +565,7 @@ class Paper_setting extends CI_Controller {
 				    foreach ($dis_acc as $single => $acc) {
 
 				    	
-				    	$Bills = $this->year->query("SELECT `bill_no` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' ORDER BY `id` ASC")->result_array(); 
+				    	$Bills = $this->year->query("SELECT `bill_no` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where ORDER BY `id` ASC")->result_array(); 
 
                         $bill_all = "";
                         foreach ($Bills as $keya => $valuea) {
@@ -570,12 +573,12 @@ class Paper_setting extends CI_Controller {
                         } $bill_all = rtrim($bill_all,',');
 
                         
-                        $res_rows = $this->year->query("SELECT * FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."'")->result_array()[0]; 
+                        $res_rows = $this->year->query("SELECT * FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0]; 
 
 
 
 
-         				$amount = $this->year->query("SELECT SUM(total) AS `bills_tot` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."'")->result_array()[0];
+         				$amount = $this->year->query("SELECT SUM(total) AS `bills_tot` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0];
 
          				$main_total +=  $amount['bills_tot'];
 
@@ -733,6 +736,617 @@ class Paper_setting extends CI_Controller {
 
  
     }
+
+
+
+
+    public function print_bank($id = false)
+    {
+    	if($id){
+			if($this->general_model->get_original_file($id,'1'))
+			{
+
+				$data['_title']				= "Print Bank Copy";
+				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
+				$this->load->view('paper_setting/bank_print',$data);
+
+			}
+			else{
+				$this->session->set_flashdata('error', 'File Not Found');
+		        redirect(base_url().'paper_setting');
+			}
+		}
+		else{
+			
+			$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'paper_setting');
+			
+		}
+    }
+
+    public function view_bills($id = false)
+    {
+    	if($id){
+			if($this->general_model->get_original_file($id,'1'))
+			{
+
+				$data['_title']				= "View Bills";
+				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
+				$this->load->template('paper_setting/view_bills',$data);
+
+			}
+			else{
+				$this->session->set_flashdata('error', 'File Not Found');
+		        redirect(base_url().'paper_setting');
+			}
+		}
+		else{
+			
+			$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'paper_setting');
+			
+		}
+    }
+
+    public function print_corp_bank($id = false)
+    {
+    	if($id){
+			if($this->general_model->get_original_file($id,'1'))
+			{
+
+				$data['_title']				= "Print Bank Copy";
+				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
+				$this->load->view('paper_setting/corp_bank_print',$data);
+
+			}
+			else{
+				$this->session->set_flashdata('error', 'File Not Found');
+		        redirect(base_url().'paper_setting');
+			}
+		}
+		else{
+			
+			$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'paper_setting');
+			
+		}
+    }
+
+
+    public function view_all_bank()
+    {
+    	$data['_title']			= "View All Data";
+    	$data['files']				= $this->general_model->get_all_files('1',$this->session->userdata('year'));
+		$this->load->template('paper_setting/view_all_bills',$data);
+    }
+
+    public function export_all_bank()
+    {
+    	
+    	$year_active  	= $this->session->userdata('year');
+    	$data['files']	= $this->general_model->get_all_files('1',$this->session->userdata('year'));
+    	if($data['files'])
+    	{
+
+    		$aa = 0;
+	    	foreach ($data['files'] as $key => $file_row) {
+
+	    		$where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'";
+				$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$file_row['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->num_rows();
+
+				if($dis_acc > 0){
+
+					$aa++;
+
+				}
+	    	}
+
+
+
+	    	if($aa > 0){
+
+	    		$spreadsheet = new Spreadsheet();
+		        $objDrawing = new Drawing();
+
+		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
+			        ->setLastModifiedBy('BKNMU')
+			        ->setTitle('Paper Setting')
+			        ->setSubject($this->session->userdata('year'))
+			        ->setDescription('Paper Setting - '.$this->session->userdata('year'))
+			        ->setCategory('Bank Copy');
+
+			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Bank Copy");
+		        
+		        $spreadsheet->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("D")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("E")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("F")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("G")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("H")->setAutoSize(true);
+
+
+		        $headers = ['A1' => 'C/D','B1' => 'Amt','C1' => 'Ifsc Code','D1' => 'Account No.','E1' => 'Saving Or Current','F1' => 'Name Of Person','G1' => 'Address','H1' => 'Message'];
+
+		        foreach($headers as $clm => $head){
+
+			        $sheet->setCellValue($clm, $head);
+			        $sheet->getStyle($clm)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle($clm)->getFont()->setSize(12)->setBold(true);
+
+			    }
+
+			    $add_borders = ['A1','B1','C1','D1','E1','F1','G1','H1'];
+
+		        for($i = 0;$i < count($add_borders);$i++){
+
+			        $spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+			    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+					$spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+			    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+					$spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+			    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+					$spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+		    			->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+		    	}
+		    	$main_total = 0;
+		    	$counter = 2;
+	    		foreach ($data['files'] as $key => $file_row) {
+
+	    			$data['file']['file_name'] = $file_row['file_name'];
+
+		    		$where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'";
+					$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$file_row['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->num_rows();
+					
+					if($dis_acc > 0){
+
+						$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->result_array();
+				    
+
+				    
+				    
+					    foreach ($dis_acc as $single => $acc) {
+
+					    	
+					    	$Bills = $this->year->query("SELECT `bill_no` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where ORDER BY `id` ASC")->result_array(); 
+
+	                        $bill_all = "";
+	                        foreach ($Bills as $keya => $valuea) {
+	                            $bill_all .= $valuea['bill_no'].',';
+	                        } $bill_all = rtrim($bill_all,',');
+
+	                        
+	                        $res_rows = $this->year->query("SELECT * FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0]; 
+
+
+
+
+	         				$amount = $this->year->query("SELECT SUM(total) AS `bills_tot` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0];
+
+	         				$main_total +=  $amount['bills_tot'];
+
+
+	         				$sheet->setCellValue('A'.$counter,$res_rows['type']);
+					        $sheet->getStyle('A'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('A'.$counter)->getFont()->setSize(10);
+
+					        $sheet->setCellValue('B'.$counter,$amount['bills_tot']);
+					        $sheet->getStyle('B'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+					        $sheet->getStyle('B'.$counter)->getFont()->setSize(10);
+
+					        
+					        $sheet->setCellValue('C'.$counter,$res_rows['ifsc']);
+					        $sheet->getStyle('C'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('C'.$counter)->getFont()->setSize(10);
+
+					        $spreadsheet->getActiveSheet()->getCell('D'.$counter)
+						    	->setValueExplicit(
+						        $res_rows['ac_no'],
+						        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+							);
+
+					       
+					        $sheet->getStyle('D'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+					        $sheet->getStyle('D'.$counter)->getFont()->setSize(10);
+					        //$sheet->setCellValue('E'.$counter,"'".$res_rows['ac_no']);
+					      	//$spreadsheet->getActiveSheet()->getStyle('E'.$counter)
+					      	//->getNumberFormat()
+	    					// ->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+					        
+
+					        $sheet->setCellValue('E'.$counter,'10');
+					        $sheet->getStyle('E'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('E'.$counter)->getFont()->setSize(10);
+
+					        $sheet->setCellValue('F'.$counter,$res_rows['name']);
+					        $sheet->getStyle('F'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('F'.$counter)->getFont()->setSize(10);
+	                        
+	                        $sheet->setCellValue('G'.$counter,$res_rows['branch']);
+					        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
+
+					        $sheet->setCellValue('H'.$counter,"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU");
+					        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
+
+					        $brd_row = ['A'.$counter,'B'.$counter,'C'.$counter,'D'.$counter,'E'.$counter,'F'.$counter,'G'.$counter,'H'.$counter];
+
+					        for($i = 0;$i < count($brd_row);$i++){
+
+						        $spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+						    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+								$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+						    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+								$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+						    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+								$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    				->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+	                        }
+
+	                        $counter++;
+					    }
+
+
+					}
+		    	}
+
+
+
+		    		$debit_bank = $this->config->config["debit_bank"];
+				   	
+
+			        $sheet->setCellValue('A'.$counter,'D');
+			        $sheet->getStyle('A'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('A'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $sheet->setCellValue('B'.$counter,$main_total);
+			        $sheet->getStyle('B'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+			        $sheet->getStyle('B'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        
+			        $sheet->setCellValue('C'.$counter,$debit_bank['ifsc']);
+			        $sheet->getStyle('C'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('C'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $spreadsheet->getActiveSheet()->getCell('D'.$counter)
+				    	->setValueExplicit(
+				        $debit_bank['acno'],
+				        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+					);
+
+			       
+			        $sheet->getStyle('D'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+			        $sheet->getStyle('D'.$counter)->getFont()->setSize(10)->setBold(true);
+			        //$sheet->setCellValue('E'.$counter,"'".$res_rows['ac_no']);
+			      	//$spreadsheet->getActiveSheet()->getStyle('E'.$counter)
+			      	//->getNumberFormat()
+					// ->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+			        
+
+			        $sheet->setCellValue('E'.$counter,'11');
+			        $sheet->getStyle('E'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('E'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $sheet->setCellValue('F'.$counter,$debit_bank['name']);
+			        $sheet->getStyle('F'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('F'.$counter)->getFont()->setSize(10)->setBold(true);
+                    
+                    $sheet->setCellValue('G'.$counter,$debit_bank['branch']);
+			        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('G'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $sheet->setCellValue('H'.$counter,"");
+			        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
+
+			        $brd_row = ['A'.$counter,'B'.$counter,'C'.$counter,'D'.$counter,'E'.$counter,'F'.$counter,'G'.$counter,'H'.$counter];
+
+			        for($i = 0;$i < count($brd_row);$i++){
+
+				        $spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+						$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+						$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+						$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+		    				->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    }
+			        
+			        $writer = new Xlsx($spreadsheet);
+			 
+			        $filename = 'Paper Setting Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			 
+			        header('Content-Type: application/vnd.ms-excel');
+			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+			        header('Cache-Control: max-age=0');
+			        
+			        $writer->save('php://output');
+
+
+
+
+	    	}
+	    	else{
+	    		$this->session->set_flashdata('error', 'File Not Found');
+		        redirect(base_url().'paper_setting');
+	    	}
+    	}
+    	else{
+    		$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'paper_setting');
+    	}
+
+    }
+
+
+    public function export_all_corp()
+    {
+    	
+    	$year_active  	= $this->session->userdata('year');
+    	$data['files']	= $this->general_model->get_all_files('1',$this->session->userdata('year'));
+    	if($data['files'])
+    	{
+
+    		$aa = 0;
+	    	foreach ($data['files'] as $key => $file_row) {
+
+	    		$where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'";
+				$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$file_row['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->num_rows();
+
+				if($dis_acc > 0){
+
+					$aa++;
+
+				}
+	    	}
+
+
+
+	    	if($aa > 0){
+
+	    		$spreadsheet = new Spreadsheet();
+		        $objDrawing = new Drawing();
+
+		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
+			        ->setLastModifiedBy('BKNMU')
+			        ->setTitle('Paper Setting')
+			        ->setSubject($this->session->userdata('year'))
+			        ->setDescription('Paper Setting - '.$this->session->userdata('year'))
+			        ->setCategory('Corporation Bank Copy');
+
+			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Corporation Bank Copy");
+		        
+		        $spreadsheet->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("D")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("E")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("F")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("G")->setAutoSize(true);
+		        $spreadsheet->getActiveSheet()->getColumnDimension("H")->setAutoSize(true);
+
+
+		        $headers = ['A1' => 'C/D','B1' => 'Amt','C1' => 'Ifsc Code','D1' => 'Account No.','E1' => 'Saving Or Current','F1' => 'Name Of Person','G1' => 'Address','H1' => 'Message'];
+
+		        foreach($headers as $clm => $head){
+
+			        $sheet->setCellValue($clm, $head);
+			        $sheet->getStyle($clm)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle($clm)->getFont()->setSize(12)->setBold(true);
+
+			    }
+
+			    $add_borders = ['A1','B1','C1','D1','E1','F1','G1','H1'];
+
+		        for($i = 0;$i < count($add_borders);$i++){
+
+			        $spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+			    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+					$spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+			    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+					$spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+			    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+					$spreadsheet->getActiveSheet()->getStyle($add_borders[$i])
+		    			->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+		    	}
+		    	$main_total = 0;
+		    	$counter = 2;
+	    		foreach ($data['files'] as $key => $file_row) {
+
+	    			$data['file']['file_name'] = $file_row['file_name'];
+
+		    		$where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'";
+					$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$file_row['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->num_rows();
+					
+					if($dis_acc > 0){
+
+						$dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$data['file']['file_name']."` WHERE `ifsc` Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->result_array();
+				    
+
+				    
+				    
+					    foreach ($dis_acc as $single => $acc) {
+
+					    	
+					    	$Bills = $this->year->query("SELECT `bill_no` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where ORDER BY `id` ASC")->result_array(); 
+
+	                        $bill_all = "";
+	                        foreach ($Bills as $keya => $valuea) {
+	                            $bill_all .= $valuea['bill_no'].',';
+	                        } $bill_all = rtrim($bill_all,',');
+
+	                        
+	                        $res_rows = $this->year->query("SELECT * FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0]; 
+
+
+
+
+	         				$amount = $this->year->query("SELECT SUM(total) AS `bills_tot` FROM `".$data['file']['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where")->result_array()[0];
+
+	         				$main_total +=  $amount['bills_tot'];
+
+
+	         				$sheet->setCellValue('A'.$counter,$res_rows['type']);
+					        $sheet->getStyle('A'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('A'.$counter)->getFont()->setSize(10);
+
+					        $sheet->setCellValue('B'.$counter,$amount['bills_tot']);
+					        $sheet->getStyle('B'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+					        $sheet->getStyle('B'.$counter)->getFont()->setSize(10);
+
+					        
+					        $sheet->setCellValue('C'.$counter,$res_rows['ifsc']);
+					        $sheet->getStyle('C'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('C'.$counter)->getFont()->setSize(10);
+
+					        $spreadsheet->getActiveSheet()->getCell('D'.$counter)
+						    	->setValueExplicit(
+						        $res_rows['ac_no'],
+						        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+							);
+
+					       
+					        $sheet->getStyle('D'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+					        $sheet->getStyle('D'.$counter)->getFont()->setSize(10);
+					        //$sheet->setCellValue('E'.$counter,"'".$res_rows['ac_no']);
+					      	//$spreadsheet->getActiveSheet()->getStyle('E'.$counter)
+					      	//->getNumberFormat()
+	    					// ->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+					        
+
+					        $sheet->setCellValue('E'.$counter,'10');
+					        $sheet->getStyle('E'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('E'.$counter)->getFont()->setSize(10);
+
+					        $sheet->setCellValue('F'.$counter,$res_rows['name']);
+					        $sheet->getStyle('F'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('F'.$counter)->getFont()->setSize(10);
+	                        
+	                        $sheet->setCellValue('G'.$counter,$res_rows['branch']);
+					        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
+
+					        $sheet->setCellValue('H'.$counter,"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU");
+					        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+					        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
+
+					        $brd_row = ['A'.$counter,'B'.$counter,'C'.$counter,'D'.$counter,'E'.$counter,'F'.$counter,'G'.$counter,'H'.$counter];
+
+					        for($i = 0;$i < count($brd_row);$i++){
+
+						        $spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+						    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+								$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+						    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+								$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+						    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+								$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    				->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+	                        }
+
+	                        $counter++;
+					    }
+
+
+					}
+		    	}
+
+
+
+		    		$debit_bank = $this->config->config["debit_bank"];
+				   	
+
+			        $sheet->setCellValue('A'.$counter,'D');
+			        $sheet->getStyle('A'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('A'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $sheet->setCellValue('B'.$counter,$main_total);
+			        $sheet->getStyle('B'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+			        $sheet->getStyle('B'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        
+			        $sheet->setCellValue('C'.$counter,$debit_bank['ifsc']);
+			        $sheet->getStyle('C'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('C'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $spreadsheet->getActiveSheet()->getCell('D'.$counter)
+				    	->setValueExplicit(
+				        $debit_bank['acno'],
+				        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+					);
+
+			       
+			        $sheet->getStyle('D'.$counter)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+			        $sheet->getStyle('D'.$counter)->getFont()->setSize(10)->setBold(true);
+			        //$sheet->setCellValue('E'.$counter,"'".$res_rows['ac_no']);
+			      	//$spreadsheet->getActiveSheet()->getStyle('E'.$counter)
+			      	//->getNumberFormat()
+					// ->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+			        
+
+			        $sheet->setCellValue('E'.$counter,'11');
+			        $sheet->getStyle('E'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('E'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $sheet->setCellValue('F'.$counter,$debit_bank['name']);
+			        $sheet->getStyle('F'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('F'.$counter)->getFont()->setSize(10)->setBold(true);
+                    
+                    $sheet->setCellValue('G'.$counter,$debit_bank['branch']);
+			        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('G'.$counter)->getFont()->setSize(10)->setBold(true);
+
+			        $sheet->setCellValue('H'.$counter,"");
+			        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
+			        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
+
+			        $brd_row = ['A'.$counter,'B'.$counter,'C'.$counter,'D'.$counter,'E'.$counter,'F'.$counter,'G'.$counter,'H'.$counter];
+
+			        for($i = 0;$i < count($brd_row);$i++){
+
+				        $spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    		->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+						$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    		->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+						$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+				    		->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+						$spreadsheet->getActiveSheet()->getStyle($brd_row[$i])
+		    				->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    }
+			        
+			        $writer = new Xlsx($spreadsheet);
+			 
+			        $filename = 'Paper Setting Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			 
+			        header('Content-Type: application/vnd.ms-excel');
+			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+			        header('Cache-Control: max-age=0');
+			        
+			        $writer->save('php://output');
+
+
+
+
+	    	}
+	    	else{
+	    		$this->session->set_flashdata('error', 'File Not Found');
+		        redirect(base_url().'paper_setting');
+	    	}
+    	}
+    	else{
+    		$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'paper_setting');
+    	}
+
+    }
+
+
+
 
 
     public function _bac_bank_download($id = false)
@@ -1019,6 +1633,12 @@ class Paper_setting extends CI_Controller {
 
  
     }
+
+
+
+
+
+
 
 
 

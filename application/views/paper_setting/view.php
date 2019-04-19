@@ -1,12 +1,5 @@
     <title><?=$this->config->config["projectTitle"]?> | <?php echo $_title; ?></title>
 
-    <?php
-
-        $day_price = $this->db->get_where('head',['id' => '1'])->result_array()[0]['day'];
-        $file_limit = $this->db->get_where('head',['id' => '1'])->result_array()[0]['file_limit'];
-
-    ?>
-
    	<div class="content-header">
       	<div class="container-fluid">
         	<div class="row mb-2">
@@ -18,13 +11,6 @@
         	</div>
       	</div>
     </div>
-
-    <style type="text/css">
-        input{
-            font-size: 12px;
-
-        }
-    </style>
 
 
     <section class="content">
@@ -63,78 +49,74 @@
                                         <tbody id="add_row">
                                             
                                         <?php $cn = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
-                                            <tr id="tr<?= $cn; ?>">
+                                            <tr>
 
-                                                <td class="text-center">
+                                                <td>
                                                     <?= $cn; ?>
-                                                    <input type="hidden" name="bill_id[]" value="<?= $ex_row['bill_no']; ?>">
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="name[]" id="name<?= $cn; ?>" autocomplete="off" placeholder="Person Name" required readonly value="<?= $ex_row['name']; ?>">
+                                                    <?= $ex_row['name']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="acno[]" id="acno<?= $cn; ?>" value="<?= $ex_row['ac_no']; ?>" autocomplete="off" placeholder="Account No." required readonly>
+                                                    <?= $ex_row['ac_no']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 70px;" type="text" name="bank[]" value="<?= $ex_row['bank']; ?>" id="bank<?= $cn; ?>" autocomplete="off" placeholder="Bank Name" required readonly>
+                                                    <?= $ex_row['bank']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 75px;" type="text" value="<?= $ex_row['ifsc']; ?>" name="ifsc[]" id="ifsc<?= $cn; ?>" autocomplete="off" placeholder="IFSC Code" required readonly>
+                                                    <?= $ex_row['ifsc']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 100px;" type="text" name="branch[]" value="<?= $ex_row['branch']; ?>" id="branch<?= $cn; ?>" autocomplete="off" placeholder="Branch" required readonly>
+                                                    <?= $ex_row['branch']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto('<?= $cn; ?>');" type="text" name="acc_code[]" id="acc_code<?= $cn; ?>" autocomplete="off" placeholder="Acc Code" value="<?= $ex_row['acc_code']; ?>" required>
+                                                    <?= $ex_row['acc_code']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 75px;" type="text" value="<?= $ex_row['date']; ?>" name="date[]" id="date<?= $cn; ?>" autocomplete="off" placeholder="date" required>
+                                                    <?= $ex_row['date']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 75px;" onfocus="cource_auto('<?= $cn; ?>');" type="text" name="course[]" id="course<?= $cn; ?>" autocomplete="off" placeholder="Course" value="<?= $ex_row['cource']; ?>" required>
-
-                                                    <input type="hidden" name="pap_rate[]" id="pap_rate<?= $cn; ?>" value="<?= $ex_row['pap_rate']; ?>">
+                                                    <?= $ex_row['cource']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos<?= $cn; ?>" autocomplete="off" placeholder="Nos" required value="<?= $ex_row['nos']; ?>">
+                                                    <?= $ex_row['nos']; ?>
                                                 </td>
 
                                                 
 
                                                 <td>
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day<?= $cn; ?>" autocomplete="off" placeholder="Day" value="<?= $ex_row['day']; ?>">
+                                                    <?= $ex_row['day']; ?>
                                                 </td>
 
 
                                                 <td>
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['ta']; ?>" name="ta[]" id="ta<?= $cn; ?>" autocomplete="off" placeholder="T.A">
+                                                    <?= $ex_row['ta']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tall_tax']; ?>" name="talltax[]" id="talltax<?= $cn; ?>" autocomplete="off" placeholder="Tall Tax">
+                                                    <?= $ex_row['tall_tax']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="papertotal[]" id="papertotal<?= $cn; ?>" value="<?= $ex_row['paper_total']; ?>" autocomplete="off" placeholder="Paper Setting Total" readonly>
+                                                    <?= $ex_row['paper_total']; ?>
                                                 </td>
 
 
                                                 <td>
-                                                    <input type="text" name="day_tot[]" value="<?= $ex_row['day_all']; ?>" id="day_tot<?= $cn; ?>" autocomplete="off" placeholder="Day Allowance" readonly>
+                                                    <?= $ex_row['day_all']; ?>
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="row_total[]" value="<?= $ex_row['total']; ?>" id="row_total<?= $cn; ?>" autocomplete="off" placeholder="Total" readonly>
-                                                    <input type="hidden" name="type[]" value="D">
+                                                    <?= $ex_row['total']; ?>
                                                 </td>
                                                 
                                             </tr>
@@ -142,66 +124,6 @@
                                         <?php } ?>
 
                                         </tbody>
-
-
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="15" style="padding: 10px;">
-                                                    
-                                                </td>
-                                                
-                                            </tr>
-
-                                            <tr id="">
-
-                                                <td class="text-center">
-                                                    Debit
-                                                    <input type="hidden" name="bill_id[]" value="Credit">
-                                                </td>
-
-                                                
-
-                                                <td>
-                                                    <input type="text" name="name[]" id="namelast" autocomplete="off" value="<?= $last_row[0]['name'] ?>" placeholder="Person Name" required readonly>
-                                                </td>
-
-                                                <td>
-                                                    <input type="text" name="acno[]" id="acnolast" autocomplete="off" value="<?= $last_row[0]['ac_no'] ?>" placeholder="Account No." required readonly>
-                                                </td>
-
-                                                <td>
-                                                    <input style="width: 70px;" type="text" name="bank[]" id="banklast" value="<?= $last_row[0]['bank'] ?>" autocomplete="off" placeholder="Bank Name" required readonly>
-                                                </td>
-
-                                                <td>
-                                                    <input style="width: 75px;" type="text" name="ifsc[]" value="<?= $last_row[0]['ifsc'] ?>" id="ifsclast" autocomplete="off" placeholder="IFSC Code" required readonly>
-                                                </td>
-
-                                                <td>
-                                                    <input style="width: 100px;" type="text" name="branch[]" value="<?= $last_row[0]['branch'] ?>" id="branchlast" autocomplete="off" placeholder="Branch" required readonly>
-                                                </td>
-
-                                                <td>
-                                                    <input style="width: 80px;" onfocus="acc_auto_last('last');" type="text" name="acc_code[]" id="acc_codelast" autocomplete="off" placeholder="Acc Code" value="<?= $last_row[0]['acc_code'] ?>" required>
-                                                </td>
-
-                                                <input type="hidden" name="pap_rate[]" id="" value="">
-                                                <input type="hidden" name="date[]">
-                                                <input type="hidden" name="course[]">
-                                                <input type="hidden" name="nos[]">
-                                                <input type="hidden" name="day[]">
-                                                <input type="hidden" name="ta[]">
-                                                <input type="hidden" name="talltax[]" >
-                                                <input type="hidden" name="papertotal[]">
-                                                <input type="hidden" name="day_tot[]">
-                                                
-
-                                                <td colspan="10">
-                                                    <input type="text" name="row_total[]" id="main_total" value="<?= $last_row[0]['total'] ?>" autocomplete="off" placeholder="Total" readonly>
-                                                    <input type="hidden" name="type[]" value="C">
-                                                </td>
-                                            </tr>
-                                        </tfoot>
 
 
                                     </table>
@@ -215,28 +137,82 @@
 
                     </div>
                 </div>
-                <input type="hidden" name="file_id" value="<?= $file['id']; ?>">
-                <input type="hidden" name="file_name" value="<?= $file['file_name']; ?>">
             </form>
         </div>
     </section>
 
 
-    
-
-    <style type="text/css">
-        input:hover{
-            width:200px !important;
-            font-size: 16px;
-            padding: 5px;
-        }
-    </style>
-
-
     <script type="text/javascript">
-        
         $(function(){
-            $('input').attr('readonly',true);
-        })
+            $('table').DataTable({
+                "dom": "<'row'<'col-md-12 my-marD'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
+                "columnDefs": [
+                    
+                    
+                        { "orderable": false, "targets": [7] }
+                        
+                    
+                ],
+                autoWidth: true,
+                order : [],
+                "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [ 
+                    { 
+                        extend: 'print',
+                        orientation: 'landscape',
+                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        customize: function(win)
+                        {
+             
+                            
 
+                            $(win.document.body).find( 'table' )
+                                .addClass( 'compact' )
+                                .css( {
+                                    fontSize: '10px'
+                                } );
+
+
+                                var last = null;
+                var current = null;
+                var bod = [];
+ 
+                var css = '@page { size: landscape; }',
+                    head = win.document.head || win.document.getElementsByTagName('head')[0],
+                    style = win.document.createElement('style');
+ 
+                style.type = 'text/css';
+                style.media = 'print';
+ 
+                if (style.styleSheet)
+                {
+                  style.styleSheet.cssText = css;
+                }
+                else
+                {
+                  style.appendChild(win.document.createTextNode(css));
+                }
+ 
+                head.appendChild(style);
+                        }
+                    },
+                    { 
+                        extend: 'pdf',
+                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        customize: function (doc) { 
+                            doc.defaultStyle.fontSize = 7;
+                            doc.styles.tableHeader.fontSize = 8; 
+                        }
+                    },
+                    { 
+                        extend: 'excel',
+                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        
+                    }
+                ]
+                
+            });
+        })
     </script>

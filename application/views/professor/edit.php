@@ -112,6 +112,8 @@
                                                 <option value="Petrol" <?php if('Petrol' == set_value('fule',$professor['fule'])){ echo "selected"; } ?>>Petrol</option>
                                                 <option value="Diesel" <?php if('Diesel' == set_value('fule',$professor['fule'])){ echo "selected"; } ?>>Diesel</option>
                                                 <option value="Gas" <?php if('Gas' == set_value('fule',$professor['fule'])){ echo "selected"; } ?>>Gas</option>
+                                                <option value="Petro/LPG" <?php if('Petro/LPG' == set_value('fule',$professor['fule'])){ echo "selected"; } ?>>Petro/LPG</option>
+                                                <option value="Petrol/CNG" <?php if('Petrol/CNG' == set_value('fule',$professor['fule'])){ echo "selected"; } ?>>Petrol/CNG</option>
                                             </select>
                                             <?php echo form_error('fule'); ?>
                                         </div>
