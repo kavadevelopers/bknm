@@ -23,6 +23,7 @@ class User extends CI_Controller {
 	{
 		$data['_title']				= "Add User";
 		$data['finicial_years']		= $this->general_model->get_all_finincial_year();
+		$data['user_rights']		= $this->db->get('user_rights')->result_array();
 		$this->load->template('user/add',$data);	
 	}
 
@@ -33,6 +34,7 @@ class User extends CI_Controller {
 				$data['_title']		= "Edit User";
 				$data['user']		= $this->user_model->user_from_id($user_id)[0];
 				$data['finicial_years']		= $this->general_model->get_all_finincial_year();
+				$data['user_rights']		= $this->db->get('user_rights')->result_array();
  				$this->load->template('user/edit',$data);
 			}
 			else{
@@ -100,11 +102,13 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('pass', 'Password', 'min_length[5]|max_length[20]|required');
 		$this->form_validation->set_rules('con_pass', 'Confirm Password', 'required|matches[pass]');
 		$this->form_validation->set_rules('f_year[]', 'Check box', 'required',array('required' => 'Please Select At least One Finincial Year'));
+		$this->form_validation->set_rules('rights[]', 'Check box', 'trim');
 
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data['_title']		= "Add User";
 			$data['finicial_years']		= $this->general_model->get_all_finincial_year();
+			$data['user_rights']		= $this->db->get('user_rights')->result_array();
 			$this->load->template('user/add',$data);
 		}
 		else
@@ -115,6 +119,12 @@ class User extends CI_Controller {
 			}
 			$f_year = rtrim($f_year,',');
 
+			$rights = '';
+			foreach ($this->input->post('rights') as $key => $value) {
+				$rights .= $value.',';
+			}
+			$rights = rtrim($rights,',');
+
 			$user_insert = array(
 		        'user_type'           => 	'user',
 		        'user_name'           => 	strtolower($this->input->post('user_name')),
@@ -123,6 +133,7 @@ class User extends CI_Controller {
 		        'email'               => 	$this->input->post('email'),
 		        'mobile'              => 	$this->input->post('mobile'),
 		        'year'	              => 	$f_year,
+		        'rights'			  =>	$rights,
 		        'created_by'		  => 	$this->session->userdata('id'),
 		        'updated_by'		  => 	$this->session->userdata('id'),
 		        'created_at' 		  => 	date('Y-m-d H:i:s'),
@@ -157,11 +168,13 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|max_length[100]|callback_email_unique['.$this->input->post('user_id').']');
 		$this->form_validation->set_rules('user_id', 'user_id', 'trim');
 		$this->form_validation->set_rules('f_year[]', 'Check box', 'required',array('required' => 'Please Select At least One Finincial Year'));
+		$this->form_validation->set_rules('rights[]', 'Check box', 'trim');
 
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data['_title']				= "Edit User";
 			$data['finicial_years']		= $this->general_model->get_all_finincial_year();
+			$data['user_rights']		= $this->db->get('user_rights')->result_array();
 			$data['user']				= $this->user_model->user_from_id($this->input->post('user_id'))[0];
 			$this->load->template('user/edit',$data);
 		}
@@ -173,11 +186,18 @@ class User extends CI_Controller {
 				$f_year .= $value.',';
 			}
 			$f_year = rtrim($f_year,',');
+
+			$rights = '';
+			foreach ($this->input->post('rights') as $key => $value) {
+				$rights .= $value.',';
+			}
+			$rights = rtrim($rights,',');
 			
 			$user_insert = array(
 		        'name'		          => 	$this->input->post('name'),
 		        'email'               => 	$this->input->post('email'),
 		        'year'	              => 	$f_year,
+		        'rights'			  =>	$rights,
 		        'mobile'              => 	$this->input->post('mobile'),
 		        'updated_by'		  => 	$this->session->userdata('id'),
 		        'updated_at' 		  => 	date('Y-m-d H:i:s')

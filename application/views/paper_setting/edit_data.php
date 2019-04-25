@@ -12,7 +12,7 @@
         	<div class="row mb-2">
           		<div class="col-md-12">
             		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
-                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )</h1>
+                    <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
           		</div>
         	</div>
       	</div>
@@ -56,6 +56,7 @@
                                                 <th class="text-center">Paper Setting Total</th>
                                                 <th class="text-center">Day Allowance</th>
                                                 <th class="text-center">Total</th>
+                                                <th class="text-center">Message</th>
                                             </tr>
                                         </thead>
                                         <tbody id="add_row">
@@ -136,6 +137,10 @@
                                                     <input type="text" name="row_total[]" value="<?= $ex_row['total']; ?>" id="row_total<?= $cn; ?>" autocomplete="off" placeholder="Total" readonly>
                                                     <input type="hidden" name="type[]" value="C">
                                                 </td>
+
+                                                <td>
+                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>">
+                                                </td>
                                                 
                                             </tr>
 
@@ -178,6 +183,7 @@
                                                 
                                                 <input type="hidden" name="branch[]">
                                                 
+                                                <input type="hidden" name="message[]">
 
                                                 
                                                 <input type="hidden" name="acc_code[]">
@@ -193,7 +199,7 @@
                                                 <input type="hidden" name="day_tot[]">
                                                 
 
-                                                <td colspan="10">
+                                                <td colspan="11">
                                                     <input type="text" name="row_total[]" id="main_total" value="<?= $last_row[0]['total'] ?>" autocomplete="off" placeholder="Total" readonly>
                                                     <input type="hidden" name="type[]" value="D">
                                                 </td>
@@ -210,6 +216,9 @@
 
                             <div class="card-footer">
                                 <div class="float-right">
+                                    <a href="<?= base_url(); ?>paper_setting/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
+                                        View
+                                    </a>
                                     <a href="<?= base_url(); ?>paper_setting" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
                                         Cancel
                                     </a>
@@ -402,7 +411,7 @@
             if(parseInt('<?= $file_limit; ?>') > i){
                 if($('#tr'+(i + 1)).length == 0){
                     i++;
-                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input type="text" onfocus="change_focus_to_acc('+i+');" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td> <input style="width: 75px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Paper Setting Total" readonly> </td><td> <input type="text" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td></tr>');
+                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input type="text" onfocus="change_focus_to_acc('+i+');" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td> <input style="width: 75px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Paper Setting Total" readonly> </td><td> <input type="text" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td><td><input type="text" name="message[]" id="message1" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>"></td></tr>');
                 }
             }
         }

@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('dashboard_model');
         $this->load->model('setting_model');
         $this->load->model('user_model');
+        $this->load->model('general_model');
     }
 
 

@@ -23,6 +23,9 @@ class Professor extends CI_Controller {
 
 	public function add()
 	{	
+		if(!check_right('15')){
+			redirect(base_url('error404'));
+		}
 		$data['_title']		= "Add Professor";
 		$data['ifsc_all']	= $this->ifsc_model->ifsc_all();
 		$this->load->template('professor/add',$data);
@@ -41,6 +44,12 @@ class Professor extends CI_Controller {
                 echo json_encode($arr_result);
             }
         }
+    }
+
+    public function chk_name()
+    {
+    	$this->db->where('name',$this->input->post('name'));
+    	echo $this->db->get('professor')->num_rows();
     }
 
 
@@ -65,6 +74,9 @@ class Professor extends CI_Controller {
 
 	public function edit($id = false)
 	{	
+		if(!check_right('16')){
+			redirect(base_url('error404'));
+		}
 		if($id){
 			if($this->professor_model->professor_df_id($id)){
 				$data['_title']			= "Edit Professor";
@@ -85,6 +97,9 @@ class Professor extends CI_Controller {
 
 	public function delete($id = false)
 	{
+		if(!check_right('17')){
+			redirect(base_url('error404'));
+		}
 		if($id){
 			if($this->professor_model->professor_df_id($id)){
 				
@@ -302,15 +317,25 @@ class Professor extends CI_Controller {
             $sub_array[] = $row->ifsc;  
             $sub_array[] = $this->user_model->_user($row->created_by)[0]['name'];  
             $sub_array[] = _vdatetime($row->created_at);  
-            $sub_array[] = '<a class="btn btn-sm btn-default" href="'.base_url('professor/view/').$row->id.'" title="View">
-            					<i class="fa fa-search"></i>
-                            </a> 
-                            <a class="btn btn-sm btn-primary" href="'.base_url('professor/edit/').$row->id.'" title="Edit">
-                                <i class="fa fa-edit"></i>
-                            </a> 
-                            <a class="btn btn-sm btn-danger" href="'.base_url('professor/delete/').$row->id.'" onclick=\'return confirm("Are you Sure You Want to Delete this Professor ?")\' title="Delete">
+
+
+            $action_string = '	<a class="btn btn-sm btn-default" href="'.base_url('professor/view/').$row->id.'" title="View">
+            						<i class="fa fa-search"></i>
+                            	</a>';
+
+           	if(check_right('16')){
+           		$action_string .= '	<a class="btn btn-sm btn-primary" href="'.base_url('professor/edit/').$row->id.'" title="Edit">
+		                                <i class="fa fa-edit"></i>
+		                            </a>';
+           	}	
+
+           	if(check_right('17')){
+           		$action_string .= ' <a class="btn btn-sm btn-danger" href="'.base_url('professor/delete/').$row->id.'" onclick=\'return confirm("Are you Sure You Want to Delete this Professor ?")\' title="Delete">
            	                    <i class="fa fa-trash"></i>
-           	                </a>';  
+           	                </a>';
+           	}
+
+            $sub_array[] = $action_string;  
             
             $data[] = $sub_array;  
        }  

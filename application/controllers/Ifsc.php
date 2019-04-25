@@ -20,6 +20,10 @@ class Ifsc extends CI_Controller {
 
 	public function add()
 	{	
+
+		if(!check_right('12')){
+			redirect(base_url('error404'));
+		}
 		$data['_title']			= "Add Ifsc Code";
 		$this->load->template('ifsc/add',$data);
 	}
@@ -46,6 +50,10 @@ class Ifsc extends CI_Controller {
 
 	public function edit($id = false)
 	{	
+
+		if(!check_right('13')){
+			redirect(base_url('error404'));
+		}
 		if($id){
 			if($this->ifsc_model->ifsc_id($id)){
 				$data['_title']			= "Edit Ifsc Code";
@@ -65,6 +73,9 @@ class Ifsc extends CI_Controller {
 
 	public function delete($id = false)
 	{	
+		if(!check_right('14')){
+			redirect(base_url('error404'));
+		}
 		if($id){
 			if($this->ifsc_model->ifsc_id($id)){
 					
@@ -254,15 +265,25 @@ class Ifsc extends CI_Controller {
             $sub_array[] = $row->state;  
             $sub_array[] = $this->user_model->_user($row->created_by)[0]['name'];  
             $sub_array[] = _vdatetime($row->created_at);  
-            $sub_array[] = '<a class="btn btn-sm btn-default" href="'.base_url('ifsc/view/').$row->id.'" title="View">
-            					<i class="fa fa-search"></i>
-                            </a> 
-                            <a class="btn btn-sm btn-primary" href="'.base_url('ifsc/edit/').$row->id.'" title="Edit">
-                                <i class="fa fa-edit"></i>
-                            </a> 
-                            <a class="btn btn-sm btn-danger" href="'.base_url('ifsc/delete/').$row->id.'" onclick=\'return confirm("Are you Sure You Want to Delete this Ifsc Detail ?")\' title="Delete">
+
+            $action_string = '	<a class="btn btn-sm btn-default" href="'.base_url('ifsc/view/').$row->id.'" title="View">
+            						<i class="fa fa-search"></i>
+                            	</a>';
+
+           	if(check_right('13')){
+           		$action_string .= '	<a class="btn btn-sm btn-primary" href="'.base_url('ifsc/edit/').$row->id.'" title="Edit">
+                                		<i class="fa fa-edit"></i>
+                            		</a>';
+           	}	
+
+           	if(check_right('14')){
+           		$action_string .= ' <a class="btn btn-sm btn-danger" href="'.base_url('ifsc/delete/').$row->id.'" onclick=\'return confirm("Are you Sure You Want to Delete this Ifsc Detail ?")\' title="Delete">
            	                    <i class="fa fa-trash"></i>
-           	                </a>';  
+           	                </a>';
+           	}
+
+
+            $sub_array[] = $action_string;  
             
             $data[] = $sub_array;  
        }  

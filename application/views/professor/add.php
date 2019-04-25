@@ -30,6 +30,7 @@
                                             <label>Full Name <span class="astrick">*</span></label>
                                             <input class="form-control form-control-sm" id="name" value="<?php echo set_value('name'); ?>" type="text" name="name" placeholder="Full Name" autocomplete="off" spellcheck="false">
                                             <?php echo form_error('name'); ?>
+                                            <span id="warning_name" style="color: #e4e40d;font-weight: bold;"></span>
                                         </div>
                                     </div>
 
@@ -175,6 +176,27 @@
                 } 
             });
 
+            $('#name').keyup(function(){
+                var name = $('#name').val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('professor/chk_name') ?>",
+                    data: "name="+name,
+                    success: function (data) {
+                       
+                        if(data <= 0)
+                        {
+                            $('#warning_name').html('');
+                        }
+                        else{
+                            $('#warning_name').html("&#9888; Professor name already exists");
+                        }
+
+                    }
+                });
+            });
+
         })
+
 
     </script>

@@ -7,9 +7,11 @@
           		<div class="col-sm-6">
             		<h1 class="m-0 text-dark"><?php echo $_title; ?></h1>
           		</div>
-                <div class="col-sm-6">
-                    <a href="<?= base_url('ifsc/add'); ?>" class="float-sm-right btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Add New</a>
-                </div>
+                <?php if(check_right('12')){ ?>
+                    <div class="col-sm-6">
+                        <a href="<?= base_url('ifsc/add'); ?>" class="float-sm-right btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Add New</a>
+                    </div>
+                <?php } ?>
         	</div>
       	</div>
     </div>
@@ -48,7 +50,11 @@
       	</div>
     </section>
 
-
+    <style type="text/css">
+        tr > td:last-of-type {
+            text-align: center;
+        }
+    </style>
 
     <script type="text/javascript">
         $(function(){

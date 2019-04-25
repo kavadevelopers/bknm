@@ -5,7 +5,7 @@
         	<div class="row mb-2">
           		<div class="col-md-12">
             		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
-                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )</h1>
+                    <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
                      
           		</div>
         	</div>
@@ -116,7 +116,7 @@
                                                     </td>
 
                                                     <td style="font-size: 10px; ">
-                                                        "OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU"
+                                                        <?= $res_rows['message'] ?>
                                                     </td>
 
                                                 </tr>
@@ -156,7 +156,7 @@
                     { 
                         extend: 'print',
                         orientation: 'landscape',
-                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        title: '<?php echo $_title; ?> - <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )',
                         customize: function(win)
                         {
              
@@ -194,7 +194,7 @@
                     },
                     { 
                         extend: 'pdf',
-                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        title: '<?php echo $_title; ?> - <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )',
                         orientation: 'landscape',
                         pageSize: 'A4',
                         customize: function (doc) { 
@@ -204,7 +204,7 @@
                     },
                     { 
                         extend: 'excel',
-                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        title: '<?php echo $_title; ?> - <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )',
                         
                     }
                 ]

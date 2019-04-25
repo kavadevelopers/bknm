@@ -7,7 +7,7 @@
 
     <style type="text/css">
         @media print {
-            @page { margin: 0 10px 0 10px; }
+            @page { margin: 0 10px 0 10px; size:	A4 landscape; }
 
             ._bg{ 
             	background-color: #a90e10 !important;
@@ -46,7 +46,11 @@
             padding-left: 30px !important;
         }
 
-        
+        .table td, .table th
+        {
+        	padding: 1px 2px;
+
+        }
 
         
 
@@ -67,11 +71,11 @@
 					<table class="table table-bordered" style="font-size: 12px;">
 						<thead>
 							<tr>
-								<th class="th-border" style="width: 136px;">
+								<th class="th-border" style="width: 100px; text-align: center;">
 									<img src="<?= base_url() ?>/image/logo.png">
 								</th>
 								<th colspan="8" class="th-border" style="text-align: center;line-height: 106px; font-size: 30px; font-weight: bold;">
-									BHAKTA KAVI NARSINH MEHTA UNIVERSITY, JUNAGADH
+									<?=$this->config->config["Full_name"]?>
 								</th>
 							</tr>
 							<tr>
@@ -79,7 +83,7 @@
 									File-<?= $file['no'] ?>
 								</th>
 								<th colspan="8" class="th-border" style="text-align: center; font-size: 20px;">
-									PAPER SETTING PAYMENT SEM 1 - 3 - 5 ( <?= $this->session->userdata('year') ?> )
+									<?= $file['title']; ?> ( <?= $this->session->userdata('year') ?> )
 								</th>
 							</tr>
 							<tr>
@@ -101,7 +105,7 @@
 								<th style="text-align: center; width: 15px;" >
 									Saving Or Current
 								</th>
-								<th style="text-align: center;">
+								<th style="text-align: center; width: 250px;">
 									Name Of Person
 								</th>
 								<th style="text-align: center;">
@@ -169,7 +173,7 @@
 										</td>
 
 										<td style="font-size: 10px; ">
-											"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU"
+											<?= $res_rows['message'] ?>
 										</td>
 
 									</tr>

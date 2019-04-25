@@ -4,8 +4,7 @@
       	<div class="container-fluid">
         	<div class="row mb-2">
           		<div class="col-md-12">
-            		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
-                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )</h1>
+            		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
                      
           		</div>
         	</div>
@@ -130,7 +129,7 @@
                                                     </td>
 
                                                     <td style="font-size: 10px; ">
-                                                        "OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU"
+                                                        <?= $res_rows['message'] ?>
                                                     </td>
                                                     
                                                     

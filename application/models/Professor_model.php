@@ -70,18 +70,32 @@ class Professor_model extends CI_Model
         return $this->db->count_all_results();  
     }
 
-
+    public function chek_rows_acc_auto($val)
+    {
+    	$this->db->like('acc_code', $val);
+    	return $this->db->get('professor')->num_rows();
+    }
 
 
     public function acc_autocom($val)
     {
-    	$this->db->like('acc_code', $val);
-    	$this->db->or_like('name', $val);
-    	$this->db->or_like('acno', $val);
-
-        $this->db->order_by('id', 'ASC');
-        $this->db->limit(10);
-   	    return $this->db->get('professor')->result();
+    	
+    	
+    	if($this->chek_rows_acc_auto($val) > 0)
+    	{
+    		$this->db->like('acc_code', $val);
+    		$this->db->order_by('id', 'ASC');
+	        $this->db->limit(10);
+	   	    return $this->db->get('professor')->result();
+    	}
+    	else{
+    		$this->db->like('acc_code', $val);
+    		$this->db->or_like('name', $val);
+    		$this->db->or_like('acno', $val);
+    		$this->db->order_by('id', 'ASC');
+	        $this->db->limit(10);
+	   	    return $this->db->get('professor')->result();
+    	}
     }
 
     public function course_autocom($val)

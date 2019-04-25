@@ -112,6 +112,49 @@
                             </div>
                         </div>
 
+                        <div class="card card-info"> 
+                            <div class="card-header">
+                                <h3 class="card-title">Select Rights</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <?php foreach($user_rights as $key => $row){ ?>
+
+                                        <div class="col-md-3">
+                                            <label class="container"><?= $row['name']; ?>
+                                                <input type="checkbox" name="rights[]" value="<?= $row['id']; ?>" 
+
+                                                    <?php if(!empty(validation_errors())){ ?>  
+                                                        <?php if(set_value('rights')){ foreach (set_value('rights') as $c_key => $set_val) {
+                                                            if($set_val == $row['id']){
+                                                                echo "checked";
+                                                            }
+                                                        } }?>
+
+                                                    <?php }else{ ?>
+
+                                                        <?php foreach (explode(',',$user['rights']) as $c_key => $set_val) {
+                                                            if($set_val == $row['id']){
+                                                                echo "checked";
+                                                            }
+                                                        } ?>
+
+                                                    <?php } ?>>
+
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+
+                                    <?php } ?>
+                                    <div class="col-md-12">
+                                        <?php echo form_error('rights[]'); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card">
                             <div class="card-footer">
                                 <div class="float-right">

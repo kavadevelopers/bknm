@@ -8,7 +8,9 @@
             		<h1 class="m-0 text-dark"><?php echo $_title; ?></h1>
           		</div>
                 <div class="col-sm-6">
-                    <a href="<?= base_url('professor/add'); ?>" class="float-sm-right btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Add New</a>
+                    <?php if(check_right('15')){ ?>
+                        <a href="<?= base_url('professor/add'); ?>" class="float-sm-right btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Add New</a>
+                    <?php } ?>
                 </div>
         	</div>
       	</div>
@@ -48,7 +50,11 @@
       	</div>
     </section>
 
-
+    <style type="text/css">
+        tr > td:last-of-type {
+            text-align: center;
+        }
+    </style>
 
     <script type="text/javascript">
         $(function(){

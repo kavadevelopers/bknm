@@ -25,6 +25,15 @@ class Paper_setting extends CI_Controller {
 		$this->load->template('paper_setting/file',$data);
 	}
 
+	public function add_file_view()
+	{
+		if(!check_right('1')){
+			redirect(base_url('error404'));
+		}
+		$data['_title']				= "Add New File - Paper Setting";
+		$this->load->template('paper_setting/add_filee',$data);
+	}
+
 	public function add_file()
 	{
 		
@@ -42,6 +51,8 @@ class Paper_setting extends CI_Controller {
 						'no'			=> 	$no,
 						'head'			=> 	'1',
 						'file_name'		=> 	'paper_setting_file'.$no,
+						'title'			=>	$this->input->post('title'),
+						'message'			=>	$this->input->post('message'),
 						'year'			=>	$this->session->userdata('year'),
 						'created_by'	=> 	$this->session->userdata('id'),
 						'updated_by'	=> 	$this->session->userdata('id'),
@@ -71,6 +82,7 @@ class Paper_setting extends CI_Controller {
 						`paper_total` text NOT NULL,
 						`day_all` text NOT NULL,
 						`total` text NOT NULL,
+						`message` text NOT NULL,
 						PRIMARY KEY (`id`)
 					)';
 			if($this->year->query($query)){
@@ -97,11 +109,15 @@ class Paper_setting extends CI_Controller {
 
 	public function add_data($id = false)
 	{
+		if(!check_right('5')){
+			redirect(base_url('error404'));
+		}
 		if($id){
 			if($this->general_model->get_original_file($id,'1'))
 			{
 
 				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
+				$data['_id']			= $id;
 				$data['_title']			= 'Paper Setting - File-'.$data['file']['no'];
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->result_array();
@@ -128,6 +144,9 @@ class Paper_setting extends CI_Controller {
 
 	public function view_data($id = false)
 	{
+		if(!check_right('6')){
+			redirect(base_url('error404'));
+		}
 		if($id){
 			if($this->general_model->get_original_file($id,'1'))
 			{
@@ -135,11 +154,43 @@ class Paper_setting extends CI_Controller {
 				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
 				$data['_title']			= 'Paper Setting - File-'.$data['file']['no'];
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
-				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->result_array();
+				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit','acc_code !=' => ''])->result_array();
 				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
 				
 				if($data['old_data_num'] > 0){
 					$this->load->template('paper_setting/view',$data);
+				}else{
+					$this->session->set_flashdata('error', 'No Data Found');
+		        	redirect(base_url().'paper_setting');
+				}
+			}
+			else{
+				$this->session->set_flashdata('error', 'File Not Found');
+		        redirect(base_url().'paper_setting');
+			}
+		}
+		else{
+			
+			$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'paper_setting');
+			
+		}
+	}
+
+	public function view_data_print($id = false)
+	{
+		if($id){
+			if($this->general_model->get_original_file($id,'1'))
+			{
+
+				$data['file']			= $this->general_model->get_original_file($id,'1')[0];
+				$data['_title']			= 'Paper Setting - File-'.$data['file']['no'];
+				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
+				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit','acc_code !=' => ''])->result_array();
+				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
+				
+				if($data['old_data_num'] > 0){
+					$this->load->view('paper_setting/view_user_print',$data);
 				}else{
 					$this->session->set_flashdata('error', 'No Data Found');
 		        	redirect(base_url().'paper_setting');
@@ -205,6 +256,7 @@ class Paper_setting extends CI_Controller {
     		$this->year->query('TRUNCATE TABLE '.$this->input->post('file_name'));    	
     	}
 
+    	
     	foreach ($this->input->post('bill_id') as $key => $value) {
     		
     		$data 	=	[
@@ -225,7 +277,8 @@ class Paper_setting extends CI_Controller {
     						'paper_total'	=>	$this->input->post('papertotal')[$key],
     						'day_all'		=>	$this->input->post('day_tot')[$key],
     						'total'			=>	$this->input->post('row_total')[$key],
-    						'type'			=>	$this->input->post('type')[$key]
+    						'type'			=>	$this->input->post('type')[$key],
+    						'message'		=>	$this->input->post('message')[$key]
     					];
 
 
@@ -241,6 +294,9 @@ class Paper_setting extends CI_Controller {
 
     public function bank_download($id = false)
     {
+    	if(!check_right('10')){
+			redirect(base_url('error404'));
+		}
 
     	if($id){
 
@@ -373,7 +429,7 @@ class Paper_setting extends CI_Controller {
 				        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 				        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
 
-				        $sheet->setCellValue('H'.$counter,"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU");
+				        $sheet->setCellValue('H'.$counter,$res_rows['message']);
 				        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 				        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
 
@@ -490,7 +546,9 @@ class Paper_setting extends CI_Controller {
 
     public function corp_download($id = false)
     {
-
+    	if(!check_right('11')){
+			redirect(base_url('error404'));
+		}
     	if($id){
     		
 			if($this->general_model->get_original_file($id,'1'))
@@ -623,7 +681,7 @@ class Paper_setting extends CI_Controller {
 				        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 				        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
 
-				        $sheet->setCellValue('H'.$counter,"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU");
+				        $sheet->setCellValue('H'.$counter,$res_rows['message']);
 				        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 				        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
 
@@ -742,6 +800,9 @@ class Paper_setting extends CI_Controller {
 
     public function print_bank($id = false)
     {
+    	if(!check_right('8')){
+			redirect(base_url('error404'));
+		}
     	if($id){
 			if($this->general_model->get_original_file($id,'1'))
 			{
@@ -766,6 +827,9 @@ class Paper_setting extends CI_Controller {
 
     public function view_bills($id = false)
     {
+    	if(!check_right('7')){
+			redirect(base_url('error404'));
+		}
     	if($id){
 			if($this->general_model->get_original_file($id,'1'))
 			{
@@ -790,6 +854,9 @@ class Paper_setting extends CI_Controller {
 
     public function print_corp_bank($id = false)
     {
+    	if(!check_right('9')){
+			redirect(base_url('error404'));
+		}
     	if($id){
 			if($this->general_model->get_original_file($id,'1'))
 			{
@@ -815,6 +882,9 @@ class Paper_setting extends CI_Controller {
 
     public function view_all_bank()
     {
+    	if(!check_right('4')){
+			redirect(base_url('error404'));
+		}
     	$data['_title']			= "View All Data";
     	$data['files']				= $this->general_model->get_all_files('1',$this->session->userdata('year'));
 		$this->load->template('paper_setting/view_all_bills',$data);
@@ -822,7 +892,9 @@ class Paper_setting extends CI_Controller {
 
     public function export_all_bank()
     {
-    	
+    	if(!check_right('2')){
+			redirect(base_url('error404'));
+		}
     	$year_active  	= $this->session->userdata('year');
     	$data['files']	= $this->general_model->get_all_files('1',$this->session->userdata('year'));
     	if($data['files'])
@@ -968,7 +1040,7 @@ class Paper_setting extends CI_Controller {
 					        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 					        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
 
-					        $sheet->setCellValue('H'.$counter,"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU");
+					        $sheet->setCellValue('H'.$counter,$res_rows['message']);
 					        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 					        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
 
@@ -1085,7 +1157,9 @@ class Paper_setting extends CI_Controller {
 
     public function export_all_corp()
     {
-    	
+    	if(!check_right('3')){
+			redirect(base_url('error404'));
+		}
     	$year_active  	= $this->session->userdata('year');
     	$data['files']	= $this->general_model->get_all_files('1',$this->session->userdata('year'));
     	if($data['files'])
@@ -1231,7 +1305,7 @@ class Paper_setting extends CI_Controller {
 					        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 					        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
 
-					        $sheet->setCellValue('H'.$counter,"OTHER/PAPER SETTING PAYMENT SEM 1 -3 - 5 BKNMU");
+					        $sheet->setCellValue('H'.$counter,$res_rows['message']);
 					        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 					        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
 
@@ -1351,6 +1425,7 @@ class Paper_setting extends CI_Controller {
 
     public function _bac_bank_download($id = false)
     {
+
 
     	if($id){
 			if($this->general_model->get_original_file($id,'1'))

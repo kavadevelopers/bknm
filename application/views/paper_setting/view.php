@@ -5,7 +5,7 @@
         	<div class="row mb-2">
           		<div class="col-md-12">
             		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
-                    PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )</h1>
+                    <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
                      
           		</div>
         	</div>
@@ -22,6 +22,7 @@
                         <div class="card card-info"  style="overflow-x: scroll;"> 
 
                             <div class="card-body">
+                                <a href="<?= base_url('paper_setting/view_data_print/').$file['id'] ?>" target="_blank" class="btn btn-sm btn-secondary pull-right" style="color: #fff;">Print</a>
                                 <div class="row">
 
 
@@ -44,6 +45,8 @@
                                                 <th class="text-center">Paper Setting Total</th>
                                                 <th class="text-center">Day Allowance</th>
                                                 <th class="text-center">Total</th>
+                                                <th class="text-center">Message</th>
+
                                             </tr>
                                         </thead>
                                         <tbody id="add_row">
@@ -118,6 +121,10 @@
                                                 <td>
                                                     <?= $ex_row['total']; ?>
                                                 </td>
+
+                                                <td>
+                                                    <?= $ex_row['message']; ?>
+                                                </td>
                                                 
                                             </tr>
 
@@ -158,47 +165,8 @@
                 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 buttons: [ 
                     { 
-                        extend: 'print',
-                        orientation: 'landscape',
-                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
-                        customize: function(win)
-                        {
-             
-                            
-
-                            $(win.document.body).find( 'table' )
-                                .addClass( 'compact' )
-                                .css( {
-                                    fontSize: '10px'
-                                } );
-
-
-                                var last = null;
-                var current = null;
-                var bod = [];
- 
-                var css = '@page { size: landscape; }',
-                    head = win.document.head || win.document.getElementsByTagName('head')[0],
-                    style = win.document.createElement('style');
- 
-                style.type = 'text/css';
-                style.media = 'print';
- 
-                if (style.styleSheet)
-                {
-                  style.styleSheet.cssText = css;
-                }
-                else
-                {
-                  style.appendChild(win.document.createTextNode(css));
-                }
- 
-                head.appendChild(style);
-                        }
-                    },
-                    { 
                         extend: 'pdf',
-                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        title: '<?php echo $_title; ?> - <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )',
                         orientation: 'landscape',
                         pageSize: 'A4',
                         customize: function (doc) { 
@@ -208,7 +176,7 @@
                     },
                     { 
                         extend: 'excel',
-                        title: '<?php echo $_title; ?> - PRACTICAL EXAM REMUNARATION BILL PAYMENT ( <?= $this->session->userdata('year'); ?> )',
+                        title: '<?php echo $_title; ?> - <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )',
                         
                     }
                 ]

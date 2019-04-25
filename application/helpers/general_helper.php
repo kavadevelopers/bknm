@@ -42,4 +42,63 @@ function _checked($val1,$val2)
     }
 }
 
+function moneyFormatIndia($num) {
+    $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::CURRENCY);
+    return $fmt->format($num);
+}
+
+
+function check_right($right)
+{
+    $CI =& get_instance();
+    if($CI->session->userdata('id') != '1'){
+        $counter = 0; 
+        $user = $CI->db->get_where('user',['id' => $CI->session->userdata('id')])->result_array()[0];
+        foreach (explode(',',$user['rights']) as $key => $value) {
+            if($value == $right){
+                $counter++;
+            }
+        }
+
+        if($counter > 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return true;
+    }
+}
+
+function check_rights_column($rights)
+{
+    $CI =& get_instance();
+    if($CI->session->userdata('id') != '1'){
+        $counter = 0; 
+        $user = $CI->db->get_where('user',['id' => $CI->session->userdata('id')])->result_array()[0];
+        foreach (explode(',',$user['rights']) as $key => $value) {
+            if(in_array($value, $rights)){
+                $counter++;
+            }
+        }
+
+        if($counter > 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return true;
+    }
+}
+
+
+
+
 ?>
