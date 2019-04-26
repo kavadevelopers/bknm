@@ -85,9 +85,17 @@
                                                     <td><?= _vdatetime($value['created_at']) ?></td>
                                                     <td class="text-center">
 
+                                                        <?php if($value['id'] == '1'){ ?>
                                                         <a class="btn btn-sm btn-primary" href="<?= base_url();?>setting/edit_head/<?= $value['id'];?>" title="Edit">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
+                                                        <?php }else if($value['id'] == '2'){ ?>
+
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>head_edit/edit_squad" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+
+                                                        <?php } ?>
 
                                                         <!-- <a class="btn btn-sm btn-danger" href="<?= base_url();?>setting/delete_head/<?= $value['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this Head Name ?');" title="Delete">
                                                             <i class="fa fa-trash"></i>

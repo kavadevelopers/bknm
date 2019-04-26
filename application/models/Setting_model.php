@@ -16,7 +16,7 @@ class Setting_model extends CI_Model
 
 	public function head_all(){
 
-		return $this->db->order_by('id', 'DESC')->get_where('head',['delete_flag' => '0'])->result_array();
+		return $this->db->order_by('id', 'ASC')->get_where('head',['delete_flag' => '0'])->result_array();
 
 	}
 

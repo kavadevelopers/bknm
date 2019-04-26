@@ -98,7 +98,11 @@ function check_rights_column($rights)
     }
 }
 
-
+function get_head_value_by_index($index,$head)
+{
+    $CI =& get_instance();
+    return $CI->db->get_where('head_values',['index' => $index , 'head' => $head])->result_array()[0]['value'];
+}
 
 
 ?>

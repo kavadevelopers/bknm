@@ -85,9 +85,9 @@
                     </li>
 
                     <?php if($this->session->userdata('id') == '1'){ ?>
-                        <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("setting"))[1]; ?>">
+                        <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("setting","head_edit"))[1]; ?>">
                 
-                            <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("setting"))[0]; ?>">
+                            <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("setting","head_edit"))[0]; ?>">
                                 <i class="nav-icon fa fa-cogs"></i>
                                 <p>Setting
                                     <i class="fa fa-angle-left right"></i>
@@ -173,9 +173,9 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting"))[1]; ?>">
+                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting","squad"))[1]; ?>">
             
-                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting"))[0]; ?>">
+                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting","squad"))[0]; ?>">
                             <i class="nav-icon fa fa-envelope-open"></i>
                             <p>Billing
                                 <i class="fa fa-angle-left right"></i>
@@ -188,6 +188,14 @@
                                     <i class="nav-icon fa fa-circle-o"></i>
                                     <p>
                                         Paper Setting
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('squad'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("squad"))[0]; ?>">
+                                    <i class="nav-icon fa fa-circle-o"></i>
+                                    <p>
+                                        Squad
                                     </p>
                                 </a>
                             </li>

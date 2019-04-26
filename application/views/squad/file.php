@@ -10,19 +10,21 @@
                 <div class="col-sm-6">
 
                     <?php if(check_right('4')){ ?>
-                        <a href="<?= base_url('paper_setting/view_all_bank'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-info btn-sm"> <i class="fa fa-eye"></i> View Files</a>
+                        <a href="<?= base_url('squad/view_all_bank'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-info btn-sm"> <i class="fa fa-eye"></i> View Files</a>
                     <?php } ?>
 
                     <?php if(check_right('3')){ ?>
-                        <a href="<?= base_url('paper_setting/export_all_corp'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Corporate</a>
+                        <a href="<?= base_url('squad/export_all_corp'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Corporate</a>
+                    <?php } ?>
+                    
+                    <?php if(check_right('2')){ ?>
+                        <a href="<?= base_url('squad/export_all_bank'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Bank</a>
                     <?php } ?>
 
-                    <?php if(check_right('2')){ ?>
-                        <a href="<?= base_url('paper_setting/export_all_bank'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Bank</a>
-                    <?php } ?>
+                    
 
                     <?php if(check_right('1')){ ?>
-                        <a style="margin-left: 5px;" href="<?= base_url('paper_setting/add_file_view'); ?>" class="float-sm-right btn btn-primary btn-sm" > <i class="fa fa-plus"></i> Add New File</a>
+                        <a style="margin-left: 5px;" href="<?= base_url('squad/add_file_view'); ?>" class="float-sm-right btn btn-primary btn-sm" > <i class="fa fa-plus"></i> Add New File</a>
                     <?php } ?>
                 </div>
         	</div>
@@ -70,13 +72,13 @@
                                                 <td class="text-center">
 
                                                     <?php if(check_right('5')){ ?>
-                                                        <a class="badge badge-primary" href="<?= base_url();?>paper_setting/add_data/<?= urlencode($value['id']);?>" title="Add Data">
+                                                        <a class="badge badge-primary" href="<?= base_url();?>squad/add_data/<?= urlencode($value['id']);?>" title="Add Data">
                                                             Add Bill
                                                         </a>
                                                     <?php } ?>
 
                                                     <?php if(check_right('6')){ ?>
-                                                        <a class="badge badge-info" href="<?= base_url();?>paper_setting/view_data/<?= $value['id'];?>" title="View File">
+                                                        <a class="badge badge-info" href="<?= base_url();?>squad/view_data/<?= $value['id'];?>" title="View File">
                                                             View File
                                                         </a>
                                                     <?php } ?>
@@ -84,7 +86,7 @@
                                                     <?php if(check_right('7')){ ?>
                                                         <?php $bank_data = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$value['file_name']."` WHERE `acc_code` != '' $where ORDER BY `id` ASC")->num_rows(); ?>
                                                         <?php if($bank_data == 0){ $bank_link = 'onclick="return corp_not_found();"'; }else{ $bank_link = ""; } ?>
-                                                        <a class="badge badge-warning" <?= $bank_link ?> href="<?= base_url();?>paper_setting/view_bills/<?= $value['id'];?>" title="View Bills">
+                                                        <a class="badge badge-warning" <?= $bank_link ?> href="<?= base_url();?>squad/view_bills/<?= $value['id'];?>" title="View Bills">
                                                             View Bills
                                                         </a>
                                                     <?php } ?>
@@ -99,7 +101,7 @@
 
                                                         <?php if($bank_data == 0){ $bank_link = 'onclick="return corp_not_found();"'; }else{ $bank_link = ""; } ?>
 
-                                                        <a class="badge badge-primary" <?= $bank_link ?> href="<?= base_url();?>paper_setting/print_bank/<?= urlencode($value['id']);?>" title="Print Bank Copy" target="_blank">
+                                                        <a class="badge badge-primary" <?= $bank_link ?> href="<?= base_url();?>squad/print_bank/<?= urlencode($value['id']);?>" title="Print Bank Copy" target="_blank">
                                                             Print Bank Copy
                                                         </a>
                                                     <?php } ?>
@@ -109,7 +111,7 @@
 
                                                         <?php if($dis_acc == 0){ $corp_link = 'onclick="return corp_not_found();"'; }else{ $corp_link = ""; } ?>
 
-                                                        <a class="badge badge-info" <?= $corp_link ?> href="<?= base_url();?>paper_setting/print_corp_bank/<?= $value['id'];?>" title="View File" target="_blank">
+                                                        <a class="badge badge-info" <?= $corp_link ?> href="<?= base_url();?>squad/print_corp_bank/<?= $value['id'];?>" title="View File" target="_blank">
                                                             Print Corporate Copy
                                                         </a>
                                                     <?php } ?>
@@ -119,12 +121,12 @@
                                             <?php if(check_rights_column(['10','11'])){ ?>
                                                 <td class="text-center">
                                                     <?php if(check_right('10')){ ?>
-                                                        <a class="badge badge-warning" href="<?= base_url();?>paper_setting/bank_download/<?= $value['id'];?>" title="Bank Copy Excel">
+                                                        <a class="badge badge-warning" href="<?= base_url();?>squad/bank_download/<?= $value['id'];?>" title="Bank Copy Excel">
                                                             Bank Copy
                                                         </a>
                                                     <?php } ?>
                                                     <?php if(check_right('11')){ ?>
-                                                        <a class="badge badge-secondary" href="<?= base_url();?>paper_setting/corp_download/<?= $value['id'];?>" title="Corporate Copy Excel">
+                                                        <a class="badge badge-secondary" href="<?= base_url();?>squad/corp_download/<?= $value['id'];?>" title="Corporate Copy Excel">
                                                             Corporate Copy
                                                         </a>
                                                     <?php } ?>
