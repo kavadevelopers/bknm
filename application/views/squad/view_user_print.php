@@ -99,12 +99,12 @@
                                 <th class="text-center">Total KM</th>
                                 <th class="text-center">Remuneration</th>
                                 <th class="text-center">Fule</th>
-                                <th class="text-center">Tra. Allowance</th>
+                                <th class="text-center" style="">Tra. Allowance</th>
                                 <th class="text-center">Toll Tax</th>
                                 <th class="text-center">KM Total Amount</th>
                                 <th class="text-center">Remuneration Total</th>
                                 <th class="text-center">Total</th>
-                                <th class="text-center" style="width: 100px;">Message</th>
+                                <th class="text-center" style="">Message</th>
 
                             </tr>
                         </thead>
