@@ -104,7 +104,8 @@
                                                 </td>
 
                                                 <td>
-                                                    <input style="width: 80px;" type="text" name="rcbook[]" id="rcbook<?= $cn; ?>" autocomplete="off" placeholder="Vehical no." value="<?= $ex_row['rcbook']; ?>">
+                                                    <input style="width: 80px;" type="text" name="rcbook[]" id="v_rcbook<?= $cn; ?>" autocomplete="off" placeholder="Vehical no." value="<?= $ex_row['rcbook']; ?>">
+
                                                 </td>
 
                                                 <td>
@@ -122,7 +123,7 @@
                                                 
 
                                                 <td>
-                                                    <select name="fule[]" id="fule<?= $cn; ?>" onchange="total()">
+                                                    <select name="fule[]" id="v_fule<?= $cn; ?>" onchange="total()">
                                                         <option value="">-- Select --</option>
                                                             <option value="Petrol" <?php if($ex_row['fule'] == 'Petrol'){ echo "selected"; } ?>>Petrol</option>
                                                             <option value="Diesel" <?php if($ex_row['fule'] == 'Diesel'){ echo "selected"; } ?>>Diesel</option>
@@ -156,7 +157,9 @@
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>">
+                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $ex_row['message']; ?>">
+                                                    <input type="hidden" id="rcbook<?= $cn; ?>" value="<?= $ex_row['rcbook'] ?>">
+                                                    <input type="hidden" id="fule<?= $cn; ?>" value="<?= $ex_row['fule'] ?>">
                                                 </td>
                                                 
                                             </tr>
@@ -359,6 +362,15 @@
                     if($('#ta'+i).val() != ''){ var ta                    = parseFloat($('#ta'+i).val()); } else{ var ta = 0; }
                     if($('#talltax'+i).val() != ''){ var talltax          = parseFloat($('#talltax'+i).val()); } else{ var talltax = 0; }
 
+                    if(tot_km != '0')
+                    {
+                        $('#v_rcbook'+i).val($('#rcbook'+i).val());
+                        $('#v_fule'+i).val($('#fule'+i).val());
+                    }
+                    else{
+                        $('#v_rcbook'+i).val('');
+                        $('#v_fule'+i).val('');
+                    }
                     
                     var session_total_amount = session * parseFloat('<?= $per_session; ?>');
                     $('#session_total_amount'+i).val(session_total_amount.toFixed(2));
@@ -419,7 +431,7 @@
             if(parseInt('<?= $file_limit; ?>') > i){
                 if($('#tr'+(i + 1)).length == 0){
                     i++;
-                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input type="text" onfocus="change_focus_to_acc('+i+');" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td><input style="width: 80px;" type="text" name="rcbook[]" id="rcbook'+i+'" autocomplete="off" placeholder="Vehical no."></td><td> <input style="width: 75px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px; "onkeyup="total()" type="text" name="tot_km[]" id="tot_km'+i+'" autocomplete="off" placeholder="Total KM" required> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="session[]" id="session'+i+'" autocomplete="off" placeholder="Remuneration" required> </td><td> <select name="fule[]" id="fule'+i+'" onchange="total()"><option value="">-- Select --</option><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Gas">Gas</option><option value="Petro/LPG" >Petro/LPG</option><option value="Petrol/CNG">Petrol/CNG</option></select> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="km_total_amount[]" id="km_total_amount'+i+'" autocomplete="off" placeholder="KM Total Amount" readonly> </td><td> <input type="text" name="session_total_amount[]" id="session_total_amount'+i+'" autocomplete="off" placeholder="Remuneration Total" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td><td><input type="text" name="message[]" id="message1" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>"></td></tr>');
+                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"></td><td> <input type="text" onfocus="change_focus_to_acc('+i+');" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> </td><td> <input type="text"  name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required> </td><td> <input style="width: 70px;" type="text" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required> </td><td> <input style="width: 75px;" type="text" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required> </td><td> <input style="width: 100px;" type="text" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td><input style="width: 80px;" type="text" name="rcbook[]" id="v_rcbook'+i+'" autocomplete="off" placeholder="Vehical no."></td><td> <input style="width: 75px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required > </td><td> <input style="width: 75px; "onkeyup="total()" type="text" name="tot_km[]" id="tot_km'+i+'" autocomplete="off" placeholder="Total KM" required> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="session[]" id="session'+i+'" autocomplete="off" placeholder="Remuneration" required> </td><td> <select name="fule[]" id="v_fule'+i+'" onchange="total()"><option value="">-- Select --</option><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Gas">Gas</option><option value="Petro/LPG" >Petro/LPG</option><option value="Petrol/CNG">Petrol/CNG</option></select> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="km_total_amount[]" id="km_total_amount'+i+'" autocomplete="off" placeholder="KM Total Amount" readonly> </td><td> <input type="text" name="session_total_amount[]" id="session_total_amount'+i+'" autocomplete="off" placeholder="Remuneration Total" readonly> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly><input type="hidden" name="type[]" value="C"> </td><td><input type="text" name="message[]" id="message1" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>"><input type="hidden" id="rcbook'+i+'" ><input type="hidden" id="fule'+i+'"></td></tr>');
                 }
             }
         }

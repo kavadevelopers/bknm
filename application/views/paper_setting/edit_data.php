@@ -139,7 +139,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>">
+                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $ex_row['message']; ?>">
                                                 </td>
                                                 
                                             </tr>

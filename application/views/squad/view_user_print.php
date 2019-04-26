@@ -94,15 +94,15 @@
                                 <th class="text-center">IFSC</th>
                                 <th class="text-center" style="width: 120px;">Branch</th>
                                 <th class="text-center" style="width: 45px;">Acc Code</th>
-                                <th class="text-center" style="width: 70px;">Rc book no.</th>
+                                <th class="text-center" style="width: 70px;">Vehical no.</th>
                                 <th class="text-center" style="width: 70px;">Date</th>
                                 <th class="text-center">Total KM</th>
-                                <th class="text-center">Session</th>
+                                <th class="text-center">Remuneration</th>
                                 <th class="text-center">Fule</th>
                                 <th class="text-center">Tra. Allowance</th>
-                                <th class="text-center">Tall Tax</th>
+                                <th class="text-center">Toll Tax</th>
                                 <th class="text-center">KM Total Amount</th>
-                                <th class="text-center">Session Total</th>
+                                <th class="text-center">Remuneration Total</th>
                                 <th class="text-center">Total</th>
                                 <th class="text-center" style="width: 100px;">Message</th>
 
@@ -159,8 +159,8 @@
 
                                 
 
-                                <td class="text-center">
-                                    <?= $ex_row['fule']; ?>
+                                <td style="text-align: center;">
+                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else{ echo "G"; }; ?>
                                 </td>
 
 
