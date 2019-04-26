@@ -118,6 +118,11 @@ class Setting extends CI_Controller {
 						$this->db->update("financial_year",['active' => '1']);
 					}
 
+					$admin_year = $this->db->get_where('user',['id' => '1'])->result_array()[0]['year'];
+					$admin_year .= ','.$this->input->post('financial_year');
+					$this->db->where('id','1');
+					$this->db->update('user',['year' => $admin_year]);
+
 					$this->session->set_flashdata('msg', 'Financial Year Successfully Added');
 	        		redirect(base_url().'setting/financial_year');
 				}
