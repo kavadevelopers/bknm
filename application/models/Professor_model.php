@@ -31,10 +31,10 @@ class Professor_model extends CI_Model
 		if(isset($_POST["search"]["value"]))  
 		{  
 		    	$this->db->like("acc_code", $_POST["search"]["value"]);  
-				    $this->db->or_like("acno", $_POST["search"]["value"]);  
+				    //$this->db->or_like("acno", $_POST["search"]["value"]);  
 				    $this->db->or_like("name", $_POST["search"]["value"]);  
-			    $this->db->or_like("ifsc", $_POST["search"]["value"]);  
-			    $this->db->or_like("contact", $_POST["search"]["value"]); 
+			    //$this->db->or_like("ifsc", $_POST["search"]["value"]);  
+			    //$this->db->or_like("contact", $_POST["search"]["value"]); 
 		}  
 		if(isset($_POST["order"]))  
 		{  
