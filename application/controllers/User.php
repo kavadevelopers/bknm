@@ -97,8 +97,8 @@ class User extends CI_Controller {
 		
 		$this->form_validation->set_rules('user_name', 'Username', 'trim|required|min_length[5]|max_length[30]|alpha_dash|is_unique[user.user_name]',array('is_unique' => 'Username Is Already Exists'));
 		$this->form_validation->set_rules('name', 'Full Name', 'trim|required|min_length[5]|max_length[200]');
-		$this->form_validation->set_rules('mobile', 'Mobile', 'trim|required|min_length[10]|max_length[10]|regex_match[/^[0-9]{10}$/]|is_unique[user.mobile]',array('is_unique' => 'Mobile No Is Already Exists'));
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|max_length[100]');
+		$this->form_validation->set_rules('mobile', 'Mobile', 'trim|min_length[10]|max_length[10]|regex_match[/^[0-9]{10}$/]|is_unique[user.mobile]',array('is_unique' => 'Mobile No Is Already Exists'));
+		$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|xss_clean|max_length[100]');
 		$this->form_validation->set_rules('pass', 'Password', 'min_length[5]|max_length[20]|required');
 		$this->form_validation->set_rules('con_pass', 'Confirm Password', 'required|matches[pass]');
 		$this->form_validation->set_rules('f_year[]', 'Check box', 'required',array('required' => 'Please Select At least One Finincial Year'));
@@ -164,8 +164,8 @@ class User extends CI_Controller {
 		
 		
 		$this->form_validation->set_rules('name', 'Full Name', 'trim|required|min_length[5]|max_length[200]');
-		$this->form_validation->set_rules('mobile', 'Mobile', 'trim|required|min_length[10]|max_length[10]|regex_match[/^[0-9]{10}$/]|callback_mobile_unique['.$this->input->post('user_id').']');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|max_length[100]|callback_email_unique['.$this->input->post('user_id').']');
+		$this->form_validation->set_rules('mobile', 'Mobile', 'trim|min_length[10]|max_length[10]|regex_match[/^[0-9]{10}$/]|callback_mobile_unique['.$this->input->post('user_id').']');
+		$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|xss_clean|max_length[100]|callback_email_unique['.$this->input->post('user_id').']');
 		$this->form_validation->set_rules('user_id', 'user_id', 'trim');
 		$this->form_validation->set_rules('f_year[]', 'Check box', 'required',array('required' => 'Please Select At least One Finincial Year'));
 		$this->form_validation->set_rules('rights[]', 'Check box', 'trim');
