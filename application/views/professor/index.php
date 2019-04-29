@@ -33,8 +33,8 @@
                                         <th>Bank Account No.</th>
                                         <th>Contact No.</th>
                                         <th>IFSC Code</th>
-                                        <th>Created By</th>
-                                        <th>Created At</th>
+                                        <th>Vehicle No.</th>
+                                        <th>Fule</th>
                                         <th class="text-center" style="width: 100px;">Action</th>
                                         
                                     </tr>

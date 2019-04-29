@@ -315,8 +315,8 @@ class Professor extends CI_Controller {
             $sub_array[] = $row->acno;  
             $sub_array[] = $row->contact;  
             $sub_array[] = $row->ifsc;  
-            $sub_array[] = $this->user_model->_user($row->created_by)[0]['name'];  
-            $sub_array[] = _vdatetime($row->created_at);  
+            $sub_array[] = $row->rcbook;  
+            $sub_array[] = $row->fule;  
 
 
             $action_string = '	<a class="btn btn-sm btn-default" href="'.base_url('professor/view/').$row->id.'" title="View">
