@@ -117,7 +117,7 @@
                                                 
 
                                                 <td style="width: 90px;">
-                                                    <select name="fule[]" id="v_fule<?= $cn; ?>" onchange="total()" style="width: 74px;">
+                                                    <select name="fule[]" id="v_fule<?= $cn; ?>" onchange="total();" style="width: 74px;">
                                                         <option value="">-- Fule --</option>
                                                             <option value="Petrol" <?php if($ex_row['fule'] == 'Petrol'){ echo "selected"; } ?>>Petrol</option>
                                                             <option value="Diesel" <?php if($ex_row['fule'] == 'Diesel'){ echo "selected"; } ?>>Diesel</option>
@@ -364,7 +364,7 @@
                         $('#v_rcbook'+i).val('');
                         $('#v_fule'+i).val('');
                     }
-                    var fule = $('#fule'+i).val();
+                    var fule = $('#v_fule'+i).val();
                     var session_total_amount = session * parseFloat('<?= $per_session; ?>');
                     $('#session_total_amount'+i).val(session_total_amount.toFixed(2));
 
