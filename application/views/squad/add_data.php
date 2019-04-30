@@ -285,8 +285,14 @@
 
                     if(tot_km != '0')
                     {
-                        $('#v_rcbook'+i).val($('#rcbook'+i).val());
-                        $('#v_fule'+i).val($('#fule'+i).val());
+                        if($('#v_rcbook'+i).val() == '')
+                        {
+                            $('#v_rcbook'+i).val($('#rcbook'+i).val());    
+                        }
+                        if($('#v_fule'+i).val() == '')
+                        {
+                            $('#v_fule'+i).val($('#fule'+i).val());    
+                        }
                     }
                     else{
                         $('#v_rcbook'+i).val('');
