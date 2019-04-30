@@ -343,7 +343,7 @@
             {
                 if($('#tr'+i).length){
 
-                    var fule = $('#fule'+i).val();
+                    
                     if($('#tot_km'+i).val() != ''){ var tot_km            = parseFloat($('#tot_km'+i).val()); } else{ var tot_km = 0; }
                     if($('#session'+i).val() != ''){ var session          = parseFloat($('#session'+i).val()); } else{ var session = 0; }
                     if($('#ta'+i).val() != ''){ var ta                    = parseFloat($('#ta'+i).val()); } else{ var ta = 0; }
@@ -364,7 +364,7 @@
                         $('#v_rcbook'+i).val('');
                         $('#v_fule'+i).val('');
                     }
-                    
+                    var fule = $('#fule'+i).val();
                     var session_total_amount = session * parseFloat('<?= $per_session; ?>');
                     $('#session_total_amount'+i).val(session_total_amount.toFixed(2));
 
