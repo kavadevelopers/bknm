@@ -15,7 +15,7 @@ class User extends CI_Controller {
 	public function index()
 	{	
 		$data['_title']		= "Manage User";
-		$data['users']		= $this->user_model->users();
+		$data['users']		= $this->db->get('user')->result_array();
 		$this->load->template('user/index',$data);
 	}
 
@@ -72,10 +72,10 @@ class User extends CI_Controller {
 	public function reset_pass($user_id = false)
 	{
 		if($user_id){
-			if($this->user_model->user_from_id($user_id)){
+			if($this->user_model->_user($user_id)){
 				
 				$data['_title']		= "Reset Password";
-				$data['user']		= $this->user_model->user_from_id($user_id)[0];
+				$data['user']		= $this->user_model->_user($user_id)[0];
  				$this->load->template('user/reset_pass',$data);
 
 			}

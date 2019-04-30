@@ -44,19 +44,19 @@
                                             <td><?= $user['email'] ?></td>
 
                                             <td class="text-center">
-
-                                                <a class="btn btn-sm btn-primary" href="<?= base_url();?>user/edit/<?= $user['id'];?>" title="Edit">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-
-                                                <a class="btn btn-sm btn-warning" href="<?= base_url();?>user/reset_pass/<?= $user['id'];?>" title="Reset Password">
-                                                    <i class="fa fa-refresh"></i>
-                                                </a>
-
-                                                <a class="btn btn-sm btn-danger" href="<?= base_url();?>user/delete/<?= $user['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this User ?');" title="Delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-
+                                                <?php if($user['id'] != '1'){ ?>
+                                                    <a class="btn btn-sm btn-primary" href="<?= base_url();?>user/edit/<?= $user['id'];?>" title="Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                <?php } ?>
+                                                    <a class="btn btn-sm btn-warning" href="<?= base_url();?>user/reset_pass/<?= $user['id'];?>" title="Reset Password">
+                                                        <i class="fa fa-refresh"></i>
+                                                    </a>
+                                                <?php if($user['id'] != '1'){ ?>
+                                                    <a class="btn btn-sm btn-danger" href="<?= base_url();?>user/delete/<?= $user['id'];?>" onclick="return confirm('Are you Sure You Want to Delete this User ?');" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                <?php } ?>
 
                                             </td>
                                         </tr>

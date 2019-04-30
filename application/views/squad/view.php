@@ -12,6 +12,14 @@
       	</div>
     </div>
 
+    <style type="text/css">
+        tbody{
+            font-size: 12px; 
+        }
+        tbody td{
+            padding: 0;
+        }
+    </style>
 
     <section class="content">
         <div class="container-fluid">
@@ -26,11 +34,11 @@
                                 <div class="row">
 
 
-                                    <table class="table table-bordered table-sm" id="table">
+                                    <table class="table table-bordered table-sm table-hover" id="table" >
                                         <thead>
                                             <tr>
                                                 <th>Sr No.</th>
-                                                <th class="text-center">Name Of Person</th>
+                                                <th class="text-center">Name</th>
                                                 <th class="text-center">Account No.</th>
                                                 <th class="text-center">Bank Name</th>
                                                 <th class="text-center">IFSC</th>
@@ -38,15 +46,16 @@
                                                 <th class="text-center">Acc Code</th>
                                                 <th class="text-center">Vehical no.</th>
                                                 <th class="text-center">Date</th>
-                                                <th class="text-center">Total KM</th>
-                                                <th class="text-center">Remuneration</th>
+                                                <th class="text-center">KM</th>
+                                                <th class="text-center">Remu.</th>
                                                 <th class="text-center">Fule</th>
-                                                <th class="text-center">Tra. Allowance</th>
+                                                <th class="text-center">T.A</th>
                                                 <th class="text-center">Toll Tax</th>
                                                 <th class="text-center">KM Total Amount</th>
-                                                <th class="text-center">Remuneration Total</th>
+                                                <th class="text-center">Remu. Total</th>
                                                 <th class="text-center">Total</th>
                                                 <th class="text-center">Message</th>
+                                                <th class="text-center">Action</th>
 
                                             </tr>
                                         </thead>
@@ -129,6 +138,12 @@
 
                                                 <td>
                                                     <?= $ex_row['message']; ?>
+                                                </td>
+
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                 </td>
                                                 
                                             </tr>

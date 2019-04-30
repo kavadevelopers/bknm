@@ -55,7 +55,7 @@
 
 
 </head>
-<body class="hold-transition <?php if($this->uri->segment(2) == 'add_data'){ echo 'sidebar-collapse'; }else{ echo 'sidebar-open'; } ?>">
+<body class="hold-transition <?php if($this->uri->segment(2) == 'add_data' || $this->uri->segment(2) == 'view_data'){ echo 'sidebar-collapse'; }else{ echo 'sidebar-open'; } ?>">
   <div id="_preloader"></div>
 <div class="wrapper">
   <!-- Navbar -->
