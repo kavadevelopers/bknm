@@ -13,11 +13,14 @@
     </div>
 
     <style type="text/css">
-        tbody{
+        table{
             font-size: 12px; 
         }
         tbody td{
-            padding: 0;
+            padding: 0 !important;
+        }
+        td{
+            padding:0;
         }
     </style>
 

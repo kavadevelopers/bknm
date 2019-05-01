@@ -23,18 +23,37 @@ class Professor_model extends CI_Model
 		return $this->db->get_where("professor",['id' => $id])->result_array();
 	}
 
+	public function count_rows($query){
+		$this->db->like("acc_code", $query); 
+		return $this->db->get("professor")->num_rows();
+	}
+
 
 	public function make_query()  
 	{  
+
+		if(isset($_POST["search"]["value"]))  
+		{
+			$count_acc = $this->count_rows($_POST["search"]["value"]);
+		}
+		else{ $count_acc = 0; }
+
 		$this->db->select($this->select_column);  
 		$this->db->from($this->table);  
 		if(isset($_POST["search"]["value"]))  
-		{  
-		    	$this->db->like("acc_code", $_POST["search"]["value"]);  
-				    //$this->db->or_like("acno", $_POST["search"]["value"]);  
-				    $this->db->or_like("name", $_POST["search"]["value"]);  
-			    //$this->db->or_like("ifsc", $_POST["search"]["value"]);  
-			    //$this->db->or_like("contact", $_POST["search"]["value"]); 
+		{  	
+			if($count_acc > 0)
+			{
+				$this->db->like("acc_code", $_POST["search"]["value"]);  	
+			}
+			else{
+				$this->db->like("acc_code", $_POST["search"]["value"]);  
+				$this->db->or_like("acno", $_POST["search"]["value"]);  
+				$this->db->or_like("name", $_POST["search"]["value"]);  
+			    $this->db->or_like("ifsc", $_POST["search"]["value"]);  
+			    $this->db->or_like("contact", $_POST["search"]["value"]); 
+			}
+		    	
 		}  
 		if(isset($_POST["order"]))  
 		{  
