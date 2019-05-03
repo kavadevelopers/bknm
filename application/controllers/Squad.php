@@ -899,7 +899,7 @@ class squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	$data['_title']			= "View All Data";
-    	$data['files']				= $this->general_model->get_all_files('1',$this->session->userdata('year'));
+    	$data['files']				= $this->general_model->get_all_files('2',$this->session->userdata('year'));
 		$this->load->template('squad/view_all_bills',$data);
     }
 
