@@ -909,7 +909,7 @@ class squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('1',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_all_files('2',$this->session->userdata('year'));
     	if($data['files'])
     	{
 
@@ -1174,7 +1174,7 @@ class squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('1',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_all_files('2',$this->session->userdata('year'));
     	if($data['files'])
     	{
 
