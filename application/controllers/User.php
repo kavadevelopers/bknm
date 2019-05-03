@@ -237,7 +237,7 @@ class User extends CI_Controller {
 		{
 			$data['_title']		= "Reset Password";
 			$data['user']		= $this->user_model->user_from_id($this->input->post('user_id'))[0];
-			$this->load->template('user/edit',$data);
+			$this->load->template('user/reset_pass',$data);
 		}
 		else
 		{

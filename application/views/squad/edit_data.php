@@ -234,6 +234,10 @@
                         <div class="card">
                             <div class="card-footer">
                                 <div class="float-right">
+                                    <label class="container">Final Submit
+                                        <input type="checkbox" name="final" value="1" >
+                                        <span class="checkmark"></span>
+                                    </label>
                                     <a href="<?= base_url(); ?>squad/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
                                         View
                                     </a>
@@ -282,6 +286,7 @@
 
                 },
                 success: function (data) {
+                    //console.log(data);
                     $.notify({
                         title: '<strong></strong>',
                         icon: 'fa fa-check',

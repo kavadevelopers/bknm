@@ -44,9 +44,11 @@
                                     <tr>
                                         
                                         <th>File No.</th>
-                                        <th>Head</th>
                                         <th>Year</th>
 
+                                        <?php if($this->session->userdata('id') == '1'){ ?>
+                                            <th>Entry By</th>
+                                        <?php } ?>
                                         <?php if(check_rights_column(['5','6','7'])){ ?>
                                             <th class="text-center" style="width: 180px;">Action</th>
                                         <?php } ?>
@@ -65,17 +67,27 @@
                                     <?php foreach ($files as $index => $value) { ?>
                                         <tr>
                                             <td>File-<?= $value['no'] ?></td>
-                                            <td><?= $this->general_model->get_head($value['head'])[0]['name'] ?></td>
                                             <td><?= $value['year'] ?></td>
+
+                                            <?php if($this->session->userdata('id') == '1'){ ?>
+                                                <td><?= $value['entry_by'] ?></td>
+                                            <?php } ?>
 
                                             <?php if(check_rights_column(['5','6','7'])){ ?>
                                                 <td class="text-center">
 
                                                     <?php if(check_right('5')){ ?>
-                                                        <a class="badge badge-primary" href="<?= base_url();?>squad/add_data/<?= urlencode($value['id']);?>" title="Add Data">
-                                                            Add Bill
-                                                        </a>
-                                                    <?php } ?>
+                                                        <?php if($value['final'] != '1'){ ?>
+                                                            <a class="badge badge-primary" href="<?= base_url();?>squad/add_data/<?= urlencode($value['id']);?>" title="Add Data">
+                                                                Add Bill
+                                                            </a>
+                                                    <?php }else{ ?>
+
+                                                            <a class="badge badge-primary" href="#" onclick="return admin_send();" title="Add Data">
+                                                                Add Bill
+                                                            </a>
+
+                                                    <?php } } ?>
 
                                                     <?php if(check_right('6')){ ?>
                                                         <a class="badge badge-info" href="<?= base_url();?>squad/view_data/<?= $value['id'];?>" title="View File">
@@ -170,6 +182,19 @@
                 title: '<strong></strong>',
                 icon: 'fa fa-times-circle',
                 message: 'No data Found'
+            },{
+                type: 'danger'
+            });
+
+            return false;
+        }
+
+        function admin_send()
+        {
+            $.notify({
+                title: '<strong></strong>',
+                icon: 'fa fa-times-circle',
+                message: 'Please Contact Admin For Changes in This File'
             },{
                 type: 'danger'
             });
