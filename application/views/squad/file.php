@@ -81,7 +81,13 @@
                                                             <a class="badge badge-primary" href="<?= base_url();?>squad/add_data/<?= urlencode($value['id']);?>" title="Add Data">
                                                                 Add Bill
                                                             </a>
-                                                    <?php }else{ ?>
+                                                        <?php else if($this->session->userdata('id') == '1'){ ?>
+
+                                                            <a class="badge badge-primary" href="<?= base_url();?>squad/add_data/<?= urlencode($value['id']);?>" title="Add Data">
+                                                                Add Bill
+                                                            </a>    
+
+                                                        <?php }else{ ?>
 
                                                             <a class="badge badge-primary" href="#" onclick="return admin_send();" title="Add Data">
                                                                 Add Bill
