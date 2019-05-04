@@ -152,7 +152,11 @@
                                             </tr>
 
                                         <?php $main_total += $ex_row['total']; } ?>
+                                            <tr>
 
+                                                
+
+                                            </tr>
                                             
                                         </tbody>
 
