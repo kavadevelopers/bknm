@@ -7,7 +7,7 @@
 
     <style type="text/css">
         @media print {
-            @page { margin: 0 10px 0 10px; size:	A4 landscape; }
+            @page { margin: 20px 10px 0 10px; size:	A4 landscape; }
 
             ._bg{ 
             	background-color: #a90e10 !important;
