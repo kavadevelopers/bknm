@@ -88,7 +88,7 @@
 								</th>
 							</tr>
 							<tr>
-								<th style="text-align: center;">
+								<th style="text-align: center; width: 100px;" >
 									Bill No.
 								</th>
 								<th style="text-align: center;">
