@@ -69,7 +69,8 @@
 
 
 					<table class="table table-bordered" style="font-size: 12px;">
-						<thead>
+						
+						<tbody>
 							<tr>
 								<th class="th-border" style="width: 100px; text-align: center;">
 									<img src="<?= base_url() ?>/image/logo.png">
@@ -115,8 +116,6 @@
 									Message
 								</th>
 							</tr>
-						</thead>
-						<tbody>
 							<?php $where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'"; ?>
 							<?php $dis_acc = $this->year->query("SELECT DISTINCT `acc_code` FROM `".$file['file_name']."` WHERE `ifsc` NOT Like '%CORP%' AND `acc_code` != '' $where ORDER BY `id` ASC")->result_array();
 
