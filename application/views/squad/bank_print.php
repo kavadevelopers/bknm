@@ -232,7 +232,7 @@
     <script>
         window.onload = function () {
             window.print();
-            //setTimeout(window.close, 0);
+            setTimeout(window.close, 0);
         }
 	</script>
 
