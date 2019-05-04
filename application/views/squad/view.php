@@ -64,7 +64,7 @@
                                         </thead>
                                         <tbody id="add_row">
                                             
-                                        <?php $cn = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
+                                        <?php $cn = 0; $main_total = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
                                             <tr>
 
                                                 <td>
@@ -91,7 +91,7 @@
                                                     <?= $ex_row['branch']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-center">
                                                     <?= $ex_row['acc_code']; ?>
                                                 </td>
 
@@ -103,39 +103,39 @@
                                                     <?= $ex_row['date']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-center">
                                                     <?= $ex_row['km']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-center">
                                                     <?= $ex_row['session']; ?>
                                                 </td>
 
                                                 
 
-                                                <td>
-                                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else{ echo "G"; }; ?>
+                                                <td class="text-center">
+                                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else if($ex_row['fule'] == 'Gas'){ echo "G"; }else if($ex_row['fule'] == 'Petro/LPG'){ echo "P/L"; }else if($ex_row['fule'] == 'Petrol/CNG'){ echo "P/C"; }; ?>
                                                 </td>
 
 
-                                                <td>
+                                                <td class="text-right">
                                                     <?= $ex_row['tra_allow']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-right">
                                                     <?= $ex_row['tall_tax']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-right">
                                                     <?= $ex_row['km_total']; ?>
                                                 </td>
 
 
-                                                <td>
+                                                <td class="text-right">
                                                     <?= $ex_row['session_total']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-right">
                                                     <?= $ex_row['total']; ?>
                                                 </td>
 
@@ -151,8 +151,9 @@
                                                 
                                             </tr>
 
-                                        <?php } ?>
+                                        <?php $main_total += $ex_row['total']; } ?>
 
+                                            
                                         </tbody>
 
 
@@ -176,13 +177,7 @@
         $(function(){
             $('table').DataTable({
                 "dom": "<'row'<'col-md-12 my-marD'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
-                "columnDefs": [
-                    
-                    
-                        { "orderable": false, "targets": [7] }
-                        
-                    
-                ],
+                
                 autoWidth: true,
                 order : [],
                 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],

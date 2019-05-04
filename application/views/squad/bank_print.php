@@ -234,7 +234,7 @@
 
     <script>
         window.onload = function () {
-            window.print();
+            //window.print();
             setTimeout(window.close, 0);
         }
 	</script>
