@@ -180,46 +180,44 @@
 
 
 								<?php } $debit_bank = $this->config->config["debit_bank"]; ?>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th>
-									
-								</th>
-								<th style="text-align: center;">
-									D
-								</th>
+								<tr>
+									<th>
+										
+									</th>
+									<th style="text-align: center;">
+										D
+									</th>
 
-								<th style="text-align: right;">
-									<?= $main_total; ?>
-								</th>
+									<th style="text-align: right;">
+										<?= $main_total; ?>
+									</th>
 
-								<th style="text-align: center;">
-									<?= $debit_bank['ifsc']; ?>
-								</th>
+									<th style="text-align: center;">
+										<?= $debit_bank['ifsc']; ?>
+									</th>
 
-								<th>
-									<?= $debit_bank['acno']; ?>
-								</th>
+									<th>
+										<?= $debit_bank['acno']; ?>
+									</th>
 
-								<th style="text-align: center;">
-									11
-								</th>
+									<th style="text-align: center;">
+										11
+									</th>
 
-								<th>
-									<?= $debit_bank['name']; ?>
-								</th>
+									<th>
+										<?= $debit_bank['name']; ?>
+									</th>
 
-								<th>
-									<?= $debit_bank['branch']; ?>
-								</th>
+									<th>
+										<?= $debit_bank['branch']; ?>
+									</th>
 
-								<th>
-									
-								</th>
+									<th>
+										
+									</th>
 
 							</tr>
-						</tfoot>
+						</tbody>
 					</table>
 
 					
