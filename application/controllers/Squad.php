@@ -292,9 +292,11 @@ class squad extends CI_Controller {
     	}
 
     	$user = $this->user_model->_user($this->session->userdata('id'))[0];
-
-    	$this->db->where('id',$this->input->post('file_id'));
-    	$this->db->update('file',['entry_by' => $user['name']]);
+    		
+		if($this->session->userdata('id') != '1'){
+	    	$this->db->where('id',$this->input->post('file_id'));
+	    	$this->db->update('file',['entry_by' => $user['name']]);
+	    }
 
     	if($this->input->post('final') == '1')
     	{
