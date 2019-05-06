@@ -7,7 +7,7 @@
 
     <style type="text/css">
         @media print {
-            @page { margin: 0 10px 0 10px; size:	A4 landscape; }
+            @page { margin: 20px 10px 15px 10px; size:	A4 landscape; }
 
             ._bg{ 
             	background-color: #a90e10 !important;
@@ -69,23 +69,24 @@
 
 
 					<table class="table table-bordered table-sm" id="table" style="font-size: 12px;">
-                        <thead>
-                        	<tr>
-								<th class="th-border" style="width: 50px; text-align: center;">
-									<img src="<?= base_url() ?>/image/logo.png" style="width: 60px;">
-								</th>
-								<th colspan="17" class="th-border" style="text-align: center;line-height: 60px; font-size: 20px; font-weight: bold;">
-									<?=$this->config->config["Full_name"]?>
-								</th>
-							</tr>
-							<tr>
-								<th class="th-border" style="text-align: center; font-size: 18px;">
-									File-<?= $file['no'] ?>
-								</th>
-								<th colspan="17" class="th-border" style="text-align: center; font-size: 20px;">
-									<?= $file['title']; ?> ( <?= $this->session->userdata('year') ?> )
-								</th>
-							</tr>
+                        
+                        <tbody id="add_row">
+                            <tr>
+                                <th class="th-border" style="width: 50px; text-align: center;">
+                                    <img src="<?= base_url() ?>/image/logo.png" style="width: 60px;">
+                                </th>
+                                <th colspan="17" class="th-border" style="text-align: center;line-height: 60px; font-size: 20px; font-weight: bold;">
+                                    <?=$this->config->config["Full_name"]?>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="th-border" style="text-align: center; font-size: 18px;">
+                                    File-<?= $file['no'] ?>
+                                </th>
+                                <th colspan="17" class="th-border" style="text-align: center; font-size: 20px;">
+                                    <?= $file['title']; ?> ( <?= $this->session->userdata('year') ?> )
+                                </th>
+                            </tr>
                             <tr>
                                 <th style="text-align: center;">Sr No.</th>
                                 <th class="text-center" style="width: 130px;">Name Of Person</th>
@@ -97,18 +98,15 @@
                                 <th class="text-center" style="width: 70px;">Vehical no.</th>
                                 <th class="text-center" style="width: 70px;">Date</th>
                                 <th class="text-center">Total KM</th>
-                                <th class="text-center">Remuneration</th>
+                                <th class="text-center">Remu.</th>
                                 <th class="text-center">Fule</th>
-                                <th class="text-center" style="">Tra. Allowance</th>
+                                <th class="text-center" style="max-width: 70px;">Tra. All.</th>
                                 <th class="text-center">Toll Tax</th>
-                                <th class="text-center">KM Total Amount</th>
-                                <th class="text-center">Remuneration Total</th>
+                                <th class="text-center">KM Tot Amt</th>
+                                <th class="text-center">Remu. Total</th>
                                 <th class="text-center">Total</th>
-                                <th class="text-center" style="">Message</th>
 
                             </tr>
-                        </thead>
-                        <tbody id="add_row">
                             
                         <?php $cn = 0; $ta = 0; $tall_tax = 0; $km_total = 0; $session_total = 0;$total = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
                             <tr>
@@ -184,10 +182,6 @@
                                 <td class="text-right">
                                     <?= $ex_row['total']; ?>
                                 </td>
-
-                                <td class="text-center">
-                                    <?= $ex_row['message']; ?>
-                                </td>
                                 
                             </tr>
                             <?php 
@@ -199,8 +193,6 @@
                             ?>
                         <?php  } ?>
 
-                        </tbody>
-                        <tfoot>
                             <tr>
                                 <td colspan="12" class="text-right"><strong>Total : </strong></td>
                                 <td class="text-right"><?= $ta; ?></td>
@@ -208,9 +200,9 @@
                                 <td class="text-right"><?= $km_total; ?></td>
                                 <td class="text-right"><?= $session_total; ?></td>
                                 <td class="text-right"><?= $total; ?></td>
-                                <td></td>
                             </tr>
-                        </tfoot>
+
+                        </tbody>
 
                     </table>
 

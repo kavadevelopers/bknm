@@ -3,6 +3,10 @@
    	<div class="content-header">
       	<div class="container-fluid">
         	<div class="row mb-2">
+                <div class="col-md-12">
+                    <h1 class="m-0 text-dark text-center">BHAKTA KAVI NARSINH MEHTA UNIVERSITY, JUNAGADH</h1>
+                     
+                </div>
           		<div class="col-md-12">
             		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
                     <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
@@ -57,7 +61,6 @@
                                                 <th class="text-center">KM Total Amount</th>
                                                 <th class="text-center">Remu. Total</th>
                                                 <th class="text-center">Total</th>
-                                                <th class="text-center">Message</th>
                                                 <th class="text-center">Action</th>
 
                                             </tr>
@@ -79,7 +82,7 @@
                                                     <?= $ex_row['ac_no']; ?>
                                                 </td>
 
-                                                <td>
+                                                <td class="text-center">
                                                     <?= $ex_row['bank']; ?>
                                                 </td>
 
@@ -140,10 +143,6 @@
                                                 </td>
 
                                                 <td>
-                                                    <?= $ex_row['message']; ?>
-                                                </td>
-
-                                                <td>
                                                     <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
@@ -153,7 +152,26 @@
 
                                         <?php $main_total += $ex_row['total']; } ?>
                                             
-                                            
+                                            <tr>
+                                                <th></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center">Total : </th>
+                                                <th class="text-right"><?= $main_total; ?></th>
+                                                <th class="text-center"></th> 
+                                            </tr>
                                         </tbody>
 
 
