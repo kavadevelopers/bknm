@@ -169,7 +169,7 @@
                                                 <th class="text-center"></th>
                                                 <th class="text-center"></th>
                                                 <th class="text-center">Total : </th>
-                                                <th class="text-right"><?= $main_total; ?></th>
+                                                <th class="text-right"><?= moneyFormatIndia($main_total); ?></th>
                                                 <th class="text-center"></th> 
                                             </tr>
                                         </tbody>

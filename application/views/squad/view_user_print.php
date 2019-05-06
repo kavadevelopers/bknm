@@ -7,6 +7,9 @@
 
     <style type="text/css">
         @media print {
+
+            body { display: inline; margin-right: 20px;  }
+            table { width:100%;  }
             @page { margin: 20px 10px 15px 10px; size:	A4 landscape; }
 
             ._bg{ 
@@ -91,8 +94,8 @@
                                 <th style="text-align: center;">Sr No.</th>
                                 <th class="text-center" style="width: 130px;">Name Of Person</th>
                                 <th class="text-center">Account No.</th>
-                                <th class="text-center" style="width: 36px;">Bank Name</th>
-                                <th class="text-center">IFSC</th>
+                                <th class="text-center" style="width: 30px;">Bank Name</th>
+                                <th class="text-center" style="width: 40px;">IFSC</th>
                                 <th class="text-center" style="width: 120px;">Branch</th>
                                 <th class="text-center" style="width: 45px;">Acc Code</th>
                                 <th class="text-center" style="width: 70px;">Vehical no.</th>
@@ -100,8 +103,8 @@
                                 <th class="text-center">Total KM</th>
                                 <th class="text-center">Remu.</th>
                                 <th class="text-center">Fule</th>
-                                <th class="text-center" style="max-width: 70px;">Tra. All.</th>
-                                <th class="text-center">Toll Tax</th>
+                                <th class="text-center" style="width: 20px;">Tra. All.</th>
+                                <th class="text-center" style="width: 20px;">Toll Tax</th>
                                 <th class="text-center">KM Tot Amt</th>
                                 <th class="text-center">Remu. Total</th>
                                 <th class="text-center">Total</th>
@@ -157,8 +160,8 @@
 
                                 
 
-                                <td style="text-align: center;">
-                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else{ echo "G"; }; ?>
+                                <td class="text-center">
+                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else if($ex_row['fule'] == 'Gas'){ echo "G"; }else if($ex_row['fule'] == 'Petro/LPG'){ echo "P/L"; }else if($ex_row['fule'] == 'Petrol/CNG'){ echo "P/C"; }; ?>
                                 </td>
 
 
@@ -194,12 +197,12 @@
                         <?php  } ?>
 
                             <tr>
-                                <td colspan="12" class="text-right"><strong>Total : </strong></td>
-                                <td class="text-right"><?= $ta; ?></td>
-                                <td class="text-right"><?= $tall_tax; ?></td>
-                                <td class="text-right"><?= $km_total; ?></td>
-                                <td class="text-right"><?= $session_total; ?></td>
-                                <td class="text-right"><?= $total; ?></td>
+                                <th colspan="12" class="text-right"><strong>Total : </strong></th>
+                                <th class="text-right"><?= moneyFormatIndia($ta); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($tall_tax); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($km_total); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($session_total); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($total); ?></th>
                             </tr>
 
                         </tbody>
