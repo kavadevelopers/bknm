@@ -7,7 +7,7 @@
 
     <style type="text/css">
         @media print {
-            @page { margin: 10px 10px 0 10px; size:	A4 landscape; }
+            @page { margin: 40px 10px 15px 10px; size:	A4 landscape; }
 
             ._bg{ 
             	background-color: #a90e10 !important;
@@ -65,7 +65,7 @@
         <div class="row">
 			<div class="col-md-12">
 				
-				<div class="col-md-12" style="margin-top: 20px;">
+				<div class="col-md-12" style="">
 
 
 					<table class="table table-bordered" style="font-size: 12px;">
