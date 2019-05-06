@@ -10,7 +10,7 @@
 
             body { display: inline; margin-right: 20px;  }
             table { width:100%;  }
-            @page { margin: 30px 10px 15px 10px; size:	A4 landscape; }
+            @page { margin: 40px 10px 15px 10px; size:	A4 landscape; }
 
             ._bg{ 
             	background-color: #a90e10 !important;
