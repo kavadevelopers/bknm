@@ -42,9 +42,19 @@ function _checked($val1,$val2)
     }
 }
 
-function moneyFormatIndia($num) {
-    $fmt = new NumberFormatter($locale = 'en_IN', NumberFormatter::CURRENCY);
-    return $fmt->format($num);
+function moneyFormatIndia($amount): string {
+    list ($number, $decimal) = explode('.', sprintf('%.2f', floatval($amount)));
+
+    $sign = $number < 0 ? '-' : '';
+
+    $number = abs($number);
+
+    for ($i = 3; $i < strlen($number); $i += 3)
+    {
+        $number = substr_replace($number, ',', -$i, 0);
+    }
+
+    return $sign . $number . '.' . $decimal;
 }
 
 
