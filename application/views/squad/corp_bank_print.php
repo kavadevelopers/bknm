@@ -52,6 +52,11 @@
 
         }
 
+        table
+        {
+        	white-space:nowrap;
+        }
+
         
 
     </style>
