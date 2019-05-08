@@ -52,8 +52,6 @@
 
         }
 
-        
-
     </style>
 
 </head>
@@ -139,7 +137,7 @@
 
 								
 									<tr>
-										<td style="text-align: center;">
+										<td width="100" style="text-align: center; width: 100px;">
 											<?= $bill_all ?>
 										</td>
 									
