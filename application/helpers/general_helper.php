@@ -114,6 +114,15 @@ function get_head_value_by_index($index,$head)
     return $CI->db->get_where('head_values',['index' => $index , 'head' => $head])->result_array()[0]['value'];
 }
 
+function remove_str($str,$strip_str)
+{
+    if (strpos($str,$strip_str) !== false) {
+        return str_replace($strip_str,"",$str);
+    }
+    else{
+        return $str;   
+    }
+}
 
     
 

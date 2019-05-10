@@ -174,7 +174,7 @@
 										</td>
 
 										<td style="font-size: 10px; ">
-											<?= $res_rows['message'] ?>
+											<?= remove_str($res_rows['message'],'OTHER/') ?>
 										</td>
 
 									</tr>
