@@ -124,8 +124,8 @@
 
 				                        $bill_all = "";
 				                        foreach ($Bills as $keya => $valuea) {
-				                            $bill_all .= $valuea['bill_no'].',';
-				                        } $bill_all = rtrim($bill_all,',');
+				                            $bill_all .= $valuea['bill_no'].', ';
+				                        } $bill_all = rtrim($bill_all,', ');
 
 				                        $res_rows = $this->year->query("SELECT * FROM `".$file['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where ")->result_array()[0]; 
 
