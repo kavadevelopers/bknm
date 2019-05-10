@@ -696,7 +696,7 @@ class squad extends CI_Controller {
 				        $sheet->getStyle('G'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 				        $sheet->getStyle('G'.$counter)->getFont()->setSize(10);
 
-				        $sheet->setCellValue('H'.$counter,$res_rows['message']);
+				        $sheet->setCellValue('H'.$counter,remove_str($res_rows['message'],'OTHER/'));
 				        $sheet->getStyle('H'.$counter)->getAlignment()->setHorizontal('center')->setVertical('center');
 				        $sheet->getStyle('H'.$counter)->getFont()->setSize(10);
 
