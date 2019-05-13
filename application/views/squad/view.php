@@ -143,9 +143,27 @@
                                                 </td>
 
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
+                                                    <?php if(check_right('5')){ ?>
+                                                        <?php if($file['final'] != '1'){ ?>
+                                                            
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+
+                                                        <?php } else if($this->session->userdata('id') == '1'){ ?>
+
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>                                                            
+
+                                                        <?php }else{ ?>
+
+                                                            <a class="btn btn-sm btn-primary" onclick="return admin_send();" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+
+                                                        <?php } ?>
+                                                    <?php } ?>
                                                 </td>
                                                 
                                             </tr>
@@ -219,4 +237,17 @@
                 
             });
         })
+
+        function admin_send()
+        {
+            $.notify({
+                title: '<strong></strong>',
+                icon: 'fa fa-times-circle',
+                message: 'Please Contact Admin For Changes in This File'
+            },{
+                type: 'danger'
+            });
+
+            return false;
+        }
     </script>
