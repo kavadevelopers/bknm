@@ -198,6 +198,15 @@
                                     </p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('squad'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("squad"))[0]; ?>">
+                                    <i class="nav-icon fa fa-circle-o"></i>
+                                    <p>
+                                        Assessment
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     
