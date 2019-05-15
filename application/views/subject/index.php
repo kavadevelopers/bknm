@@ -42,11 +42,11 @@
 
                                         <tr>
                                             <td><?= $subject['name'] ?></td>
+                                            <td><?= $subject['semester'] ?></td>
                                             <td><?= $subject['paper_setting_price'] ?></td>
                                             <td><?= $subject['assessment_price'] ?></td>
                                             <td><?= $subject['examination_fees'] ?></td>
                                             <td><?= $subject['total_paper'] ?></td>
-                                            <td><?= $subject['semester'] ?></td>
                                             <td><?= $subject['moderation_price'] ?></td>
 
                                             <td class="text-center">
