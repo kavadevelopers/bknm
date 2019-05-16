@@ -10,7 +10,7 @@
         $gas_rate = get_head_value_by_index('gas_per_km','squad');
         $min_km = get_head_value_by_index('min_km','squad');
         $min_km_rate = get_head_value_by_index('min_km_rate','squad');
-        $file_limit = $this->db->get_where('head',['id' => '2'])->result_array()[0]['file_limit'];
+        $file_limit = $this->db->get_where('head',['id' => '3'])->result_array()[0]['file_limit'];
 
     ?>
 
@@ -28,15 +28,16 @@
     
 
     <style type="text/css">
+        
         input{
             font-size: 12px;
         }
         tbody td{
             text-align: center;
         }
+
+
     </style>
-
-
 
 
     <section class="content">
@@ -71,97 +72,93 @@
                             </div>
                             <div class="card-body" style="overflow: scroll;  height: 300px; padding-top: 0px;">
                                 <div class="row">
-                                    <table  class="table table-bordered table-sm" id="table">
+                                    <table class="table table-bordered table-sm" id="table">
                                         <tbody id="add_row">
                                             
-                                            <tr id="tr1">
+                                        <?php $cn = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
+                                            <tr id="tr<?= $cn; ?>">
 
                                                 <td class="text-center" style="width: 35px;">
-                                                    1
-                                                    <input type="hidden" name="bill_id[]" value="1">
-                                                    <input type="hidden" name="name[]" id="name1" onfocus="" autocomplete="off" placeholder="Person Name" required readonly>
-
-
+                                                    <?= $cn; ?>
+                                                    <input type="hidden" name="bill_id[]" value="<?= $ex_row['bill_no']; ?>">
                                                 
-                                                    <input type="hidden" name="acno[]" id="acno1" autocomplete="off" placeholder="Account No." required readonly>
-                                                    
-
-                                                    
-                                                    <input style="width: 70px;" type="hidden" name="bank[]" id="bank1" autocomplete="off" placeholder="Bank Name" required readonly>
-                                                    
-
-                                                    
-                                                    <input style="width: 75px;" type="hidden" name="ifsc[]" id="ifsc1" autocomplete="off" placeholder="IFSC Code" required readonly>
-                                                    
-                                                    <input style="width: 100px;" type="hidden" name="branch[]" id="branch1" autocomplete="off" placeholder="Branch" required readonly>
+                                                    <input type="hidden" name="name[]" id="name<?= $cn; ?>" autocomplete="off" placeholder="Person Name" required readonly value="<?= $ex_row['name']; ?>">
+                                                
+                                                    <input type="hidden" name="acno[]" id="acno<?= $cn; ?>" value="<?= $ex_row['ac_no']; ?>" autocomplete="off" placeholder="Account No." required readonly>
+                                                
+                                                    <input style="width: 70px;" type="hidden" name="bank[]" value="<?= $ex_row['bank']; ?>" id="bank<?= $cn; ?>" autocomplete="off" placeholder="Bank Name" required readonly>
+                                                
+                                                    <input style="width: 75px;" type="hidden" value="<?= $ex_row['ifsc']; ?>" name="ifsc[]" id="ifsc<?= $cn; ?>" autocomplete="off" placeholder="IFSC Code" required readonly>
+                                                
+                                                    <input style="width: 100px;" type="hidden" name="branch[]" value="<?= $ex_row['branch']; ?>" id="branch<?= $cn; ?>" autocomplete="off" placeholder="Branch" required readonly>
                                                 </td>
-
-                                                
-
-                                                
-                                                
 
                                                 <td style="width: 90px;">
-                                                    <input style="width: 80px;" onfocus="acc_auto('1');" type="text" name="acc_code[]" id="acc_code1" autocomplete="off" placeholder="Acc Code" required>
+                                                    <input style="width: 80px;" onfocus="acc_auto('<?= $cn; ?>');" type="text" name="acc_code[]" id="acc_code<?= $cn; ?>" autocomplete="off" placeholder="Acc Code" value="<?= $ex_row['acc_code']; ?>" required>
                                                 </td>
 
-                                                <td style="width: 95px;">
-                                                    <input style="width: 80px;" type="text" name="rcbook[]" id="v_rcbook1" autocomplete="off" placeholder="Vehical no." onkeydown="chng_to_next_row('1',event);">
+                                                <td style="width: 95px;"> 
+                                                    <input style="width: 80px;" type="text" name="rcbook[]" id="v_rcbook<?= $cn; ?>" autocomplete="off" placeholder="Vehical no." value="<?= $ex_row['rcbook']; ?>" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
+
                                                 </td>
 
                                                 <td style="width: 80px;">
-                                                    <input style="width: 65px;" type="text" value="<?= date('d-m-Y'); ?>" name="date[]" id="date1" autocomplete="off" placeholder="date" required onkeydown="chng_to_next_row('1',event);">
+                                                    <input style="width: 65px;" type="text" value="<?= $ex_row['date']; ?>" name="date[]" id="date<?= $cn; ?>" autocomplete="off" placeholder="date" required onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                 </td>
 
                                                 <td style="width: 90px;">
-                                                    <input style="width: 75px;" onkeyup="total()" type="number" name="tot_km[]" id="tot_km1" autocomplete="off" placeholder="KM" required onkeydown="chng_to_next_row('1',event);">
+                                                    <input style="width: 75px;" onkeyup="total()" type="number" name="tot_km[]" id="tot_km<?= $cn; ?>" autocomplete="off" placeholder="KM" value="<?= $ex_row['km']; ?>" required onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                 </td>
 
                                                 <td style="width: 62px;">
-                                                    <input style="width: 50px;" type="number" onkeyup="total()" name="session[]" id="session1" autocomplete="off" placeholder="Remuneration" required onkeydown="chng_to_next_row('1',event);">
+                                                    <input style="width: 50px;" type="number" onkeyup="total()" name="session[]" id="session<?= $cn; ?>" autocomplete="off" placeholder="Remuneration" value="<?= $ex_row['session']; ?>" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                 </td>
 
                                                 
 
                                                 <td style="width: 90px;">
-                                                    <select name="fule[]" id="v_fule1" onchange="total()" style="width: 74px;">
+                                                    <select name="fule[]" id="v_fule<?= $cn; ?>" onchange="total();" style="width: 74px;">
                                                         <option value="">-- Fule --</option>
-                                                            <option value="Petrol">Petrol</option>
-                                                            <option value="Diesel">Diesel</option>
-                                                            <option value="Gas">Gas</option>
-                                                            <option value="Petro/LPG" >Petro/LPG</option>
-                                                            <option value="Petrol/CNG">Petrol/CNG</option>
+                                                            <option value="Petrol" <?php if($ex_row['fule'] == 'Petrol'){ echo "selected"; } ?>>Petrol</option>
+                                                            <option value="Diesel" <?php if($ex_row['fule'] == 'Diesel'){ echo "selected"; } ?>>Diesel</option>
+                                                            <option value="Gas" <?php if($ex_row['fule'] == 'Gas'){ echo "selected"; } ?>>Gas</option>
+                                                            <option value="Petro/LPG" <?php if($ex_row['fule'] == 'Petro/LPG'){ echo "selected"; } ?>>Petro/LPG</option>
+                                                            <option value="Petrol/CNG" <?php if($ex_row['fule'] == 'Petrol/CNG'){ echo "selected"; } ?>>Petrol/CNG</option>
                                                     </select>
                                                 </td>
 
 
                                                 <td style="width: 62px;">
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta1" autocomplete="off" placeholder="T.A" onkeydown="chng_to_next_row('1',event);">
+                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tra_allow']; ?>" name="ta[]" id="ta<?= $cn; ?>" autocomplete="off" placeholder="T.A" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                 </td>
 
                                                 <td style="width: 62px;">
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('1',event);" name="talltax[]" id="talltax1" autocomplete="off" placeholder="Tall Tax">
+                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tall_tax']; ?>" name="talltax[]" id="talltax<?= $cn; ?>" autocomplete="off"  onkeydown="chng_to_next_row('<?= $cn; ?>',event);" placeholder="Tall Tax">
                                                 </td>
 
-                                                <td style="width: 80px;">
-                                                    <input type="text" name="km_total_amount[]" id="km_total_amount1" autocomplete="off" placeholder="KM Total Amount" readonly style="width: 60px;"  onkeydown="chng_to_next_row('1',event);">
+                                                <td  style="width: 80px;">
+                                                    <input type="text" name="km_total_amount[]" value="<?= $ex_row['km_total']; ?>" id="km_total_amount<?= $cn; ?>" autocomplete="off" placeholder="KM Total Amount" readonly style="width: 60px;" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                 </td>
 
 
-                                                <td style="width: 80px;">
-                                                    <input type="text" name="session_total_amount[]" id="session_total_amount1" autocomplete="off" placeholder="Remuneration Total" readonly  style="width: 60px;" onkeydown="chng_to_next_row('1',event);">
+                                                <td  style="width: 80px;">
+                                                    <input type="text" name="session_total_amount[]" value="<?= $ex_row['session_total']; ?>" id="session_total_amount<?= $cn; ?>" autocomplete="off" placeholder="Remuneration Total" readonly style="width: 60px;" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                 </td>
 
-                                                <td style="width: 150px;">
-                                                    <input type="text" name="row_total[]" id="row_total1" autocomplete="off" placeholder="Total" readonly onkeydown="chng_to_next_row('1',event);">
+                                                <td  style="width: 150px;">
+                                                    <input type="text" name="row_total[]" value="<?= $ex_row['total']; ?>" id="row_total<?= $cn; ?>" autocomplete="off" placeholder="Total" readonly onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
                                                     <input type="hidden" name="type[]" value="C">
                                                 </td>
+
                                                 <td>
-                                                    <input type="text" name="message[]" id="message1" autocomplete="off" placeholder="Message" value="<?= $file['message']; ?>" onkeydown="chng_to_next_row('1',event);">
-                                                    <input type="hidden" id="rcbook1" >
-                                                    <input type="hidden" id="fule1">
+                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $ex_row['message']; ?>">
+                                                    <input type="hidden" id="rcbook<?= $cn; ?>" value="<?= $ex_row['rcbook'] ?>">
+                                                    <input type="hidden" id="fule<?= $cn; ?>" value="<?= $ex_row['fule'] ?>">
                                                 </td>
+                                                
                                             </tr>
+
+                                        <?php } ?>
 
                                         </tbody>
 
@@ -217,7 +214,7 @@
                                                 
 
                                                 <td colspan="12">
-                                                    <input type="text" name="row_total[]" id="main_total" autocomplete="off" placeholder="Total" readonly>
+                                                    <input type="text" name="row_total[]" id="main_total" autocomplete="off" value="<?= $last_row[0]['total'] ?>" placeholder="Total" readonly>
                                                     <input type="hidden" name="type[]" value="D">
                                                 </td>
                                             </tr>
@@ -234,19 +231,21 @@
                             
 
                         </div>
-                        <div class="card-footer">
-                            <div class="float-right">
-                                <label class="container">Final Submit
-                                    <input type="checkbox" name="final" value="1" >
-                                    <span class="checkmark"></span>
-                                </label>
-                                <a href="<?= base_url(); ?>squad/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
-                                    View
-                                </a>
-                                <a href="<?= base_url(); ?>squad" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
-                                    Cancel
-                                </a>
-                                <button type="button" class="btn btn-success" onclick="submit_Data();"><i class="fa fa-save"></i>&nbsp;Save</button>
+                        <div class="card">
+                            <div class="card-footer">
+                                <div class="float-right">
+                                    <label class="container">Final Submit
+                                        <input type="checkbox" name="final" value="1" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <a href="<?= base_url(); ?>squad/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
+                                        View
+                                    </a>
+                                    <a href="<?= base_url(); ?>squad" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
+                                        Cancel
+                                    </a>
+                                    <button type="button" class="btn btn-success" onclick="submit_Data();"><i class="fa fa-save"></i>&nbsp;Save</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,10 +259,6 @@
 
     <script type="text/javascript">
 
-        $(function(){
-            $('#acc_code1').focus();
-        })
-
         document.onkeydown = function(e) {
             if (e.ctrlKey && e.keyCode === 83) {
                 
@@ -273,6 +268,78 @@
             }
         };
 
+        function submit_Data(){
+
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('squad/ajax_submit') ?>",
+                data: $('form').serialize(),
+                beforeSend: function() {
+
+                    $.notify({
+                        title: '<strong></strong>',
+                        icon: 'fa fa-refresh',
+                        message: 'Saving Data'
+                    },{
+                        type: 'info'
+                    });
+
+                },
+                success: function (data) {
+                    //console.log(data);
+                    $.notify({
+                        title: '<strong></strong>',
+                        icon: 'fa fa-check',
+                        message: 'Data Successfully Saved'
+                    },{
+                        type: 'success'
+                    });
+
+                }
+            });
+
+
+        }
+        
+        function acc_auto(id)
+        {
+            $( "#acc_code"+id ).autocomplete({
+                source: "<?php echo site_url('squad/acc_autocomplete/?');?>",
+                select: function (event, ui) {
+                    $("#acc_code"+id).val(ui.item.value);
+                    $('#name'+id).val(ui.item.name);
+                    $('#acno'+id).val(ui.item.acno);
+                    $('#bank'+id).val(ui.item.bnk);
+                    $('#ifsc'+id).val(ui.item.ifsc);
+                    $('#branch'+id).val(ui.item.branch);
+                    $('#fule'+id).val(ui.item.fule);
+                    $('#rcbook'+id).val(ui.item.rcbook);
+                    add_row(id);
+                    total();
+                },
+                change: function( event, ui ) {
+                    if(ui.item==null)
+                    {
+                        $("#acc_code"+id).val('');
+                        $('#name'+id).val('');
+                        $('#acno'+id).val('');
+                        $('#bank'+id).val('');
+                        $('#ifsc'+id).val('');
+                        $('#branch'+id).val('');
+                        $('#fule'+id).val('');
+                        $('#rcbook'+id).val('');
+                        total();
+                    }
+                } 
+            });
+        }
+
+
+
+    </script>
+
+    <script type="text/javascript">
+        
         function total()
         {
             var rowCount = $('#table >tbody >tr').length;
@@ -281,7 +348,7 @@
             {
                 if($('#tr'+i).length){
 
-                    //var fule = $('#fule'+i).val();
+                    
                     if($('#tot_km'+i).val() != ''){ var tot_km            = parseFloat($('#tot_km'+i).val()); } else{ var tot_km = 0; }
                     if($('#session'+i).val() != ''){ var session          = parseFloat($('#session'+i).val()); } else{ var session = 0; }
                     if($('#ta'+i).val() != ''){ var ta                    = parseFloat($('#ta'+i).val()); } else{ var ta = 0; }
@@ -355,78 +422,6 @@
             $('#main_total').val(final_total.toFixed(2));
 
         }
-
-        function submit_Data(){
-
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('squad/ajax_submit') ?>",
-                data: $('form').serialize(),
-                beforeSend: function() {
-
-                    $.notify({
-                        title: '<strong></strong>',
-                        icon: 'fa fa-refresh',
-                        message: 'Saving Data'
-                    },{
-                        type: 'info'
-                    });
-
-                },
-                success: function (data) {
-                    $.notify({
-                        title: '<strong></strong>',
-                        icon: 'fa fa-check',
-                        message: 'Data Successfully Saved'
-                    },{
-                        type: 'success'
-                    });
-
-                }
-            });
-
-
-        }
-        
-        function acc_auto(id)
-        {
-            $( "#acc_code"+id ).autocomplete({
-                source: "<?php echo site_url('squad/acc_autocomplete/?');?>",
-                select: function (event, ui) {
-                    $("#acc_code"+id).val(ui.item.value);
-                    $('#name'+id).val(ui.item.name);
-                    $('#acno'+id).val(ui.item.acno);
-                    $('#bank'+id).val(ui.item.bnk);
-                    $('#ifsc'+id).val(ui.item.ifsc);
-                    $('#branch'+id).val(ui.item.branch);
-                    $('#fule'+id).val(ui.item.fule);
-                    $('#rcbook'+id).val(ui.item.rcbook);
-                    add_row(id);
-                    total();
-                },
-                change: function( event, ui ) {
-                    if(ui.item==null)
-                    {
-                        $("#acc_code"+id).val('');
-                        $('#name'+id).val('');
-                        $('#acno'+id).val('');
-                        $('#bank'+id).val('');
-                        $('#ifsc'+id).val('');
-                        $('#branch'+id).val('');
-                        $('#fule'+id).val('');
-                        $('#rcbook'+id).val('');
-                        total();
-                    }
-                } 
-            });
-        }
-
-    </script>
-
-
-    <script type="text/javascript">
-        
-        
 
         function add_row( i )
         {

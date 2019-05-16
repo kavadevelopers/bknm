@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 
-class Squad extends CI_Controller {
+class Assessment extends CI_Controller {
 	public $year;
 	function __construct(){
         parent::__construct();
@@ -20,9 +20,9 @@ class Squad extends CI_Controller {
 
 	public function index()
 	{	
-		$data['_title']				= "Squad Files";
-		$data['files']				= $this->general_model->get_all_files('2',$this->session->userdata('year'));
-		$this->load->template('squad/file',$data);
+		$data['_title']				= "Assessment Files";
+		$data['files']				= $this->general_model->get_all_files('3',$this->session->userdata('year'));
+		$this->load->template('assessment/file',$data);
 	}
 
 	public function add_file_view()
@@ -30,16 +30,16 @@ class Squad extends CI_Controller {
 		if(!check_right('1')){
 			redirect(base_url('error404'));
 		}
-		$data['_title']				= "Add New File - Squad";
-		$this->load->template('squad/add_filee',$data);
+		$data['_title']				= "Add New File - Assessment";
+		$this->load->template('assessment/add_filee',$data);
 	}
 
 	public function add_file()
 	{
 		
-		if($this->general_model->get_files('2'))
+		if($this->general_model->get_files('3'))
 		{
-			$no = count($this->general_model->get_files('2')) + 1;
+			$no = count($this->general_model->get_files('3')) + 1;
 		}
 		else{
 			$no = 1;
@@ -49,8 +49,8 @@ class Squad extends CI_Controller {
 
 		$data = [
 						'no'			=> 	$no,
-						'head'			=> 	'2',
-						'file_name'		=> 	'squad_file'.$no,
+						'head'			=> 	'3',
+						'file_name'		=> 	'assessment_file'.$no,
 						'title'			=>	$this->input->post('title'),
 						'message'			=>	$this->input->post('message'),
 						'year'			=>	$this->session->userdata('year'),
@@ -62,45 +62,57 @@ class Squad extends CI_Controller {
 
 		if($this->db->insert('file', $data)){
 			$file_id = $this->db->insert_id();
-			$query = 'CREATE TABLE IF NOT EXISTS `squad_file'.$no.'` (
+			$query = 'CREATE TABLE IF NOT EXISTS `assessment_file'.$no.'` (
 						`id` int(11) NOT NULL AUTO_INCREMENT,
   						`bill_no` text NOT NULL,
-  						`acc_code` text NOT NULL,
-  						`name` text NOT NULL,
-						`ac_no` text NOT NULL,
-						`bank` text NOT NULL,
-						`ifsc` text NOT NULL,
-						`branch` text NOT NULL,
-						`type` text NOT NULL,
-						`date` text NOT NULL,
-						`km` text NOT NULL,
-						`session` text NOT NULL,
-						`fule` text NOT NULL,
-						`tra_allow` text NOT NULL,
-						`tall_tax` text NOT NULL,
-						`km_total` text NOT NULL,
-						`session_total` text NOT NULL,
-						`total` text NOT NULL,
-						`message` text NOT NULL,
-						`rcbook` text NOT NULL,
+						  `acc_code` text NOT NULL,
+						  `name` text NOT NULL,
+						  `ac_no` text NOT NULL,
+						  `bank` text NOT NULL,
+						  `ifsc` text NOT NULL,
+						  `branch` text NOT NULL,
+						  `type` text NOT NULL,
+						  `date` text NOT NULL,
+						  `course1` text NOT NULL,
+						  `pap1` text NOT NULL,
+						  `nos1` text NOT NULL,
+						  `course2` text NOT NULL,
+						  `pap2` text NOT NULL,
+						  `nos2` text NOT NULL,
+						  `course3` text NOT NULL,
+						  `pap3` text NOT NULL,
+						  `nos3` text NOT NULL,
+						  `course4` text NOT NULL,
+						  `pap4` text NOT NULL,
+						  `nos4` text NOT NULL,
+						  `course5` text NOT NULL,
+						  `pap5` text NOT NULL,
+						  `nos5` text NOT NULL,
+						  `day` text NOT NULL,
+						  `ta` text NOT NULL,
+						  `talltax` text NOT NULL,
+						  `rem` text NOT NULL,
+						  `dayall` text NOT NULL,
+						  `total` text NOT NULL,
+						  `message` text NOT NULL,
 						PRIMARY KEY (`id`)
 					)';
 			if($this->year->query($query)){
 				$this->session->set_flashdata('msg', 'File Successfully Added');
-	        	redirect(base_url().'squad');
+	        	redirect(base_url().'assessment');
         	}
         	else{
 
         		$this->db->where('id',$file_id);
         		$this->db->delete('file');
         		$this->session->set_flashdata('error', 'Error In Add File Please Try Again');
-        		redirect(base_url().'squad');
+        		redirect(base_url().'assessment');
         	}
 		}
 		else{
 
 			$this->session->set_flashdata('error', 'Error In Add File Please Try Again');
-        	redirect(base_url().'squad');
+        	redirect(base_url().'assessment');
 
 		}
 
@@ -113,31 +125,31 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
 		if($id){
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
 				$data['_id']			= $id;
-				$data['_title']			= 'Squad - File-'.$data['file']['no'];
+				$data['_title']			= 'Assessment - File-'.$data['file']['no'];
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->result_array();
 				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
 				
 				if($data['old_data_num'] > 0){
-					$this->load->template('squad/edit_data',$data);
+					$this->load->template('assessment/edit_data',$data);
 				}else{
-					$this->load->template('squad/add_data',$data);
+					$this->load->template('assessment/add_data',$data);
 				}
 			}
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
 	}
@@ -148,31 +160,31 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
 		if($id){
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
-				$data['_title']			= 'Squad - File-'.$data['file']['no'];
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
+				$data['_title']			= 'Assessment - File-'.$data['file']['no'];
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit','acc_code !=' => ''])->result_array();
 				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
 				
 				if($data['old_data_num'] > 0){
-					$this->load->template('squad/view',$data);
+					$this->load->template('assessment/view',$data);
 				}else{
 					$this->session->set_flashdata('error', 'No Data Found');
-		        	redirect(base_url().'squad');
+		        	redirect(base_url().'assessment');
 				}
 			}
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
 	}
@@ -180,31 +192,31 @@ class Squad extends CI_Controller {
 	public function view_data_print($id = false)
 	{
 		if($id){
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
-				$data['_title']			= 'Squad - File-'.$data['file']['no'];
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
+				$data['_title']			= 'Assessment - File-'.$data['file']['no'];
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit','acc_code !=' => ''])->result_array();
 				$data['last_row']		= $this->year->get_where($data['file']['file_name'],['bill_no' => 'Credit'])->result_array();
 				
 				if($data['old_data_num'] > 0){
-					$this->load->view('squad/view_user_print',$data);
+					$this->load->view('assessment/view_user_print',$data);
 				}else{
 					$this->session->set_flashdata('error', 'No Data Found');
-		        	redirect(base_url().'squad');
+		        	redirect(base_url().'assessment');
 				}
 			}
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
 	}
@@ -241,7 +253,7 @@ class Squad extends CI_Controller {
             foreach ($result as $row)
                 $arr_result[] = array(
                     'label'         => $row->name,
-                    'paprate'      	=> $row->squad_price
+                    'paprate'      	=> $row->assessment_price
              	);
                 echo json_encode($arr_result);
             }
@@ -254,8 +266,6 @@ class Squad extends CI_Controller {
     public function ajax_submit()
     {
     	
-
-
     	if($this->year->get($this->input->post('file_name'))->num_rows() > 0)
     	{
     		$this->year->query('TRUNCATE TABLE '.$this->input->post('file_name'));    	
@@ -273,17 +283,35 @@ class Squad extends CI_Controller {
     						'ifsc'			=>	$this->input->post('ifsc')[$key],
     						'branch'		=>	$this->input->post('branch')[$key],
     						'date'			=>	$this->input->post('date')[$key],
-    						'km'			=>	$this->input->post('tot_km')[$key],
-    						'session'		=>	$this->input->post('session')[$key],
-    						'fule'			=>	$this->input->post('fule')[$key],
-    						'tra_allow'		=>	$this->input->post('ta')[$key],
-    						'tall_tax'		=>	$this->input->post('talltax')[$key],
-    						'km_total'		=>	$this->input->post('km_total_amount')[$key],
-    						'session_total'	=>	$this->input->post('session_total_amount')[$key],
+
+    						'course1'		=>	$this->input->post('course')[$key],
+    						'pap1'			=>	$this->input->post('pap_rate')[$key],
+    						'nos1'			=>	$this->input->post('nos')[$key],
+
+    						'course2'		=>	$this->input->post('course2')[$key],
+    						'pap2'			=>	$this->input->post('pap_rate2')[$key],
+    						'nos2'			=>	$this->input->post('nos2')[$key],
+
+    						'course3'		=>	$this->input->post('course3')[$key],
+    						'pap3'			=>	$this->input->post('pap_rate3')[$key],
+    						'nos3'			=>	$this->input->post('nos3')[$key],
+
+    						'course4'		=>	$this->input->post('course4')[$key],
+    						'pap4'			=>	$this->input->post('pap_rate4')[$key],
+    						'nos4'			=>	$this->input->post('nos4')[$key],
+
+    						'course5'		=>	$this->input->post('course5')[$key],
+    						'pap5'			=>	$this->input->post('pap_rate5')[$key],
+    						'nos5'			=>	$this->input->post('nos5')[$key],
+
+    						'day'			=>	$this->input->post('day')[$key],
+    						'ta'			=>	$this->input->post('ta')[$key],
+    						'talltax'		=>	$this->input->post('talltax')[$key],
+    						'rem'			=>	$this->input->post('papertotal')[$key],
+    						'dayall'		=>	$this->input->post('day_tot')[$key],
     						'total'			=>	$this->input->post('row_total')[$key],
     						'type'			=>	$this->input->post('type')[$key],
-    						'message'		=>	$this->input->post('message')[$key],
-    						'rcbook'		=>	$this->input->post('rcbook')[$key]
+    						'message'		=>	$this->input->post('message')[$key]
     					];
 
 
@@ -291,18 +319,18 @@ class Squad extends CI_Controller {
 
     	}
 
-    	$user = $this->user_model->_user($this->session->userdata('id'))[0];
+  //   	$user = $this->user_model->_user($this->session->userdata('id'))[0];
     		
-		if($this->session->userdata('id') != '1'){
-	    	$this->db->where('id',$this->input->post('file_id'));
-	    	$this->db->update('file',['entry_by' => $user['name']]);
-	    }
+		// if($this->session->userdata('id') != '1'){
+	 //    	$this->db->where('id',$this->input->post('file_id'));
+	 //    	$this->db->update('file',['entry_by' => $user['name']]);
+	 //    }
 
-    	if($this->input->post('final') == '1')
-    	{
-    		$this->db->where('id',$this->input->post('file_id'));
-    		$this->db->update('file',['final' => '1']);
-    	}
+  //   	if($this->input->post('final') == '1')
+  //   	{
+  //   		$this->db->where('id',$this->input->post('file_id'));
+  //   		$this->db->update('file',['final' => '1']);
+  //   	}
 
     }
 
@@ -315,10 +343,10 @@ class Squad extends CI_Controller {
 
     	if($id){
 
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
 				$year_active  = $this->session->userdata('year');
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
 				$data['old_data']		= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->result_array();
@@ -334,9 +362,9 @@ class Squad extends CI_Controller {
 
 			        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 				        ->setLastModifiedBy('BKNMU')
-				        ->setTitle('Squad')
+				        ->setTitle('Assessment')
 				        ->setSubject('File-'.$data['file']['no'])
-				        ->setDescription('Squad - '.'File-'.$data['file']['no'])
+				        ->setDescription('Assessment - '.'File-'.$data['file']['no'])
 				        ->setCategory('Bank Copy');
 
 				    $sheet = $spreadsheet->getActiveSheet()->setTitle("Bank Copy");
@@ -528,7 +556,7 @@ class Squad extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Squad Bank Copy-File-'.$data['file']['no'].'('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Assessment Bank Copy-File-'.$data['file']['no'].'('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -539,19 +567,19 @@ class Squad extends CI_Controller {
 
 			    }else{
 					$this->session->set_flashdata('error', 'No Data Found');
-		        	redirect(base_url().'squad');
+		        	redirect(base_url().'assessment');
 				}
 
 		    }
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
 
@@ -566,10 +594,10 @@ class Squad extends CI_Controller {
 		}
     	if($id){
     		
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
 
 				$year_active  = $this->session->userdata('year');
 				$data['old_data_num']	= $this->year->get_where($data['file']['file_name'],['bill_no !=' => 'Credit'])->num_rows();
@@ -586,9 +614,9 @@ class Squad extends CI_Controller {
 
 			        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 				        ->setLastModifiedBy('BKNMU')
-				        ->setTitle('Squad')
+				        ->setTitle('Assessment')
 				        ->setSubject('File-'.$data['file']['no'])
-				        ->setDescription('Squad - '.'File-'.$data['file']['no'])
+				        ->setDescription('Assessment - '.'File-'.$data['file']['no'])
 				        ->setCategory('Corporation Bank Copy');
 
 				    $sheet = $spreadsheet->getActiveSheet()->setTitle("Corporation Bank Copy");
@@ -780,7 +808,7 @@ class Squad extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Squad Corporation Bank Copy-File-'.$data['file']['no'].'('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Assessment Corporation Bank Copy-File-'.$data['file']['no'].'('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -791,19 +819,19 @@ class Squad extends CI_Controller {
 
 			    }else{
 					$this->session->set_flashdata('error', 'No Data Found');
-		        	redirect(base_url().'squad');
+		        	redirect(base_url().'assessment');
 				}
 
 		    }
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
 
@@ -819,23 +847,23 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	if($id){
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
 				$data['_title']				= "Print Bank Copy";
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
-				$this->load->view('squad/bank_print',$data);
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
+				$this->load->view('assessment/bank_print',$data);
 
 			}
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
     }
@@ -846,23 +874,23 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	if($id){
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
 				$data['_title']				= "View Bills";
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
-				$this->load->template('squad/view_bills',$data);
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
+				$this->load->template('assessment/view_bills',$data);
 
 			}
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
     }
@@ -873,23 +901,23 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	if($id){
-			if($this->general_model->get_original_file($id,'2'))
+			if($this->general_model->get_original_file($id,'3'))
 			{
 
 				$data['_title']				= "Print Bank Copy";
-				$data['file']			= $this->general_model->get_original_file($id,'2')[0];
-				$this->load->view('squad/corp_bank_print',$data);
+				$data['file']			= $this->general_model->get_original_file($id,'3')[0];
+				$this->load->view('assessment/corp_bank_print',$data);
 
 			}
 			else{
 				$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 			}
 		}
 		else{
 			
 			$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
 			
 		}
     }
@@ -901,8 +929,8 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	$data['_title']			= "View All Data";
-    	$data['files']				= $this->general_model->get_all_files('2',$this->session->userdata('year'));
-		$this->load->template('squad/view_all_bills',$data);
+    	$data['files']				= $this->general_model->get_all_files('3',$this->session->userdata('year'));
+		$this->load->template('assessment/view_all_bills',$data);
     }
 
     public function export_all_bank()
@@ -911,7 +939,7 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('2',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_all_files('3',$this->session->userdata('year'));
     	if($data['files'])
     	{
 
@@ -937,9 +965,9 @@ class Squad extends CI_Controller {
 
 		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 			        ->setLastModifiedBy('BKNMU')
-			        ->setTitle('Squad')
+			        ->setTitle('Assessment')
 			        ->setSubject($this->session->userdata('year'))
-			        ->setDescription('Squad - '.$this->session->userdata('year'))
+			        ->setDescription('Assessment - '.$this->session->userdata('year'))
 			        ->setCategory('Bank Copy');
 
 			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Bank Copy");
@@ -1145,7 +1173,7 @@ class Squad extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Squad Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Assessment Bank Copy-('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -1159,12 +1187,12 @@ class Squad extends CI_Controller {
 	    	}
 	    	else{
 	    		$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 	    	}
     	}
     	else{
     		$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
     	}
 
     }
@@ -1176,7 +1204,7 @@ class Squad extends CI_Controller {
 			redirect(base_url('error404'));
 		}
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('2',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_all_files('3',$this->session->userdata('year'));
     	if($data['files'])
     	{
 
@@ -1202,9 +1230,9 @@ class Squad extends CI_Controller {
 
 		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 			        ->setLastModifiedBy('BKNMU')
-			        ->setTitle('Squad')
+			        ->setTitle('Assessment')
 			        ->setSubject($this->session->userdata('year'))
-			        ->setDescription('Squad - '.$this->session->userdata('year'))
+			        ->setDescription('Assessment - '.$this->session->userdata('year'))
 			        ->setCategory('Corporation Bank Copy');
 
 			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Corporation Bank Copy");
@@ -1410,7 +1438,7 @@ class Squad extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Squad Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Assessment Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -1424,12 +1452,12 @@ class Squad extends CI_Controller {
 	    	}
 	    	else{
 	    		$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 	    	}
     	}
     	else{
     		$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
     	}
 
     }
