@@ -78,7 +78,7 @@
                                 <th class="th-border" style="width: 50px; text-align: center;">
                                     <img src="<?= base_url() ?>/image/logo.png" style="width: 60px;">
                                 </th>
-                                <th colspan="17" class="th-border" style="text-align: center;line-height: 60px; font-size: 20px; font-weight: bold;">
+                                <th colspan="19" class="th-border" style="text-align: center;line-height: 60px; font-size: 20px; font-weight: bold;">
                                     <?=$this->config->config["Full_name"]?>
                                 </th>
                             </tr>
@@ -86,7 +86,7 @@
                                 <th class="th-border" style="text-align: center; font-size: 18px;">
                                     File-<?= $file['no'] ?>
                                 </th>
-                                <th colspan="17" class="th-border" style="text-align: center; font-size: 20px;">
+                                <th colspan="19" class="th-border" style="text-align: center; font-size: 20px;">
                                     <?= $file['title']; ?> ( <?= $this->session->userdata('year') ?> )
                                 </th>
                             </tr>
@@ -98,15 +98,19 @@
                                 <th class="text-center" style="width: 40px;">IFSC</th>
                                 <th class="text-center" style="width: 120px;">Branch</th>
                                 <th class="text-center" style="width: 45px;">Acc Code</th>
-                                <th class="text-center" style="width: 70px;">Vehical no.</th>
                                 <th class="text-center" style="width: 70px;">Date</th>
-                                <th class="text-center">Total KM</th>
-                                <th class="text-center">Remu.</th>
-                                <th class="text-center">Fule</th>
+                                <th class="text-center" style="width: 70px;">Course1</th>
+                                <th class="text-center" style="width: 70px;">Nos1</th>
+
+                                <th class="text-center" style="width: 70px;">Course2</th>
+                                <th class="text-center" style="width: 70px;">Nos2</th>
+                                <th class="text-center" style="width: 70px;">Course3</th>
+                                <th class="text-center" style="width: 70px;">Nos3</th>
+                                <th class="text-center">Day</th>
                                 <th class="text-center" style="width: 20px;">Tra. All.</th>
                                 <th class="text-center" style="width: 20px;">Toll Tax</th>
-                                <th class="text-center">KM Tot Amt</th>
                                 <th class="text-center">Remu. Total</th>
+                                <th class="text-center">Day All.</th>
                                 <th class="text-center">Total</th>
 
                             </tr>
@@ -142,44 +146,54 @@
                                     <?= $ex_row['acc_code']; ?>
                                 </td>
 
-                                <td class="text-center" style="font-size: 8px;">
-                                    <?= $ex_row['rcbook']; ?>
-                                </td>
-
                                 <td class="text-center">
                                     <?= $ex_row['date']; ?>
                                 </td>
 
                                 <td class="text-center">
-                                    <?= $ex_row['km']; ?>
+                                    <?= $ex_row['course1']; ?>
                                 </td>
 
                                 <td class="text-center">
-                                    <?= $ex_row['session']; ?>
+                                    <?= $ex_row['nos1']; ?>
                                 </td>
-
-                                
 
                                 <td class="text-center">
-                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else if($ex_row['fule'] == 'Gas'){ echo "G"; }else if($ex_row['fule'] == 'Petro/LPG'){ echo "P/L"; }else if($ex_row['fule'] == 'Petrol/CNG'){ echo "P/C"; }; ?>
+                                    <?= $ex_row['course2']; ?>
+                                </td>
+
+                                <td class="text-center">
+                                    <?= $ex_row['nos2']; ?>
+                                </td>
+
+                                <td class="text-center">
+                                    <?= $ex_row['course3']; ?>
+                                </td>
+
+                                <td class="text-center">
+                                    <?= $ex_row['nos3']; ?>
+                                </td>
+
+
+                                <td class="text-center">
+                                    <?= $ex_row['day']; ?>
+                                </td>
+
+                                <td class="text-right">
+                                    <?= $ex_row['ta']; ?>
+                                </td>
+
+                                <td class="text-right">
+                                    <?= $ex_row['talltax']; ?>
+                                </td>
+
+                                <td class="text-right">
+                                    <?= $ex_row['rem']; ?>
                                 </td>
 
 
                                 <td class="text-right">
-                                    <?= $ex_row['tra_allow']; ?>
-                                </td>
-
-                                <td class="text-right">
-                                    <?= $ex_row['tall_tax']; ?>
-                                </td>
-
-                                <td class="text-right">
-                                    <?= $ex_row['km_total']; ?>
-                                </td>
-
-
-                                <td class="text-right">
-                                    <?= $ex_row['session_total']; ?>
+                                    <?= $ex_row['dayall']; ?>
                                 </td>
 
                                 <td class="text-right">
@@ -188,16 +202,16 @@
                                 
                             </tr>
                             <?php 
-                                if($ex_row['tra_allow'] != ''){ $ta += $ex_row['tra_allow']; }
-                                if($ex_row['km_total'] != ''){ $km_total += $ex_row['km_total']; }
-                                if($ex_row['tall_tax'] != ''){ $tall_tax += $ex_row['tall_tax']; }
-                                if($ex_row['session_total'] != ''){ $session_total += $ex_row['session_total']; }
+                                if($ex_row['ta'] != ''){ $ta += $ex_row['ta']; }
+                                if($ex_row['rem'] != ''){ $km_total += $ex_row['rem']; }
+                                if($ex_row['talltax'] != ''){ $tall_tax += $ex_row['talltax']; }
+                                if($ex_row['dayall'] != ''){ $session_total += $ex_row['dayall']; }
                                 if($ex_row['total'] != ''){ $total += $ex_row['total']; }
                             ?>
                         <?php  } ?>
 
                             <tr>
-                                <th colspan="12" class="text-right"><strong>Total : </strong></th>
+                                <th colspan="15" class="text-right"><strong>Total : </strong></th>
                                 <th class="text-right"><?= moneyFormatIndia($ta); ?></th>
                                 <th class="text-right"><?= moneyFormatIndia($tall_tax); ?></th>
                                 <th class="text-right"><?= moneyFormatIndia($km_total); ?></th>

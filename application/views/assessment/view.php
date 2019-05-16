@@ -58,10 +58,6 @@
                                                 <th class="text-center">nos2</th>
                                                 <th class="text-center">course3</th>
                                                 <th class="text-center">nos3</th>
-                                                <th class="text-center">course4</th>
-                                                <th class="text-center">nos4</th>
-                                                <th class="text-center">course5</th>
-                                                <th class="text-center">nos5</th>
                                                 <th class="text-center">Day</th>
                                                 <th class="text-center">T.A</th>
                                                 <th class="text-center">Tall Tax</th>
@@ -133,22 +129,6 @@
                                                     <?= $ex_row['nos3']; ?>
                                                 </td>
 
-                                                <td class="text-center">
-                                                    <?= $ex_row['course4']; ?>
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <?= $ex_row['nos4']; ?>
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <?= $ex_row['course5']; ?>
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <?= $ex_row['nos5']; ?>
-                                                </td>
-
 
                                                 <td class="text-right">
                                                     <?= $ex_row['day']; ?>
@@ -205,10 +185,6 @@
                                             
                                             <tr>
                                                 <th></th>
-                                                <th class="text-center"></th>
-                                                <th class="text-center"></th>
-                                                <th class="text-center"></th>
-                                                <th class="text-center"></th>
                                                 <th class="text-center"></th>
                                                 <th class="text-center"></th>
                                                 <th class="text-center"></th>
