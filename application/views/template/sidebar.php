@@ -172,9 +172,9 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting","squad"))[1]; ?>">
+                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting","squad","assessment"))[1]; ?>">
             
-                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting","squad"))[0]; ?>">
+                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting","squad","assessment"))[0]; ?>">
                             <i class="nav-icon fa fa-envelope-open"></i>
                             <p>Billing
                                 <i class="fa fa-angle-left right"></i>

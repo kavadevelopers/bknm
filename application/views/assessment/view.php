@@ -37,7 +37,7 @@
                         <div class="card card-info"  style="overflow-x: scroll;"> 
 
                             <div class="card-body">
-                                <a href="<?= base_url('squad/view_data_print/').$file['id'] ?>" target="_blank" class="btn btn-sm btn-secondary pull-right" style="color: #fff;">Print</a>
+                                <a href="<?= base_url('assessment/view_data_print/').$file['id'] ?>" target="_blank" class="btn btn-sm btn-secondary pull-right" style="color: #fff;">Print</a>
                                 <div class="row">
 
 
@@ -51,15 +51,22 @@
                                                 <th class="text-center">IFSC</th>
                                                 <th class="text-center">Branch</th>
                                                 <th class="text-center">Acc Code</th>
-                                                <th class="text-center">Vehical no.</th>
                                                 <th class="text-center">Date</th>
-                                                <th class="text-center">KM</th>
-                                                <th class="text-center">Remu.</th>
-                                                <th class="text-center">Fule</th>
+                                                <th class="text-center">course1</th>
+                                                <th class="text-center">nos1</th>
+                                                <th class="text-center">course2</th>
+                                                <th class="text-center">nos2</th>
+                                                <th class="text-center">course3</th>
+                                                <th class="text-center">nos3</th>
+                                                <th class="text-center">course4</th>
+                                                <th class="text-center">nos4</th>
+                                                <th class="text-center">course5</th>
+                                                <th class="text-center">nos5</th>
+                                                <th class="text-center">Day</th>
                                                 <th class="text-center">T.A</th>
-                                                <th class="text-center">Toll Tax</th>
-                                                <th class="text-center">KM Total Amount</th>
-                                                <th class="text-center">Remu. Total</th>
+                                                <th class="text-center">Tall Tax</th>
+                                                <th class="text-center">Remu.Total</th>
+                                                <th class="text-center">Day All.</th>
                                                 <th class="text-center">Total</th>
                                                 <th class="text-center">Action</th>
 
@@ -99,43 +106,69 @@
                                                 </td>
 
                                                 <td>
-                                                    <?= $ex_row['rcbook']; ?>
-                                                </td>
-
-                                                <td>
                                                     <?= $ex_row['date']; ?>
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <?= $ex_row['km']; ?>
+                                                    <?= $ex_row['course1']; ?>
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <?= $ex_row['session']; ?>
+                                                    <?= $ex_row['nos1']; ?>
                                                 </td>
-
-                                                
 
                                                 <td class="text-center">
-                                                    <?php if($ex_row['fule'] == 'Petrol'){ echo "P"; }else if($ex_row['fule'] == 'Diesel'){ echo "D"; }else if($ex_row['fule'] == 'Gas'){ echo "G"; }else if($ex_row['fule'] == 'Petro/LPG'){ echo "P/L"; }else if($ex_row['fule'] == 'Petrol/CNG'){ echo "P/C"; }; ?>
+                                                    <?= $ex_row['course2']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['nos2']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['course3']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['nos3']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['course4']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['nos4']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['course5']; ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?= $ex_row['nos5']; ?>
                                                 </td>
 
 
                                                 <td class="text-right">
-                                                    <?= $ex_row['tra_allow']; ?>
+                                                    <?= $ex_row['day']; ?>
                                                 </td>
 
                                                 <td class="text-right">
-                                                    <?= $ex_row['tall_tax']; ?>
+                                                    <?= $ex_row['ta']; ?>
                                                 </td>
 
                                                 <td class="text-right">
-                                                    <?= $ex_row['km_total']; ?>
+                                                    <?= $ex_row['talltax']; ?>
                                                 </td>
 
 
                                                 <td class="text-right">
-                                                    <?= $ex_row['session_total']; ?>
+                                                    <?= $ex_row['rem']; ?>
+                                                </td>
+
+                                                <td class="text-right">
+                                                    <?= $ex_row['dayall']; ?>
                                                 </td>
 
                                                 <td class="text-right">
@@ -146,13 +179,13 @@
                                                     <?php if(check_right('5')){ ?>
                                                         <?php if($file['final'] != '1'){ ?>
                                                             
-                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>assessment/add_data/<?= $file['id'] ?>" title="Edit">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
 
                                                         <?php } else if($this->session->userdata('id') == '1'){ ?>
 
-                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>squad/add_data/<?= $file['id'] ?>" title="Edit">
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>assessment/add_data/<?= $file['id'] ?>" title="Edit">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>                                                            
 
@@ -172,6 +205,13 @@
                                             
                                             <tr>
                                                 <th></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
                                                 <th class="text-center"></th>
                                                 <th class="text-center"></th>
                                                 <th class="text-center"></th>

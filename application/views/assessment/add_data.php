@@ -272,10 +272,10 @@
                                         <input type="checkbox" name="final" value="1" >
                                         <span class="checkmark"></span>
                                     </label>
-                                    <a href="<?= base_url(); ?>squad/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
+                                    <a href="<?= base_url(); ?>assessment/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
                                         View
                                     </a>
-                                    <a href="<?= base_url(); ?>squad" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
+                                    <a href="<?= base_url(); ?>assessment" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
                                         Cancel
                                     </a>
                                     <button type="button" class="btn btn-success" onclick="submit_Data();"><i class="fa fa-save"></i>&nbsp;Save</button>
