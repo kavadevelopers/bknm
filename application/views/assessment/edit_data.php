@@ -2,50 +2,36 @@
 
     <?php
 
-        $per_session = get_head_value_by_index('per_session','squad');
-        $petrol_rate = get_head_value_by_index('petrol_per_km','squad');
-        $lpg_petrol_rate = get_head_value_by_index('petrol_lpg_per_km','squad');
-        $cng_petrol_rate = get_head_value_by_index('petrol_cng_per_km','squad');
-        $diesel_rate = get_head_value_by_index('diesel_per_km','squad');
-        $gas_rate = get_head_value_by_index('gas_per_km','squad');
-        $min_km = get_head_value_by_index('min_km','squad');
-        $min_km_rate = get_head_value_by_index('min_km_rate','squad');
+        $day_price = $this->db->get_where('head',['id' => '3'])->result_array()[0]['day'];
         $file_limit = $this->db->get_where('head',['id' => '3'])->result_array()[0]['file_limit'];
 
     ?>
 
-   	<div class="content-header">
-      	<div class="container-fluid">
-        	<div class="row mb-2">
-          		<div class="col-md-12">
-            		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
                     <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
-          		</div>
-        	</div>
-      	</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    
-
     <style type="text/css">
-        
         input{
             font-size: 12px;
         }
-        tbody td{
-            text-align: center;
-        }
-
-
     </style>
 
 
     <section class="content">
         <div class="container-fluid">
-            <form method="post" action="" enctype="multipart/form-data">
+            <form method="post" action="<?= base_url(); ?>user/save" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-info"  style=""> 
+
+                        <div class="card card-info"> 
 
                             <div class="card-body" style="padding-bottom: 0px;">
                                 <div class="row">
@@ -54,118 +40,153 @@
                                             <tr>
                                                 <th style="width: 35px;">Sr No.</th>
                                                 <th class="text-center" style="width: 90px;">Acc Code</th>
-                                                <th class="text-center" style="width: 95px;">Vehical no.</th>
                                                 <th class="text-center" style="width: 80px;">Date</th>
-                                                <th class="text-center" style="width: 90px;">KM</th>
-                                                <th class="text-center" style="width: 62px;">Remu.</th>
-                                                <th class="text-center" style="width: 90px;">Fule</th>
-                                                <th class="text-center" style="width: 62px;">T.A</th>
-                                                <th class="text-center" style="width: 62px;">Toll Tax</th>
-                                                <th class="text-center" style="width: 80px;">KM Total</th>
-                                                <th class="text-center" style="width: 80px;">Remu. Total</th>
-                                                <th class="text-center" style="width: 150px;">Total</th>
+                                                <th class="text-center" style="width: 75px;">course1</th>
+                                                <th class="text-center">nos1</th>
+                                                <th class="text-center">course2</th>
+                                                <th class="text-center">nos2</th>
+                                                <th class="text-center">course3</th>
+                                                <th class="text-center">nos3</th>
+                                                <th class="text-center">course4</th>
+                                                <th class="text-center">nos4</th>
+                                                <th class="text-center">course5</th>
+                                                <th class="text-center">nos5</th>
+                                                <th class="text-center">Day</th>
+                                                <th class="text-center">T.A</th>
+                                                <th class="text-center">Tall Tax</th>
+                                                <th class="text-center">Remu.Total</th>
+                                                <th class="text-center">Day All.</th>
+                                                <th class="text-center">Total</th>
                                                 <th class="text-center">Message</th>
                                             </tr>
                                         </thead>
                                     </table>
                                 </div>
                             </div>
+
                             <div class="card-body" style="overflow: scroll;  height: 300px; padding-top: 0px;">
                                 <div class="row">
+
+
                                     <table class="table table-bordered table-sm" id="table">
+                                        
                                         <tbody id="add_row">
-                                            
-                                        <?php $cn = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
+                                            <?php $cn = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
                                             <tr id="tr<?= $cn; ?>">
 
                                                 <td class="text-center" style="width: 35px;">
                                                     <?= $cn; ?>
                                                     <input type="hidden" name="bill_id[]" value="<?= $ex_row['bill_no']; ?>">
+
+                                                    <input type="hidden" name="name[]" id="name<?= $cn; ?>" onfocus="" value="<?= $ex_row['name']; ?>" autocomplete="off" placeholder="Person Name" required readonly>
+
+
                                                 
-                                                    <input type="hidden" name="name[]" id="name<?= $cn; ?>" autocomplete="off" placeholder="Person Name" required readonly value="<?= $ex_row['name']; ?>">
-                                                
-                                                    <input type="hidden" name="acno[]" id="acno<?= $cn; ?>" value="<?= $ex_row['ac_no']; ?>" autocomplete="off" placeholder="Account No." required readonly>
-                                                
-                                                    <input style="width: 70px;" type="hidden" name="bank[]" value="<?= $ex_row['bank']; ?>" id="bank<?= $cn; ?>" autocomplete="off" placeholder="Bank Name" required readonly>
-                                                
+                                                    <input type="hidden" name="acno[]" value="<?= $ex_row['ac_no']; ?>" id="acno<?= $cn; ?>" autocomplete="off" placeholder="Account No." required readonly>
+                                                    
+
+                                                    
+                                                    <input style="width: 70px;" type="hidden" value="<?= $ex_row['bank']; ?>" name="bank[]" id="bank<?= $cn; ?>" autocomplete="off" placeholder="Bank Name" required readonly>
+                                                    
+
+                                                    
                                                     <input style="width: 75px;" type="hidden" value="<?= $ex_row['ifsc']; ?>" name="ifsc[]" id="ifsc<?= $cn; ?>" autocomplete="off" placeholder="IFSC Code" required readonly>
-                                                
-                                                    <input style="width: 100px;" type="hidden" name="branch[]" value="<?= $ex_row['branch']; ?>" id="branch<?= $cn; ?>" autocomplete="off" placeholder="Branch" required readonly>
+                                                    
+                                                    <input style="width: 100px;" type="hidden" value="<?= $ex_row['branch']; ?>" name="branch[]" id="branch<?= $cn; ?>" autocomplete="off" placeholder="Branch" required readonly>
                                                 </td>
 
                                                 <td style="width: 90px;">
-                                                    <input style="width: 80px;" onfocus="acc_auto('<?= $cn; ?>');" type="text" name="acc_code[]" id="acc_code<?= $cn; ?>" autocomplete="off" placeholder="Acc Code" value="<?= $ex_row['acc_code']; ?>" required>
-                                                </td>
-
-                                                <td style="width: 95px;"> 
-                                                    <input style="width: 80px;" type="text" name="rcbook[]" id="v_rcbook<?= $cn; ?>" autocomplete="off" placeholder="Vehical no." value="<?= $ex_row['rcbook']; ?>" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-
+                                                    <input style="width: 80px;" value="<?= $ex_row['acc_code']; ?>" onfocus="acc_auto('<?= $cn; ?>');" type="text" name="acc_code[]" id="acc_code<?= $cn; ?>" autocomplete="off" placeholder="Acc Code" required>
                                                 </td>
 
                                                 <td style="width: 80px;">
-                                                    <input style="width: 65px;" type="text" value="<?= $ex_row['date']; ?>" name="date[]" id="date<?= $cn; ?>" autocomplete="off" placeholder="date" required onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
+                                                    <input style="width: 60px;" type="text" value="<?= $ex_row['date']; ?>" name="date[]" id="date<?= $cn; ?>" autocomplete="off" placeholder="date" required>
                                                 </td>
 
-                                                <td style="width: 90px;">
-                                                    <input style="width: 75px;" onkeyup="total()" type="number" name="tot_km[]" id="tot_km<?= $cn; ?>" autocomplete="off" placeholder="KM" value="<?= $ex_row['km']; ?>" required onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-                                                </td>
-
-                                                <td style="width: 62px;">
-                                                    <input style="width: 50px;" type="number" onkeyup="total()" name="session[]" id="session<?= $cn; ?>" autocomplete="off" placeholder="Remuneration" value="<?= $ex_row['session']; ?>" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-                                                </td>
-
-                                                
-
-                                                <td style="width: 90px;">
-                                                    <select name="fule[]" id="v_fule<?= $cn; ?>" onchange="total();" style="width: 74px;">
-                                                        <option value="">-- Fule --</option>
-                                                            <option value="Petrol" <?php if($ex_row['fule'] == 'Petrol'){ echo "selected"; } ?>>Petrol</option>
-                                                            <option value="Diesel" <?php if($ex_row['fule'] == 'Diesel'){ echo "selected"; } ?>>Diesel</option>
-                                                            <option value="Gas" <?php if($ex_row['fule'] == 'Gas'){ echo "selected"; } ?>>Gas</option>
-                                                            <option value="Petro/LPG" <?php if($ex_row['fule'] == 'Petro/LPG'){ echo "selected"; } ?>>Petro/LPG</option>
-                                                            <option value="Petrol/CNG" <?php if($ex_row['fule'] == 'Petrol/CNG'){ echo "selected"; } ?>>Petrol/CNG</option>
-                                                    </select>
-                                                </td>
-
-
-                                                <td style="width: 62px;">
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tra_allow']; ?>" name="ta[]" id="ta<?= $cn; ?>" autocomplete="off" placeholder="T.A" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-                                                </td>
-
-                                                <td style="width: 62px;">
-                                                    <input style="width: 50px;" type="text" onkeyup="total()" value="<?= $ex_row['tall_tax']; ?>" name="talltax[]" id="talltax<?= $cn; ?>" autocomplete="off"  onkeydown="chng_to_next_row('<?= $cn; ?>',event);" placeholder="Tall Tax">
-                                                </td>
-
-                                                <td  style="width: 80px;">
-                                                    <input type="text" name="km_total_amount[]" value="<?= $ex_row['km_total']; ?>" id="km_total_amount<?= $cn; ?>" autocomplete="off" placeholder="KM Total Amount" readonly style="width: 60px;" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-                                                </td>
-
-
-                                                <td  style="width: 80px;">
-                                                    <input type="text" name="session_total_amount[]" value="<?= $ex_row['session_total']; ?>" id="session_total_amount<?= $cn; ?>" autocomplete="off" placeholder="Remuneration Total" readonly style="width: 60px;" onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-                                                </td>
-
-                                                <td  style="width: 150px;">
-                                                    <input type="text" name="row_total[]" value="<?= $ex_row['total']; ?>" id="row_total<?= $cn; ?>" autocomplete="off" placeholder="Total" readonly onkeydown="chng_to_next_row('<?= $cn; ?>',event);">
-                                                    <input type="hidden" name="type[]" value="C">
+                                                <td style="width: 75px;">
+                                                    <input style="width: 60px;" onfocus="cource_auto('<?= $cn; ?>');" value="<?= $ex_row['course1']; ?>" type="text" name="course[]" id="course<?= $cn; ?>" autocomplete="off" placeholder="Course" required>
+                                                    <input type="hidden" name="pap_rate[]" id="pap_rate<?= $cn; ?>" value="<?= $ex_row['pap1']; ?>">
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" name="message[]" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" value="<?= $ex_row['message']; ?>">
-                                                    <input type="hidden" id="rcbook<?= $cn; ?>" value="<?= $ex_row['rcbook'] ?>">
-                                                    <input type="hidden" id="fule<?= $cn; ?>" value="<?= $ex_row['fule'] ?>">
+                                                    <input style="width: 30px;" type="text" onkeyup="total()" value="<?= $ex_row['nos1']; ?>" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="nos[]" id="nos<?= $cn; ?>" autocomplete="off" placeholder="Nos" required>
                                                 </td>
+
+                                                <td>
+                                                    <input style="width: 60px;" value="<?= $ex_row['course2']; ?>" onfocus="cource_auto2('<?= $cn; ?>','2');" type="text" name="course2[]" id="course2<?= $cn; ?>" autocomplete="off" placeholder="Course2" required> 
+                                                    <input type="hidden" name="pap_rate2[]" value="<?= $ex_row['pap2']; ?>" id="pap_rate2<?= $cn; ?>">
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 30px;" type="text" value="<?= $ex_row['nos2']; ?>" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="nos2[]" id="nos2<?= $cn; ?>" autocomplete="off" placeholder="Nos2" required>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 60px;" value="<?= $ex_row['course3']; ?>" onfocus="cource_auto2('<?= $cn; ?>','3');" type="text" name="course3[]" id="course3<?= $cn; ?>" autocomplete="off" placeholder="Course3" required>
+                                                    <input type="hidden" name="pap_rate3[]" value="<?= $ex_row['pap3']; ?>" id="pap_rate3<?= $cn; ?>">
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 30px;" type="text" value="<?= $ex_row['nos3']; ?>" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="nos3[]" id="nos3<?= $cn; ?>" autocomplete="off" placeholder="Nos3" required>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 60px;" value="<?= $ex_row['course4']; ?>" onfocus="cource_auto2('<?= $cn; ?>','4');" type="text" name="course4[]" id="course4<?= $cn; ?>" autocomplete="off" placeholder="Course4" required>
+                                                    <input type="hidden" name="pap_rate4[]" value="<?= $ex_row['pap4']; ?>" id="pap_rate4<?= $cn; ?>">
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 30px;" type="text" value="<?= $ex_row['nos4']; ?>" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="nos4[]" id="nos4<?= $cn; ?>" autocomplete="off" placeholder="Nos4" required>
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 60px;" value="<?= $ex_row['course5']; ?>" onfocus="cource_auto2('<?= $cn; ?>','5');" type="text" name="course5[]" id="course5<?= $cn; ?>" autocomplete="off" placeholder="Course5" required>
+                                                    <input type="hidden" name="pap_rate5[]" value="<?= $ex_row['pap5']; ?>" id="pap_rate5<?= $cn; ?>">
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 30px;" type="text" value="<?= $ex_row['nos5']; ?>" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="nos5[]" id="nos5<?= $cn; ?>" autocomplete="off" placeholder="Nos5" required>
+                                                </td>
+
                                                 
+
+                                                <td>
+                                                    <input style="width: 40px;" type="text" value="<?= $ex_row['day']; ?>" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="day[]" id="day<?= $cn; ?>" autocomplete="off" placeholder="Day">
+                                                </td>
+
+
+                                                <td>
+                                                    <input style="width: 40px;" value="<?= $ex_row['ta']; ?>" type="text" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="ta[]" id="ta<?= $cn; ?>" autocomplete="off" placeholder="T.A">
+                                                </td>
+
+                                                <td>
+                                                    <input style="width: 40px;" value="<?= $ex_row['talltax']; ?>" type="text" onkeyup="total()" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" name="talltax[]" id="talltax<?= $cn; ?>" autocomplete="off" placeholder="Tall Tax">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" style="width: 60px;" value="<?= $ex_row['rem']; ?>" name="papertotal[]" id="papertotal<?= $cn; ?>" autocomplete="off" placeholder="Remu.Total" readonly>
+                                                </td>
+
+
+                                                <td>
+                                                    <input type="text" style="width: 40px;" value="<?= $ex_row['dayall']; ?>" name="day_tot[]" id="day_tot<?= $cn; ?>" autocomplete="off" placeholder="Day Allowance" readonly>
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" style="width: 50px;" value="<?= $ex_row['total']; ?>" name="row_total[]" id="row_total<?= $cn; ?>" autocomplete="off" placeholder="Total" readonly>
+                                                    <input type="hidden" name="type[]" value="C">
+                                                </td>
+                                                <td>
+                                                    <input type="text" style="width: 50px;" value="<?= $ex_row['message']; ?>" name="message[]" onkeydown="chng_to_next_row('<?= $cn; ?>',event);" id="message<?= $cn; ?>" autocomplete="off" placeholder="Message" >
+                                                </td>
                                             </tr>
-
-                                        <?php } ?>
-
+                                            <?php } ?>
                                         </tbody>
 
 
                                         <tfoot>
                                             <tr>
-                                                <td colspan="15" style="padding: 10px;">
+                                                <td colspan="20" style="padding: 10px;">
                                                     
                                                 </td>
                                                 
@@ -173,7 +194,7 @@
 
                                             <tr id="">
 
-                                                <td class="text-center" colspan="6">
+                                                <td class="text-center" colspan="12">
                                                     Debit
                                                     <input type="hidden" name="bill_id[]" value="Credit">
                                                 </td>
@@ -196,25 +217,42 @@
 
                                                 
                                                 <input type="hidden" name="branch[]">
-                                                <input type="hidden" name="message[]">
+                                               
                                                 
 
                                                 
                                                 <input type="hidden" name="acc_code[]">
-
                                                 <input type="hidden" name="date[]">
-                                                <input type="hidden" name="tot_km[]">
-                                                <input type="hidden" name="session[]">
-                                                <input type="hidden" name="fule[]">
+
+                                                <input type="hidden" name="course[]">
+                                                <input type="hidden" name="nos[]">
+                                                <input type="hidden" name="pap_rate[]">
+                                                
+                                                <input type="hidden" name="course2[]">
+                                                <input type="hidden" name="nos2[]">
+                                                <input type="hidden" name="pap_rate2[]">
+
+                                                <input type="hidden" name="course3[]">
+                                                <input type="hidden" name="nos3[]">
+                                                <input type="hidden" name="pap_rate3[]">
+
+                                                <input type="hidden" name="course4[]">
+                                                <input type="hidden" name="nos4[]">
+                                                <input type="hidden" name="pap_rate4[]">
+
+                                                <input type="hidden" name="course5[]">
+                                                <input type="hidden" name="nos5[]">
+                                                <input type="hidden" name="pap_rate5[]">
+                                                
+                                                <input type="hidden" name="day[]">
                                                 <input type="hidden" name="ta[]">
                                                 <input type="hidden" name="talltax[]" >
-                                                <input type="hidden" name="km_total_amount[]">
-                                                <input type="hidden" name="session_total_amount[]">
-                                                <input type="hidden" name="rcbook[]">
-                                                
+                                                <input type="hidden" name="papertotal[]" >
+                                                <input type="hidden" name="day_tot[]">
+                                                <input type="hidden" name="message[]">
 
-                                                <td colspan="12">
-                                                    <input type="text" name="row_total[]" id="main_total" autocomplete="off" value="<?= $last_row[0]['total'] ?>" placeholder="Total" readonly>
+                                                <td colspan="11">
+                                                    <input type="text" name="row_total[]" id="main_total" value="<?= $last_row[0]['total'] ?>" autocomplete="off" placeholder="Total" readonly>
                                                     <input type="hidden" name="type[]" value="D">
                                                 </td>
                                             </tr>
@@ -228,26 +266,24 @@
                                 </div>
                             </div>
 
-                            
-
-                        </div>
-                        <div class="card">
                             <div class="card-footer">
                                 <div class="float-right">
                                     <label class="container">Final Submit
                                         <input type="checkbox" name="final" value="1" >
                                         <span class="checkmark"></span>
                                     </label>
-                                    <a href="<?= base_url(); ?>squad/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
+                                    <a href="<?= base_url(); ?>assessment/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
                                         View
                                     </a>
-                                    <a href="<?= base_url(); ?>squad" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
+                                    <a href="<?= base_url(); ?>assessment" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-danger">
                                         Cancel
                                     </a>
                                     <button type="button" class="btn btn-success" onclick="submit_Data();"><i class="fa fa-save"></i>&nbsp;Save</button>
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
                 <input type="hidden" name="file_id" value="<?= $file['id']; ?>">
@@ -272,7 +308,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('squad/ajax_submit') ?>",
+                url: "<?= base_url('assessment/ajax_submit') ?>",
                 data: $('form').serialize(),
                 beforeSend: function() {
 
@@ -286,7 +322,8 @@
 
                 },
                 success: function (data) {
-                    //console.log(data);
+                   
+                   //console.log(data)
                     $.notify({
                         title: '<strong></strong>',
                         icon: 'fa fa-check',
@@ -304,7 +341,7 @@
         function acc_auto(id)
         {
             $( "#acc_code"+id ).autocomplete({
-                source: "<?php echo site_url('squad/acc_autocomplete/?');?>",
+                source: "<?php echo site_url('assessment/acc_autocomplete/?');?>",
                 select: function (event, ui) {
                     $("#acc_code"+id).val(ui.item.value);
                     $('#name'+id).val(ui.item.name);
@@ -312,10 +349,7 @@
                     $('#bank'+id).val(ui.item.bnk);
                     $('#ifsc'+id).val(ui.item.ifsc);
                     $('#branch'+id).val(ui.item.branch);
-                    $('#fule'+id).val(ui.item.fule);
-                    $('#rcbook'+id).val(ui.item.rcbook);
                     add_row(id);
-                    total();
                 },
                 change: function( event, ui ) {
                     if(ui.item==null)
@@ -326,94 +360,102 @@
                         $('#bank'+id).val('');
                         $('#ifsc'+id).val('');
                         $('#branch'+id).val('');
-                        $('#fule'+id).val('');
-                        $('#rcbook'+id).val('');
-                        total();
                     }
                 } 
             });
         }
 
 
+        function cource_auto(id)
+        {
+            $( "#course"+id ).autocomplete({
+                source: "<?php echo site_url('assessment/course_autocomplete/?');?>",
+                select: function (event, ui) {
+                    $("#course"+id).val(ui.item.label);
+                    $('#pap_rate'+id).val(ui.item.paprate);
+                    total();
+                },
+                change: function( event, ui ) {
+                    if(ui.item==null)
+                    {
+                        $("#course"+id).val('');
+                        $('#pap_rate'+id).val(0);
+                        total();
+                    }
+                } 
+            });
+
+            total();
+        }
+
+        function cource_auto2(id,num)
+        {
+            $( "#course"+num+id ).autocomplete({
+                source: "<?php echo site_url('assessment/course_autocomplete/?');?>",
+                select: function (event, ui) {
+                    $("#course"+num+id).val(ui.item.label);
+                    $('#pap_rate'+num+id).val(ui.item.paprate);
+                    total();
+                },
+                change: function( event, ui ) {
+                    if(ui.item==null)
+                    {
+                        $("#course"+num+id).val('');
+                        $('#pap_rate'+num+id).val(0);
+                        total();
+                    }
+                } 
+            });
+
+            total();
+        }
+        
 
     </script>
+
 
     <script type="text/javascript">
         
         function total()
         {
             var rowCount = $('#table >tbody >tr').length;
+            
             var final_total = parseFloat(0.00);
             for(var i = 1; i <= rowCount; i++)
             {
                 if($('#tr'+i).length){
 
-                    
-                    if($('#tot_km'+i).val() != ''){ var tot_km            = parseFloat($('#tot_km'+i).val()); } else{ var tot_km = 0; }
-                    if($('#session'+i).val() != ''){ var session          = parseFloat($('#session'+i).val()); } else{ var session = 0; }
-                    if($('#ta'+i).val() != ''){ var ta                    = parseFloat($('#ta'+i).val()); } else{ var ta = 0; }
-                    if($('#talltax'+i).val() != ''){ var talltax          = parseFloat($('#talltax'+i).val()); } else{ var talltax = 0; }
+                    if($('#nos'+i).val() != '') { var nos              = parseFloat($('#nos'+i).val()); } else{ var nos = 0; }
+                    if($('#nos2'+i).val() != ''){ var nos2            = parseFloat($('#nos2'+i).val()); } else{ var nos2 = 0; }
+                    if($('#nos3'+i).val() != ''){ var nos3            = parseFloat($('#nos3'+i).val()); } else{ var nos3 = 0; }
+                    if($('#nos4'+i).val() != ''){ var nos4            = parseFloat($('#nos4'+i).val()); } else{ var nos4 = 0; }
+                    if($('#nos5'+i).val() != ''){ var nos5            = parseFloat($('#nos5'+i).val()); } else{ var nos5 = 0; }
 
-                    if(tot_km != '0')
-                    {
-                        if($('#v_rcbook'+i).val() == '')
-                        {
-                            $('#v_rcbook'+i).val($('#rcbook'+i).val());    
-                        }
-                        if($('#v_fule'+i).val() == '')
-                        {
-                            $('#v_fule'+i).val($('#fule'+i).val());    
-                        }
-                    }
-                    else{
-                        $('#v_rcbook'+i).val('');
-                        $('#v_fule'+i).val('');
-                    }
-                    var fule = $('#v_fule'+i).val();
-                    var session_total_amount = session * parseFloat('<?= $per_session; ?>');
-                    $('#session_total_amount'+i).val(session_total_amount.toFixed(2));
+                    if($('#day'+i).val() != ''){ var day            = parseFloat($('#day'+i).val()); } else{ var day = 0; }
+                    if($('#ta'+i).val() != ''){ var ta              = parseFloat($('#ta'+i).val()); } else{ var ta = 0; }
+                    if($('#talltax'+i).val() != ''){ var talltax    = parseFloat($('#talltax'+i).val()); } else{ var talltax = 0; }
 
-                    if(tot_km <= parseFloat('<?= $min_km; ?>'))
-                    {
-                        if(tot_km != 0)
-                        {
-                            var km_total_amount = parseFloat('<?= $min_km_rate; ?>');
-                        }
-                        else{
-                            km_total_amount = 0;
-                        }
-                    }
-                    else{
-                        if(fule == '')
-                        {
-                            var km_total_amount = tot_km * 0;  
-                        }
-                        else if(fule == 'Petrol'){
-                            var km_total_amount = tot_km * parseFloat('<?= $petrol_rate ?>');  
-                        }
-                        else if(fule == 'Diesel')
-                        {
-                            var km_total_amount = tot_km * parseFloat('<?= $diesel_rate ?>');  
-                        }
-                        else if(fule == 'Gas')
-                        {
-                            var km_total_amount = tot_km * parseFloat('<?= $gas_rate ?>');  
-                        }
-                        else if(fule == 'Petro/LPG')
-                        {
-                            var km_total_amount = tot_km * parseFloat('<?= $lpg_petrol_rate ?>');  
-                        }
-                        else if(fule == 'Petrol/CNG')
-                        {
-                            var km_total_amount = tot_km * parseFloat('<?= $cng_petrol_rate ?>');  
-                        }
-                         
-                    }
+                    var course      = parseFloat($('#pap_rate'+i).val());
+                    var course2      = parseFloat($('#pap_rate2'+i).val());
+                    var course3      = parseFloat($('#pap_rate3'+i).val());
+                    var course4      = parseFloat($('#pap_rate4'+i).val());
+                    var course5      = parseFloat($('#pap_rate5'+i).val());
 
-                    var row_total   =  km_total_amount + session_total_amount + ta + talltax;
+                    var papertotal  = nos * course;
+                    var papertotal2  = nos2 * course2;
+                    var papertotal3  = nos3 * course3;
+                    var papertotal4  = nos4 * course4;
+                    var papertotal5  = nos5 * course5;
 
-                    $('#km_total_amount'+i).val(km_total_amount.toFixed(2));
+                    var new_all = papertotal + papertotal2 + papertotal3 + papertotal4 + papertotal5;
+
+                    var day_all     = parseFloat('<?= $day_price; ?>');
+                    var day_allow   = day_all * day;
+                    var row_total   = new_all + day_allow + ta + talltax;
+                    $('#papertotal'+i).val(new_all.toFixed(2));
+                    $('#day_tot'+i).val(day_allow.toFixed(2));
                     $('#row_total'+i).val(row_total.toFixed(2));
+
                     final_total += row_total;
 
                 }
@@ -429,31 +471,23 @@
             if(parseInt('<?= $file_limit; ?>') > i){
                 if($('#tr'+(i + 1)).length == 0){
                     i++;
-                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center">'+i+'<input type="hidden" name="bill_id[]" value="'+i+'"><input type="hidden" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> <input type="hidden" name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required><input style="width: 70px;" type="hidden" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required><input style="width: 75px;" type="hidden" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required><input style="width: 100px;" type="hidden" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required onkeydown="chng_to_next_row('+i+',event);"> </td><td><input style="width: 80px;" type="text" name="rcbook[]" id="v_rcbook'+i+'" autocomplete="off" placeholder="Vehical no." onkeydown="chng_to_next_row('+i+',event);"></td><td> <input style="width: 65px;" type="text" class="" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required onkeydown="chng_to_next_row('+i+',event);"> </td><td> <input style="width: 75px; "onkeyup="total()" type="text" name="tot_km[]" id="tot_km'+i+'" autocomplete="off" placeholder="KM" required onkeydown="chng_to_next_row('+i+',event);"> </td><td> <input style="width: 50px;" type="number" onkeyup="total()" name="session[]" id="session'+i+'" autocomplete="off" placeholder="Remuneration" required onkeydown="chng_to_next_row('+i+',event);"> </td><td> <select name="fule[]" id="v_fule'+i+'" onchange="total()" style="width: 74px;"> <option value="">-- Fule --</option> <option value="Petrol">Petrol</option> <option value="Diesel">Diesel</option> <option value="Gas">Gas</option> <option value="Petro/LPG" >Petro/LPG</option> <option value="Petrol/CNG">Petrol/CNG</option> </select> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A" onkeydown="chng_to_next_row('+i+',event);"> </td><td> <input style="width: 50px;" type="text" onkeyup="total()" name="talltax[]" id="talltax'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" name="km_total_amount[]" id="km_total_amount'+i+'" autocomplete="off" placeholder="KM Total Amount" readonly style="width: 60px;" onkeydown="chng_to_next_row('+i+',event);"> </td><td> <input type="text" name="session_total_amount[]" id="session_total_amount'+i+'" autocomplete="off" placeholder="Remuneration Total" readonly style="width: 60px;" onkeydown="chng_to_next_row('+i+',event);"> </td><td> <input type="text" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly onkeydown="chng_to_next_row('+i+',event);"><input type="hidden" name="type[]" value="C"> </td><td><input type="text" name="message[]" id="message1" autocomplete="off" placeholder="Message" value="<?=$file['message']; ?>" onkeydown="chng_to_next_row('+i+',event);"><input type="hidden" id="rcbook'+i+'" ><input type="hidden" id="fule'+i+'"></td></tr>');
+                    $('#add_row').append('<tr id="tr'+i+'"> <td class="text-center" style="width: 35px;"> '+i+' <input type="hidden" name="bill_id[]" value="'+i+'"><input type="hidden" name="name[]" id="name'+i+'" autocomplete="off" placeholder="Person Name" required readonly> <input type="hidden" name="acno[]" id="acno'+i+'" autocomplete="off" placeholder="Account No." readonly required><input style="width: 70px;" type="hidden" name="bank[]" id="bank'+i+'" autocomplete="off" placeholder="Bank Name" readonly required><input style="width: 75px;" type="hidden" name="ifsc[]" id="ifsc'+i+'" autocomplete="off" placeholder="IFSC Code" readonly required><input style="width: 100px;" type="hidden" name="branch[]" id="branch'+i+'" autocomplete="off" placeholder="Branch" required readonly> </td><td style="width: 90px;"> <input style="width: 80px;" onfocus="acc_auto('+i+');" type="text" name="acc_code[]" id="acc_code'+i+'" autocomplete="off" placeholder="Acc Code" required> </td><td style="width: 80px;"> <input style="width: 60px;" type="text" value="<?=date('d-m-Y'); ?>" name="date[]" id="date'+i+'" autocomplete="off" placeholder="date" required> </td><td> <input style="width: 60px;" onfocus="cource_auto('+i+');" type="text" name="course[]" id="course'+i+'" autocomplete="off" placeholder="Course" required> <input type="hidden" name="pap_rate[]" id="pap_rate'+i+'" value="0"> </td><td> <input style="width: 30px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="nos[]" id="nos'+i+'" autocomplete="off" placeholder="Nos" required> </td><td> <input style="width: 60px;" onfocus="cource_auto2('+i+','+"2"+');" type="text" name="course2[]" id="course2'+i+'" autocomplete="off" placeholder="Course2" required> <input type="hidden" name="pap_rate2[]" id="pap_rate2'+i+'" value="0"> </td><td> <input style="width: 30px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="nos2[]" id="nos2'+i+'" autocomplete="off" placeholder="Nos2" required> </td><td> <input style="width: 60px;" onfocus="cource_auto2('+i+','+"3"+');"  type="text" name="course3[]" id="course3'+i+'" autocomplete="off" placeholder="Course3" required> <input type="hidden" name="pap_rate3[]" id="pap_rate3'+i+'" value="0"> </td><td> <input style="width: 30px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="nos3[]" id="nos3'+i+'" autocomplete="off" placeholder="Nos3" required> </td><td> <input style="width: 60px;" onfocus="cource_auto2('+i+','+"4"+');" type="text" name="course4[]" id="course4'+i+'" autocomplete="off" placeholder="Course4" required> <input type="hidden" name="pap_rate4[]" id="pap_rate4'+i+'" value="0"> </td><td> <input style="width: 30px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="nos4[]" id="nos4'+i+'" autocomplete="off" placeholder="Nos4" required> </td><td> <input style="width: 60px;" onfocus="cource_auto2('+i+','+"5"+');" type="text" name="course5[]" id="course5'+i+'" autocomplete="off" placeholder="Course5" required> <input type="hidden" name="pap_rate5[]" id="pap_rate5'+i+'" value="0"> </td><td> <input style="width: 30px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="nos5[]" id="nos5'+i+'" autocomplete="off" placeholder="Nos5" required> </td><td> <input style="width: 40px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="day[]" id="day'+i+'" autocomplete="off" placeholder="Day"> </td><td> <input style="width: 40px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="ta[]" id="ta'+i+'" autocomplete="off" placeholder="T.A"> </td><td> <input style="width: 40px;" type="text" onkeyup="total()" onkeydown="chng_to_next_row('+i+',event);" name="talltax[]" id="talltax'+i+'" autocomplete="off" placeholder="Tall Tax"> </td><td> <input type="text" style="width: 60px;" name="papertotal[]" id="papertotal'+i+'" autocomplete="off" placeholder="Remu.Total" readonly> </td><td> <input type="text" style="width: 40px;" name="day_tot[]" id="day_tot'+i+'" autocomplete="off" placeholder="Day Allowance" readonly> </td><td> <input type="text" style="width: 50px;" name="row_total[]" id="row_total'+i+'" autocomplete="off" placeholder="Total" readonly> <input type="hidden" name="type[]" value="C"> </td><td> <input type="text" style="width: 50px;" name="message[]" id="message'+i+'" onkeydown="chng_to_next_row('+i+',event);" autocomplete="off" placeholder="Message" value="<?=$file['message']; ?>"> </td></tr>');
                 }
             }
         }
-
 
         function chng_to_next_row(id,e)
         {
 
             
 
-            
+            id = parseInt(id) + 1;
             if (e.keyCode === 13) {
-                nid = parseInt(id) + 1;
-                $('#acc_code'+nid).focus();
+                
+                $('#acc_code'+id).focus();
 
                 return false;
             }
-
-            if (e.ctrlKey && e.keyCode === 38) {
-                nid = parseInt(id) - 1;
-                $('#acc_code'+nid).focus();
-
-                return false;
-            }        
             
 
             
