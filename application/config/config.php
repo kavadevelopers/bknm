@@ -23,7 +23,10 @@ date_default_timezone_set('Asia/Kolkata');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/bknm/';
+//$config['base_url'] = 'http://localhost/bknm/';
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$config['base_url'] .= "://".$_SERVER['HTTP_HOST'];
+$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 $config['projectTitle'] = 'BKNMU';
 $config['projectName'] = 'BKNMU';
 $config['logoFile'] = 'image/logo.png';
@@ -31,7 +34,7 @@ $config['companyWebLink'] = '#';
 
 $config['Full_name'] = 'BHAKTA KAVI NARSINH MEHTA UNIVERSITY, JUNAGADH';
 
-$config['debit_bank']  = ['ifsc' => 'CORP0001178','acno' => '117801601000136' ,'name' => 'Registrar Bhakta Kavi Narsinh Mehta University','branch' => 'JUNAGADH'];
+$config['debit_bank']  = ['ifsc' => 'CORP0001178','acno' => '510331001265439' ,'name' => 'Registrar Bhakta Kavi Narsinh Mehta University','branch' => 'JUNAGADH'];
 
 /*
 |--------------------------------------------------------------------------
