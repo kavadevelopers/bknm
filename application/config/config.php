@@ -34,7 +34,7 @@ $config['companyWebLink'] = '#';
 
 $config['Full_name'] = 'BHAKTA KAVI NARSINH MEHTA UNIVERSITY, JUNAGADH';
 
-$config['debit_bank']  = ['ifsc' => 'CORP0001178','acno' => '117801601000136' ,'name' => 'Registrar Bhakta Kavi Narsinh Mehta University','branch' => 'JUNAGADH'];
+$config['debit_bank']  = ['ifsc' => 'CORP0001178','acno' => '510331001265439' ,'name' => 'Registrar Bhakta Kavi Narsinh Mehta University','branch' => 'JUNAGADH'];
 
 /*
 |--------------------------------------------------------------------------
