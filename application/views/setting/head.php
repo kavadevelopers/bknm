@@ -85,7 +85,7 @@
                                                     <td><?= _vdatetime($value['created_at']) ?></td>
                                                     <td class="text-center">
 
-                                                        <?php if($value['id'] == '1'){ ?>
+                                                        <?php if($value['id'] == '1' || $value['id'] == '3'){ ?>
                                                         <a class="btn btn-sm btn-primary" href="<?= base_url();?>setting/edit_head/<?= $value['id'];?>" title="Edit">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
