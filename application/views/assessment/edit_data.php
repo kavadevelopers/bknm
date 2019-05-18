@@ -435,7 +435,7 @@
                     if($('#ta'+i).val() != ''){ var ta              = parseFloat($('#ta'+i).val()); } else{ var ta = 0; }
                     if($('#talltax'+i).val() != ''){ var talltax    = parseFloat($('#talltax'+i).val()); } else{ var talltax = 0; }
 
-                    var course      = parseFloat($('#pap_rate'+i).val());
+                    var course      = parseFloat($('#pap_rate1'+i).val());
                     var course2      = parseFloat($('#pap_rate2'+i).val());
                     var course3      = parseFloat($('#pap_rate3'+i).val());
                     var course4      = parseFloat($('#pap_rate4'+i).val());
