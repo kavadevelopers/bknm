@@ -440,7 +440,7 @@
                     var course3      = parseFloat($('#pap_rate3'+i).val());
                     var course4      = parseFloat($('#pap_rate4'+i).val());
                     var course5      = parseFloat($('#pap_rate5'+i).val());
-
+                    $('#nos5'+i).val(course);
                     var papertotal  = nos * course;
                     var papertotal2  = nos2 * course2;
                     var papertotal3  = nos3 * course3;
