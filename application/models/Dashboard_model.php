@@ -20,6 +20,7 @@ class Dashboard_model extends CI_Model
 		$files = $this->db->get_where('file',['head' => $head,'year' => $this->session->userdata('year')])->result_array();
 		$total = 0;
 		foreach ($files as $key => $value) {
+			$this->year->where('bill_no !=','Credit');
 			$file = $this->year->get($value['file_name']);
 			if($file->num_rows() > 0)
 			{
