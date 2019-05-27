@@ -28,6 +28,14 @@ class General_model extends CI_Model
 		return $this->db->order_by('id','DESC')->get_where('file',['head' => $head_id, 'year' => $year ])->result_array();	
 	}
 
+	public function get_checked_files($file_ids)
+	{
+			foreach ($file_ids as $key => $value) {
+				$this->db->or_where('id',$value);
+			}
+		return $this->db->order_by('id','ASC')->get('file')->result_array();	
+	}
+
 	public function get_head($id)
 	{
 		return $this->db->get_where('head',['id' => $id])->result_array();

@@ -14,11 +14,11 @@
                     <?php } ?>
 
                     <?php if(check_right('3')){ ?>
-                        <a href="<?= base_url('squad/export_all_corp'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Corporate</a>
+                        <a id="export_al_corp"  href="<?= base_url('squad/export_all_corp'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Corporate</a>
                     <?php } ?>
                     
                     <?php if(check_right('2')){ ?>
-                        <a href="<?= base_url('squad/export_all_bank'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Bank</a>
+                        <a id="export_bnk" href="<?= base_url('squad/export_all_bank'); ?>" style="margin-left: 5px;" class="float-sm-right btn btn-warning btn-sm"> <i class="fa fa-eye"></i> Export Bank</a>
                     <?php } ?>
 
                     
@@ -42,7 +42,10 @@
                             <table class="table table-bordered table-striped table-sm" id="file-all">
                                 <thead>
                                     <tr>
-                                        
+                                        <?php if(check_right('2') || check_right('3')){ ?>
+                                            <th class="text-center">#</th>
+                                        <?php } ?>
+
                                         <th>File No.</th>
                                         <th>Year</th>
 
@@ -66,6 +69,14 @@
                                     <?php $where = "AND `total` != '0' AND `total` != '' AND `total` != '0.00'"; ?>
                                     <?php foreach ($files as $index => $value) { ?>
                                         <tr>
+                                            <?php if(check_right('2') || check_right('3')){ ?>
+                                                <td>
+                                                    <label class="container">
+                                                        <input type="checkbox" class="chk_box" name="chk_box" value="<?= $value['id'] ?>">
+                                                        <span class="checkmark" style="left: 13px !important;"></span>
+                                                    </label>
+                                                </td>
+                                            <?php } ?>
                                             <td>File-<?= $value['no'] ?></td>
                                             <td><?= $value['year'] ?></td>
 
@@ -166,6 +177,56 @@
 
 
     <script type="text/javascript">
+
+        var chk = $('chk_box').val();
+
+        $(function(){
+            $('#export_bnk').click(function(){
+                var checkedIds = $(".chk_box:checked").map(function() {
+                    return this.value;
+                  }).toArray();
+                
+                if(checkedIds == ''){
+                    $.notify({
+                        title: '<strong></strong>',
+                        icon: 'fa fa-times-circle',
+                        message: 'Please Select Any One File.'
+                      },{
+                        type: 'danger'
+                      });
+                }
+                else{
+                    window.location = '<?= base_url() ?>squad/export_all_bank?ids='+checkedIds;    
+                }
+                
+                return false;
+            });
+
+            $('#export_al_corp').click(function(){
+                var checkedIds = $(".chk_box:checked").map(function() {
+                    return this.value;
+                  }).toArray();
+                
+                if(checkedIds == ''){
+                    $.notify({
+                        title: '<strong></strong>',
+                        icon: 'fa fa-times-circle',
+                        message: 'Please Select Any One File.'
+                      },{
+                        type: 'danger'
+                      });
+                }
+                else{
+                    window.location = '<?= base_url() ?>squad/export_all_corp?ids='+checkedIds;    
+                }
+                
+                return false;
+            });
+
+        })
+        
+
+
         $(function(){
             $('#file-all').DataTable({
                 "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",

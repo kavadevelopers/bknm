@@ -910,8 +910,10 @@ class Squad extends CI_Controller {
     	if(!check_right('2')){
 			redirect(base_url('error404'));
 		}
+		$explode 		= explode(',', $_GET['ids']); 
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('2',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_checked_files($explode);
+    	
     	if($data['files'])
     	{
 
@@ -1175,8 +1177,9 @@ class Squad extends CI_Controller {
     	if(!check_right('3')){
 			redirect(base_url('error404'));
 		}
+    	$explode 		= explode(',', $_GET['ids']); 
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('2',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_checked_files($explode);
     	if($data['files'])
     	{
 
