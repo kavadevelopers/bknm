@@ -222,7 +222,26 @@ class Assessment extends CI_Controller {
 	}
 
 
+	public function delete($file_id){
 
+		if($file_id){
+
+			$file = $this->general_model->get_file_byid($file_id);
+
+			$this->year->query("DROP TABLE IF EXISTS `".$file['file_name']."`");
+			$this->db->where('id',$file['id']);
+			$this->db->delete('file');
+
+			$this->session->set_flashdata('msg', 'File Deleted Successfully');
+		    redirect(base_url().'assessment');
+
+		}
+		else{
+			$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'assessment');
+		}
+
+	}
 
 
 	public function acc_autocomplete(){
@@ -938,8 +957,10 @@ class Assessment extends CI_Controller {
     	if(!check_right('2')){
 			redirect(base_url('error404'));
 		}
+		$explode 		= explode(',', $_GET['ids']); 
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('3',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_checked_files($explode);
+    	
     	if($data['files'])
     	{
 
@@ -965,9 +986,9 @@ class Assessment extends CI_Controller {
 
 		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 			        ->setLastModifiedBy('BKNMU')
-			        ->setTitle('Assessment')
+			        ->setTitle('Squad')
 			        ->setSubject($this->session->userdata('year'))
-			        ->setDescription('Assessment - '.$this->session->userdata('year'))
+			        ->setDescription('Squad - '.$this->session->userdata('year'))
 			        ->setCategory('Bank Copy');
 
 			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Bank Copy");
@@ -1173,7 +1194,7 @@ class Assessment extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Assessment Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Squad Bank Copy-('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -1187,12 +1208,12 @@ class Assessment extends CI_Controller {
 	    	}
 	    	else{
 	    		$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'assessment');
+		        redirect(base_url().'squad');
 	    	}
     	}
     	else{
     		$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'assessment');
+	        redirect(base_url().'squad');
     	}
 
     }
@@ -1203,8 +1224,9 @@ class Assessment extends CI_Controller {
     	if(!check_right('3')){
 			redirect(base_url('error404'));
 		}
+    	$explode 		= explode(',', $_GET['ids']); 
     	$year_active  	= $this->session->userdata('year');
-    	$data['files']	= $this->general_model->get_all_files('3',$this->session->userdata('year'));
+    	$data['files']	= $this->general_model->get_checked_files($explode);
     	if($data['files'])
     	{
 
@@ -1230,9 +1252,9 @@ class Assessment extends CI_Controller {
 
 		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 			        ->setLastModifiedBy('BKNMU')
-			        ->setTitle('Assessment')
+			        ->setTitle('Squad')
 			        ->setSubject($this->session->userdata('year'))
-			        ->setDescription('Assessment - '.$this->session->userdata('year'))
+			        ->setDescription('Squad - '.$this->session->userdata('year'))
 			        ->setCategory('Corporation Bank Copy');
 
 			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Corporation Bank Copy");
@@ -1438,7 +1460,7 @@ class Assessment extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Assessment Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Squad Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -1452,12 +1474,12 @@ class Assessment extends CI_Controller {
 	    	}
 	    	else{
 	    		$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'assessment');
+		        redirect(base_url().'squad');
 	    	}
     	}
     	else{
     		$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'assessment');
+	        redirect(base_url().'squad');
     	}
 
     }

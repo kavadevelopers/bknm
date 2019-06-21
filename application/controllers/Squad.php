@@ -210,7 +210,26 @@ class Squad extends CI_Controller {
 	}
 
 
+	public function delete($file_id){
 
+		if($file_id){
+
+			$file = $this->general_model->get_file_byid($file_id);
+
+			$this->year->query("DROP TABLE IF EXISTS `".$file['file_name']."`");
+			$this->db->where('id',$file['id']);
+			$this->db->delete('file');
+
+			$this->session->set_flashdata('msg', 'File Deleted Successfully');
+		    redirect(base_url().'squad');
+
+		}
+		else{
+			$this->session->set_flashdata('error', 'File Not Found');
+	        redirect(base_url().'squad');
+		}
+
+	}
 
 
 	public function acc_autocomplete(){

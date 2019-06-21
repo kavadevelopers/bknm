@@ -45,5 +45,9 @@ class General_model extends CI_Model
 		return $this->db->get_where('file',['id' => $id,'head' => $head_id, 'year' => $this->active_year() ])->result_array();
 	}
 
+	public function get_file_byid($id){
+		return $this->db->get_where('file',['id' => $id])->result_array()[0];
+	}
+
 
 }
