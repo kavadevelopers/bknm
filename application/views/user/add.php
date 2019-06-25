@@ -43,7 +43,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Mobile <span class="astrick">*</span></label>
+                                            <label>Mobile </label>
                                             <input class="form-control form-control-sm" value="<?php echo set_value('mobile'); ?>" type="text" name="mobile" placeholder="Mobile" autocomplete="off" spellcheck="false">
                                             <?php echo form_error('mobile'); ?>
                                         </div>
@@ -55,7 +55,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Email <span class="astrick">*</span></label>
+                                            <label>Email </label>
                                             <input class="form-control form-control-sm" value="<?php echo set_value('email'); ?>" type="text" name="email" placeholder="Email" autocomplete="off" spellcheck="false">
                                             <?php echo form_error('email'); ?>
                                         </div>
