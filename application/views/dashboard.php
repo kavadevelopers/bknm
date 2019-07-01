@@ -54,6 +54,11 @@
                                             <td><?= count($this->general_model->get_all_files('3',$this->session->userdata('year'))); ?></td>
                                             <td><?= moneyFormatIndia($this->dashboard_model->total_by_head('3')); ?></td>
                                         </tr>
+                                        <tr>
+                                            <td>Modaration</td>
+                                            <td><?= count($this->general_model->get_all_files('4',$this->session->userdata('year'))); ?></td>
+                                            <td><?= moneyFormatIndia($this->dashboard_model->total_by_head('4')); ?></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

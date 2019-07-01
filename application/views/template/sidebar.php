@@ -172,9 +172,9 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting","squad","assessment"))[1]; ?>">
+                    <li class="nav-item has-treeview <?php menu($this->uri->segment(1),array("paper_setting","squad","assessment","modaration"))[1]; ?>">
             
-                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting","squad","assessment"))[0]; ?>">
+                        <a href="#" class="nav-link <?php menu($this->uri->segment(1),array("paper_setting","squad","assessment","modaration"))[0]; ?>">
                             <i class="nav-icon fa fa-envelope-open"></i>
                             <p>Billing
                                 <i class="fa fa-angle-left right"></i>
@@ -204,6 +204,15 @@
                                     <i class="nav-icon fa fa-circle-o"></i>
                                     <p>
                                         Assessment
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('modaration'); ?>" class="nav-link <?php menu($this->uri->segment(1),array("modaration"))[0]; ?>">
+                                    <i class="nav-icon fa fa-circle-o"></i>
+                                    <p>
+                                        Modaration
                                     </p>
                                 </a>
                             </li>
