@@ -25,6 +25,47 @@ class Assessment extends CI_Controller {
 		$this->load->template('assessment/file',$data);
 	}
 
+    public function edit_file($id = false){
+        if($id){
+            if($this->general_model->_get_file_byid($id)){
+                $data['_title']             = "Edit File - Assessment";
+                $data['file']               = $this->general_model->_get_file_byid($id)[0];
+                $this->load->template('assessment/edit_file',$data);
+            }
+            else
+            {
+                $this->session->set_flashdata('error', 'Fie Not Found');
+                redirect(base_url().'assessment');
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('error', 'Fie Not Found');
+            redirect(base_url().'assessment');
+        }
+    }
+
+    public function update_file()
+    {
+        $data = [
+                        
+                        'title'         =>  $this->input->post('title'),
+                        'message'           =>  $this->input->post('message'),
+                        'updated_by'    =>  $this->session->userdata('id'),
+                        'updated_at'    =>  date('Y-m-d H:i:s')
+                ];
+        $this->db->where('id',$this->input->post('file_id'));
+        if($this->db->update('file', $data)){
+            $this->session->set_flashdata('msg', 'File Updated');
+            redirect(base_url().'assessment');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', 'Error In File Update');
+            redirect(base_url().'assessment/edit_file/'.$this->input->post('file_id'));
+        }
+    }
+
 	public function add_file_view()
 	{
 		if(!check_right('1')){
@@ -986,9 +1027,9 @@ class Assessment extends CI_Controller {
 
 		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 			        ->setLastModifiedBy('BKNMU')
-			        ->setTitle('Squad')
+			        ->setTitle('Assessment')
 			        ->setSubject($this->session->userdata('year'))
-			        ->setDescription('Squad - '.$this->session->userdata('year'))
+			        ->setDescription('Assessment - '.$this->session->userdata('year'))
 			        ->setCategory('Bank Copy');
 
 			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Bank Copy");
@@ -1194,7 +1235,7 @@ class Assessment extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Squad Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Assessment Bank Copy-('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -1208,12 +1249,12 @@ class Assessment extends CI_Controller {
 	    	}
 	    	else{
 	    		$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 	    	}
     	}
     	else{
     		$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
     	}
 
     }
@@ -1252,9 +1293,9 @@ class Assessment extends CI_Controller {
 
 		        $spreadsheet->getProperties()->setCreator('BKNMU - Powered By - Kava Developers')
 			        ->setLastModifiedBy('BKNMU')
-			        ->setTitle('Squad')
+			        ->setTitle('Assessment')
 			        ->setSubject($this->session->userdata('year'))
-			        ->setDescription('Squad - '.$this->session->userdata('year'))
+			        ->setDescription('Assessment - '.$this->session->userdata('year'))
 			        ->setCategory('Corporation Bank Copy');
 
 			    $sheet = $spreadsheet->getActiveSheet()->setTitle("Corporation Bank Copy");
@@ -1460,7 +1501,7 @@ class Assessment extends CI_Controller {
 			        
 			        $writer = new Xlsx($spreadsheet);
 			 
-			        $filename = 'Squad Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
+			        $filename = 'Assessment Corporation Bank Copy-('.$year_active.') '.date('d-M-y h i A');
 			 
 			        header('Content-Type: application/vnd.ms-excel');
 			        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
@@ -1474,12 +1515,12 @@ class Assessment extends CI_Controller {
 	    	}
 	    	else{
 	    		$this->session->set_flashdata('error', 'File Not Found');
-		        redirect(base_url().'squad');
+		        redirect(base_url().'assessment');
 	    	}
     	}
     	else{
     		$this->session->set_flashdata('error', 'File Not Found');
-	        redirect(base_url().'squad');
+	        redirect(base_url().'assessment');
     	}
 
     }

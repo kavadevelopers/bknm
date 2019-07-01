@@ -120,11 +120,20 @@
                                                         </a>
                                                     <?php } ?>
                                                     <br>
+                                                    
+                                                    <?php if(check_right('21')){ ?>
+                                                        <a class="badge badge-info" href="<?= base_url();?>squad/edit_file/<?= $value['id'];?>" title="Edit File">
+                                                            Edit File
+                                                        </a>
+                                                    <?php } ?>
+
                                                     <?php if(check_right('20')){ ?>
                                                         <a class="badge badge-danger" onclick="return confirm('Are You Sure Want To Delete This File ?');" href="<?= base_url();?>squad/delete/<?= $value['id'];?>" title="Delete File">
                                                             Delete File
                                                         </a>
                                                     <?php } ?>
+
+                                                    
 
                                                 </td>
                                             <?php } ?>
