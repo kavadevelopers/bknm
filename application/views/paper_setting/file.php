@@ -41,9 +41,9 @@
                                 <thead>
                                     <tr>
                                         
-                                        <th>File No.</th>
-                                        <th>Head</th>
-                                        <th>Year</th>
+                                        <th class="text-center" style="width: 40px;">File No.</th>
+                                        <th class="text-center" style="width: 60px;">Year</th>
+                                        <th class="text-center" style="width: 40px;">SEM</th>
 
                                         <?php if(check_rights_column(['5','6','7'])){ ?>
                                             <th class="text-center" style="width: 180px;">Action</th>
@@ -63,8 +63,8 @@
                                     <?php foreach ($files as $index => $value) { ?>
                                         <tr>
                                             <td>File-<?= $value['no'] ?></td>
-                                            <td><?= $this->general_model->get_head($value['head'])[0]['name'] ?></td>
-                                            <td><?= $value['year'] ?></td>
+                                            <td class="text-center"><?= $value['year'] ?></td>
+                                            <td class="text-center"><?= ($value['sem'] == 1)?'1 - 3 - 5':'2 - 4 - 6'; ?></td>
 
                                             <?php if(check_rights_column(['5','6','7'])){ ?>
                                                 <td class="text-center">

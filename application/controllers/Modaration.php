@@ -21,7 +21,7 @@ class Modaration extends CI_Controller {
     public function index()
     {   
         $data['_title']             = "Modaration Files";
-        $data['files']              = $this->general_model->get_all_files('4',$this->session->userdata('year'));
+        $data['files']              = $this->general_model->get_files_for_index('4',$this->session->userdata('year'));
         $this->load->template('modaration/file',$data);
     }
 
@@ -77,23 +77,26 @@ class Modaration extends CI_Controller {
 
     public function add_file()
     {
-        
-        if($this->general_model->get_files('4'))
+
+        if($this->general_model->get_files_new('4',$this->input->post('sem')))
         {
-            $no = count($this->general_model->get_files('4')) + 1;
+            $no = count($this->general_model->get_files_new('4',$this->input->post('sem'))) + 1;
         }
         else{
             $no = 1;
         }
+
+        if($this->input->post('sem') == 2){ $sem = '-2'; }else{ $sem = ''; }
 
 
 
         $data = [
                         'no'            =>  $no,
                         'head'          =>  '4',
-                        'file_name'     =>  'modaration_file'.$no,
+                        'file_name'     =>  'modaration_file'.$no.$sem,
                         'title'         =>  $this->input->post('title'),
-                        'message'           =>  $this->input->post('message'),
+                        'message'       =>  $this->input->post('message'),
+                        'sem'           =>  $this->input->post('sem'),
                         'year'          =>  $this->session->userdata('year'),
                         'created_by'    =>  $this->session->userdata('id'),
                         'updated_by'    =>  $this->session->userdata('id'),
@@ -103,7 +106,7 @@ class Modaration extends CI_Controller {
 
         if($this->db->insert('file', $data)){
             $file_id = $this->db->insert_id();
-            $query = 'CREATE TABLE IF NOT EXISTS `modaration_file'.$no.'` (
+            $query = 'CREATE TABLE IF NOT EXISTS `modaration_file'.$no.$sem.'` (
                         `id` int(11) NOT NULL AUTO_INCREMENT,
                         `bill_no` text NOT NULL,
                           `acc_code` text NOT NULL,

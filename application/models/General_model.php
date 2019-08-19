@@ -23,8 +23,29 @@ class General_model extends CI_Model
 		return $this->db->get_where('file',['head' => $head_id, 'year' => $this->active_year() ])->result_array();
 	}
 
+	public function get_files_new($head_id,$sem)
+	{
+		return $this->db->get_where('file',['head' => $head_id, 'year' => $this->active_year(),'sem' => $sem])->result_array();
+	}
+
 	public function get_all_files($head_id,$year)
 	{
+		return $this->db->order_by('id','DESC')->get_where('file',['head' => $head_id, 'year' => $year ])->result_array();	
+	}
+
+	public function count_dashboard_files($head_id,$year)
+	{
+		if($this->session->userdata('sem') && $this->session->userdata('sem') != '0'){
+			$this->db->where('sem',$this->session->userdata('sem'));
+		}
+		return $this->db->order_by('id','DESC')->get_where('file',['head' => $head_id, 'year' => $year ])->result_array();	
+	}
+
+	public function get_files_for_index($head_id,$year)
+	{
+		if($this->session->userdata('sem') && $this->session->userdata('sem') != '0'){
+			$this->db->where('sem',$this->session->userdata('sem'));
+		}
 		return $this->db->order_by('id','DESC')->get_where('file',['head' => $head_id, 'year' => $year ])->result_array();	
 	}
 

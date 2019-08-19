@@ -41,23 +41,23 @@
                                     <tbody>
                                         <tr>
                                             <td>Paper Setting</td>
-                                            <td><?= count($this->general_model->get_all_files('1',$this->session->userdata('year'))); ?></td>
-                                            <td><?= moneyFormatIndia($this->dashboard_model->total_by_head('1')); ?></td>
+                                            <td><?= count($this->general_model->count_dashboard_files('1',$this->session->userdata('year'))); ?></td>
+                                            <td><?= moneyFormatIndia($this->dashboard_model->dashboard_total_by_head('1')); ?></td>
                                         </tr>
                                         <tr>
                                             <td>Squad</td>
-                                            <td><?= count($this->general_model->get_all_files('2',$this->session->userdata('year'))); ?></td>
-                                            <td><?= moneyFormatIndia($this->dashboard_model->total_by_head('2')); ?></td>
+                                            <td><?= count($this->general_model->count_dashboard_files('2',$this->session->userdata('year'))); ?></td>
+                                            <td><?= moneyFormatIndia($this->dashboard_model->dashboard_total_by_head('2')); ?></td>
                                         </tr>
                                         <tr>
                                             <td>Assessment</td>
-                                            <td><?= count($this->general_model->get_all_files('3',$this->session->userdata('year'))); ?></td>
-                                            <td><?= moneyFormatIndia($this->dashboard_model->total_by_head('3')); ?></td>
+                                            <td><?= count($this->general_model->count_dashboard_files('3',$this->session->userdata('year'))); ?></td>
+                                            <td><?= moneyFormatIndia($this->dashboard_model->dashboard_total_by_head('3')); ?></td>
                                         </tr>
                                         <tr>
                                             <td>Modaration</td>
-                                            <td><?= count($this->general_model->get_all_files('4',$this->session->userdata('year'))); ?></td>
-                                            <td><?= moneyFormatIndia($this->dashboard_model->total_by_head('4')); ?></td>
+                                            <td><?= count($this->general_model->count_dashboard_files('4',$this->session->userdata('year'))); ?></td>
+                                            <td><?= moneyFormatIndia($this->dashboard_model->dashboard_total_by_head('4')); ?></td>
                                         </tr>
                                     </tbody>
                                 </table>

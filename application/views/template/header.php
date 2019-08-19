@@ -71,6 +71,15 @@
     
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+          <h6 style="margin-bottom: 0; padding: 5px;">Sem : 
+            <select class="form-control-sm" style="width: 150px;" onchange="change_sem(this.value);">
+                <option value="0" <?= ($this->session->userdata('sem') && $this->session->userdata('sem') == '0')?'selected':''; ?>>All</option>  
+                <option value="1" <?= ($this->session->userdata('sem') && $this->session->userdata('sem') == '1')?'selected':''; ?>>SEM 1 - 3 - 5</option>  
+                <option value="2" <?= ($this->session->userdata('sem') && $this->session->userdata('sem') == '2')?'selected':''; ?>>SEM 2 - 4 - 6</option>  
+            </select>
+          </h6>
+        </li>
+        <li class="nav-item">
 
           <h6 style="margin-bottom: 0; padding: 5px;">Active Financial Year : 
             <select class="form-control-sm" style="width: 150px;" onchange="change_year(this.value);">
@@ -162,6 +171,14 @@
             if(confirm('Are you sure You Want To Change Financial Year ?'))
             {
                 window.location.href = "<?= base_url('setting/') ?>active_year_dash/"+year;
+            }
+        }
+
+        function change_sem(sem)
+        {
+            if(confirm('Are you sure You Want To Change Sem ?'))
+            {
+                window.location.href = "<?= base_url('setting/change_sem/') ?>"+sem;
             }
         }
     </script>

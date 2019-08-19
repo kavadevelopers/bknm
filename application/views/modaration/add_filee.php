@@ -40,6 +40,17 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>SEM <span class="astrick">*</span></label>
+                                            <select class="form-control form-control-sm" name="sem">
+                                                <option value="1" <?= (set_value('sem') == '1')?'selected':''; ?>>1 - 3 - 5</option>
+                                                <option value="2" <?= (set_value('sem') == '2')?'selected':''; ?>>2 - 4 - 6</option>
+                                            </select>
+                                            <?php echo form_error('sem'); ?>
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </div>

@@ -40,6 +40,17 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>SEM <span class="astrick">*</span></label>
+                                            <select class="form-control form-control-sm" name="sem" disabled>
+                                                <option value="1" <?= (set_value('sem',$file['sem']) == '1')?'selected':''; ?>>1 - 3 - 5</option>
+                                                <option value="2" <?= (set_value('sem',$file['sem']) == '2')?'selected':''; ?>>2 - 4 - 6</option>
+                                            </select>
+                                            <?php echo form_error('sem'); ?>
+                                        </div>
+                                    </div>
+
                                     <input type="hidden" name="file_id" value="<?php echo set_value('file_id',$file['id']); ?>">
 
                                 </div>

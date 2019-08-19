@@ -33,6 +33,28 @@ class Dashboard_model extends CI_Model
 		return $total;
 	}
 
+	public function dashboard_total_by_head($head)
+	{
+		if($this->session->userdata('sem') && $this->session->userdata('sem') != '0'){
+			$this->db->where('sem',$this->session->userdata('sem'));
+		}
+		
+		$files = $this->db->get_where('file',['head' => $head,'year' => $this->session->userdata('year')])->result_array();
+		$total = 0;
+		foreach ($files as $key => $value) {
+			$this->year->where('bill_no !=','Credit');
+			$file = $this->year->get($value['file_name']);
+			if($file->num_rows() > 0)
+			{
+				foreach ($file->result_array() as $keya => $valuea) {
+					$total += $valuea['total'];
+				}
+			}
+		}
+
+		return $total;
+	}
+
 
 
 }

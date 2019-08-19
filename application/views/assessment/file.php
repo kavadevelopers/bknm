@@ -46,8 +46,9 @@
                                             <th class="text-center">#</th>
                                         <?php } ?>
 
-                                        <th>File No.</th>
-                                        <th>Year</th>
+                                        <th class="text-center" style="width: 40px;">File No.</th>
+                                        <th class="text-center" style="width: 60px;">Year</th>
+                                        <th class="text-center" style="width: 40px;">SEM</th>
 
                                         <?php if($this->session->userdata('id') == '1'){ ?>
                                             <th>Entry By</th>
@@ -78,7 +79,8 @@
                                                 </td>
                                             <?php } ?>
                                             <td>File-<?= $value['no'] ?></td>
-                                            <td><?= $value['year'] ?></td>
+                                            <td class="text-center"><?= $value['year'] ?></td>
+                                            <td class="text-center"><?= ($value['sem'] == 1)?'1 - 3 - 5':'2 - 4 - 6'; ?></td>
 
                                             <?php if($this->session->userdata('id') == '1'){ ?>
                                                 <td><?= $value['entry_by'] ?></td>
@@ -241,12 +243,6 @@
         $(function(){
             $('#file-all').DataTable({
                 "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12't>><'row'<'col-md-6'i><'col-md-6'p>>",
-                "columnDefs": [
-                    
-
-                        
-                    
-                ],
                 order : [],
                 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
             });

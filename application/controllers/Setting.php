@@ -350,6 +350,13 @@ class Setting extends CI_Controller {
 		redirect(base_url('dashboard'));
 	}
 
+	public function change_sem($sem)
+	{
+		$this->session->set_userdata('sem',$sem);
+		$this->session->set_flashdata('msg', 'Sem Changed');
+		redirect(base_url('dashboard'));
+	}
+
 
 	public function delete_head($id = false)
 	{
