@@ -210,6 +210,10 @@
 
                             <div class="card-footer">
                                 <div class="float-right">
+                                    <label class="container">Final Submit
+                                        <input type="checkbox" name="final" value="1" >
+                                        <span class="checkmark"></span>
+                                    </label>
                                     <a href="<?= base_url(); ?>paper_setting/view_data/<?= $_id; ?>" onclick="return confirm('Are You Sure You Want To Go Back Without Saving File?');" class="btn btn-primary">
                                         View
                                     </a>
@@ -360,11 +364,11 @@
     </script>
 
     <style type="text/css">
-        input:hover{
+        /*input:hover{
             width:200px !important;
             font-size: 16px;
             padding: 5px;
-        }
+        }*/
     </style>
 
 

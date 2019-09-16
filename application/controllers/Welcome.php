@@ -27,6 +27,13 @@ class Welcome extends CI_Controller {
 		}
 	}
 
+	public function change_sem($sem)
+	{
+		$this->session->set_userdata('sem',$sem);
+		$this->session->set_flashdata('msg', 'Sem Changed');
+		redirect(base_url('dashboard'));
+	}
+
 
 
 

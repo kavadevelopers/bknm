@@ -12,6 +12,17 @@
       	</div>
     </div>
 
+    <style type="text/css">
+        table{
+            font-size: 12px; 
+        }
+        tbody td{
+            padding: 0 !important;
+        }
+        td{
+            padding:0;
+        }
+    </style>
 
     <section class="content">
         <div class="container-fluid">
@@ -26,7 +37,7 @@
                                 <div class="row">
 
 
-                                    <table class="table table-bordered table-sm" id="table">
+                                    <table class="table table-bordered table-sm table-hover" id="table">
                                         <thead>
                                             <tr>
                                                 <th>Sr No.</th>
@@ -45,7 +56,7 @@
                                                 <th class="text-center">Paper Setting Total</th>
                                                 <th class="text-center">Day Allowance</th>
                                                 <th class="text-center">Total</th>
-                                                <th class="text-center">Message</th>
+                                                <th class="text-center">Action</th>
 
                                             </tr>
                                         </thead>
@@ -123,7 +134,27 @@
                                                 </td>
 
                                                 <td>
-                                                    <?= $ex_row['message']; ?>
+                                                    <?php if(check_right('5')){ ?>
+                                                        <?php if($file['final'] != '1'){ ?>
+                                                            
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>paper_setting/add_data/<?= $file['id'] ?>" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+
+                                                        <?php } else if($this->session->userdata('id') == '1'){ ?>
+
+                                                            <a class="btn btn-sm btn-primary" href="<?= base_url();?>paper_setting/add_data/<?= $file['id'] ?>" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>                                                            
+
+                                                        <?php }else{ ?>
+
+                                                            <a class="btn btn-sm btn-primary" onclick="return admin_send();" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+
+                                                        <?php } ?>
+                                                    <?php } ?>
                                                 </td>
                                                 
                                             </tr>
@@ -183,4 +214,17 @@
                 
             });
         })
+
+        function admin_send()
+        {
+            $.notify({
+                title: '<strong></strong>',
+                icon: 'fa fa-times-circle',
+                message: 'Please Contact Admin For Changes in This File'
+            },{
+                type: 'danger'
+            });
+
+            return false;
+        }
     </script>

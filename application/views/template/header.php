@@ -178,7 +178,7 @@
         {
             if(confirm('Are you sure You Want To Change Sem ?'))
             {
-                window.location.href = "<?= base_url('setting/change_sem/') ?>"+sem;
+                window.location.href = "<?= base_url('welcome/change_sem/') ?>"+sem;
             }
         }
     </script>
