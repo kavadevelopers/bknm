@@ -194,8 +194,6 @@
                             ?>
                         <?php  } ?>
 
-                        </tbody>
-                        <tfoot>
                             <tr>
                                 <td colspan="11" class="text-right"><strong>Total : </strong></td>
                                 <td class="text-right"><?= $ta; ?></td>
@@ -205,7 +203,8 @@
                                 <td class="text-right"><?= $total; ?></td>
                                 <td></td>
                             </tr>
-                        </tfoot>
+
+                        </tbody>
 
                     </table>
 
