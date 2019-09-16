@@ -103,7 +103,6 @@
                                 <th class="text-center">Paper Setting Total</th>
                                 <th class="text-center">Day Allowance</th>
                                 <th class="text-center">Total</th>
-                                <th class="text-center" style="width: 100px;">Message</th>
 
                             </tr>
                         </thead>
@@ -179,10 +178,6 @@
                                 <td class="text-right">
                                     <?= $ex_row['total']; ?>
                                 </td>
-
-                                <td class="text-center">
-                                    <?= $ex_row['message']; ?>
-                                </td>
                                 
                             </tr>
                             <?php 
@@ -201,7 +196,6 @@
                                 <td class="text-right"><?= $pap_setting; ?></td>
                                 <td class="text-right"><?= $day_allow; ?></td>
                                 <td class="text-right"><?= $total; ?></td>
-                                <td></td>
                             </tr>
 
                         </tbody>
