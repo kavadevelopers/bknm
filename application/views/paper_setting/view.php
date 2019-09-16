@@ -4,7 +4,7 @@
       	<div class="container-fluid">
         	<div class="row mb-2">
           		<div class="col-md-12">
-            		<h1 class="m-0 text-dark text-center"><?php echo $_title; ?>  - 
+            		<h1 class="m-0 text-dark text-center">
                     <?= $file['title']; ?> ( <?= $this->session->userdata('year'); ?> )</h1>
                      
           		</div>
