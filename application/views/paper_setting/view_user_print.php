@@ -192,11 +192,11 @@
 
                             <tr>
                                 <td colspan="11" class="text-right"><strong>Total : </strong></td>
-                                <th class="text-right"><?= $ta; ?></th>
-                                <th class="text-right"><?= $tall_tax; ?></th>
-                                <th class="text-right"><?= $pap_setting; ?></th>
-                                <th class="text-right"><?= $day_allow; ?></th>
-                                <th class="text-right"><?= $total; ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($ta); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($tall_tax); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($pap_setting); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($day_allow); ?></th>
+                                <th class="text-right"><?= moneyFormatIndia($total); ?></th>
                             </tr>
 
                         </tbody>
