@@ -70,7 +70,7 @@
 
 
 					<table class="table table-bordered table-sm" id="table" style="font-size: 12px;">
-                        <thead>
+                        <tbody id="add_row">
                         	<tr>
 								<th class="th-border" style="width: 50px; text-align: center;">
 									<img src="<?= base_url() ?>/image/logo.png" style="width: 60px;">
@@ -106,8 +106,8 @@
                                 <th class="text-center">Total</th>
 
                             </tr>
-                        </thead>
-                        <tbody id="add_row">
+                        
+                        
                             
                         <?php $cn = 0; $ta = 0; $tall_tax = 0; $pap_setting = 0; $day_allow = 0;$total = 0; foreach($old_data as $row => $ex_row){ $cn++; ?>    
                             <tr>
