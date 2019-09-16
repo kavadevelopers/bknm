@@ -88,10 +88,23 @@
                                                 <td class="text-center">
 
                                                     <?php if(check_right('5')){ ?>
-                                                        <a class="badge badge-primary" href="<?= base_url();?>paper_setting/add_data/<?= urlencode($value['id']);?>" title="Add Data">
+                                                        <?php if($value['final'] != '1'){ ?>
+                                                            <a class="badge badge-primary" href="<?= base_url();?>paper_setting/add_data/<?= urlencode($value['id']);?>" title="Add Data">
                                                             Add Bill
-                                                        </a>
-                                                    <?php } ?>
+                                                            </a>
+                                                        <?php } else if($this->session->userdata('id') == '1'){ ?>
+
+                                                            <a class="badge badge-primary" href="<?= base_url();?>paper_setting/add_data/<?= urlencode($value['id']);?>" title="Add Data">
+                                                            Add Bill
+                                                            </a>   
+
+                                                        <?php }else{ ?>
+
+                                                            <a class="badge badge-primary" href="#" onclick="return admin_send();" title="Add Data">
+                                                                Add Bill
+                                                            </a>
+
+                                                    <?php } } ?>
 
                                                     <?php if(check_right('6')){ ?>
                                                         <a class="badge badge-info" href="<?= base_url();?>paper_setting/view_data/<?= $value['id'];?>" title="View File">
@@ -248,6 +261,19 @@
                 title: '<strong></strong>',
                 icon: 'fa fa-times-circle',
                 message: 'No data Found'
+            },{
+                type: 'danger'
+            });
+
+            return false;
+        }
+
+        function admin_send()
+        {
+            $.notify({
+                title: '<strong></strong>',
+                icon: 'fa fa-times-circle',
+                message: 'Please Contact Admin For Changes in This File'
             },{
                 type: 'danger'
             });
