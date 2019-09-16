@@ -191,11 +191,11 @@
 
                             <tr>
                                 <td colspan="11" class="text-right"><strong>Total : </strong></td>
-                                <td class="text-right"><?= $ta; ?></td>
-                                <td class="text-right"><?= $tall_tax; ?></td>
-                                <td class="text-right"><?= $pap_setting; ?></td>
-                                <td class="text-right"><?= $day_allow; ?></td>
-                                <td class="text-right"><?= $total; ?></td>
+                                <th class="text-right"><?= $ta; ?></th>
+                                <th class="text-right"><?= $tall_tax; ?></th>
+                                <th class="text-right"><?= $pap_setting; ?></th>
+                                <th class="text-right"><?= $day_allow; ?></th>
+                                <th class="text-right"><?= $total; ?></th>
                             </tr>
 
                         </tbody>
