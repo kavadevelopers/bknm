@@ -7,7 +7,7 @@
 
     <style type="text/css">
         @media print {
-            @page { margin: 0 10px 0 10px; size:	A4 landscape; }
+            @page { margin: 60px 10px 15px 10px; size:	A4 landscape; }
 
             ._bg{ 
             	background-color: #a90e10 !important;
@@ -127,8 +127,8 @@
 
 				                        $bill_all = "";
 				                        foreach ($Bills as $keya => $valuea) {
-				                            $bill_all .= $valuea['bill_no'].',';
-				                        } $bill_all = rtrim($bill_all,',');
+				                            $bill_all .= $valuea['bill_no'].', ';
+				                        } $bill_all = rtrim($bill_all,', ');
 
 				                        $res_rows = $this->year->query("SELECT * FROM `".$file['file_name']."` WHERE `acc_code` = '".$acc['acc_code']."' $where ")->result_array()[0]; 
 
